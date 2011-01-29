@@ -2,5 +2,6 @@ TODO
 ====
 
  - Correctly marshal strings as UTF-8.
+ - Unit tests!!
  - Add more properties to PdfGlobalSettings & PdfObjectSettings.
-
+ - Support more than ona PdfObjectSettings per conversion.
