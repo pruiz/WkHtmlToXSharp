@@ -32,6 +32,8 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 
+using SysAssembly = System.Reflection.Assembly;
+
 namespace WkHtmlToXSharp
 {
 	internal static class LibsHelper
@@ -40,7 +42,7 @@ namespace WkHtmlToXSharp
 
 		private static string _OSName = null;
 		private static string _ResourcePath = null;
-		private static Assembly Assembly = typeof(LibsHelper).Assembly;
+		private static Assembly Assembly = SysAssembly.GetExecutingAssembly();
 
 		private static bool RunningIn64Bits { get { return IntPtr.Size == 8; } }
 
@@ -77,10 +79,7 @@ namespace WkHtmlToXSharp
 
 		private static string GetWinSubPath()
 		{
-			if (RunningIn64Bits)
-				throw new NotSupportedException("Sorry, WkHtmlToXSharp does not (yet) support Win64.");
-
-			return "Win32";
+			return RunningIn64Bits ? "Win64" : "Win32";
 		}
 
 		private static string GetUnixSubPath()
@@ -155,7 +154,7 @@ namespace WkHtmlToXSharp
 
 			if (File.Exists(fileName))
 			{
-				if (File.GetCreationTime(fileName) < File.GetCreationTime(Assembly.Location))
+				if (File.GetCreationTime(fileName) > File.GetCreationTime(Assembly.Location))
 					return;
 
 				if (IsFileLocked(fileName))

@@ -37,16 +37,22 @@ namespace WkHtmlToXSharp
 {
 	public sealed class WkHtmlToPdfConverter : IDisposable
 	{
+		#region private fields
 		private static readonly global::Common.Logging.ILog _Log = global::Common.Logging.LogManager.GetLogger(System.Reflection.MethodBase.GetCurrentMethod().DeclaringType);
+		private static object _lock = new object();
+		private static int _usageCount = 0;
 
 		private const string DLL_NAME = "wkhtmltox0.dll";
 		private PdfGlobalSettings _globalSettings = new PdfGlobalSettings();
 		private PdfObjectSettings _objectSettings = new PdfObjectSettings();
 		private StringBuilder _errorString = null;
-		private int currentPhase = 0;
+		private int _currentPhase = 0;
+		#endregion
 
+		#region properties
 		public PdfGlobalSettings GlobalSettings { get { return _globalSettings; } }
 		public PdfObjectSettings ObjectSettings { get { return _objectSettings; } }
+		#endregion
 
 		#region P/Invokes
 		[DllImport(DLL_NAME)]
@@ -131,11 +137,6 @@ namespace WkHtmlToXSharp
 		static extern void wkhtmltopdf_set_finished_callback(IntPtr converter, [MarshalAs(UnmanagedType.FunctionPtr)] wkhtmltopdf_bool_callback cb);
 		#endregion
 
-		public static void DeInit()
-		{
-			wkhtmltopdf_deinit();
-		}
-
 		static WkHtmlToPdfConverter()
 		{
 			//Console.WriteLine("INIT");
@@ -155,13 +156,25 @@ namespace WkHtmlToXSharp
 			// we need to register a clean up callback to avoid the following message:
 			//		'QWaitCondition: Destroyed while threads are still waiting'
 
-			AppDomain.CurrentDomain.ProcessExit += (o, e) => wkhtmltopdf_deinit();
+// TODO!!
+//			AppDomain.CurrentDomain.ProcessExit += (o, e) => wkhtmltopdf_deinit();
 		}
 
 		public WkHtmlToPdfConverter()
 		{
 		}
 
+		public static void DeInit()
+		{
+			wkhtmltopdf_deinit();
+		}
+
+		private static void InitLibrary()
+		{
+			// TODO: Create a thread to initialize (and at some point de-init)
+		}
+
+		#region Global/Object settings code..
 		private IDictionary<string, object> GetProperties(string prefix, object instance)
 		{
 			var dict = new Dictionary<string, object>();
@@ -241,6 +254,7 @@ namespace WkHtmlToXSharp
 			return ptr;
 		}
 		#endregion
+		#endregion
 
 		private IntPtr _BuildConverter(IntPtr globalSettings, IntPtr objectSettings, string inputHtml)
 		{
@@ -265,9 +279,9 @@ namespace WkHtmlToXSharp
 
 		private void PhaseChangeCb(IntPtr converter)
 		{
-			var tmp = wkhtmltopdf_phase_description(converter, currentPhase);
-			Console.WriteLine("NEW PHASE {0} --> " + Marshal.PtrToStringAnsi(tmp), currentPhase);
-			currentPhase++;
+			var tmp = wkhtmltopdf_phase_description(converter, _currentPhase);
+			Console.WriteLine("NEW PHASE {0} --> " + Marshal.PtrToStringAnsi(tmp), _currentPhase);
+			_currentPhase++;
 		}
 
 		private void ProgressChangedCb(IntPtr converter, int progress)
