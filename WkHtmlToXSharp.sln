@@ -15,16 +15,31 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution Items", "Solution 
 		TODO = TODO
 	EndProjectSection
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "WkHtmlToXSharp.Tests", "WkHtmlToXSharp.Tests\WkHtmlToXSharp.Tests.csproj", "{F5C842CB-2C68-44A1-8C4C-600B00F0C3B5}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
+		Debug|x86 = Debug|x86
 		Release|Any CPU = Release|Any CPU
+		Release|x86 = Release|x86
 	EndGlobalSection
 	GlobalSection(ProjectConfigurationPlatforms) = postSolution
 		{3DADECBF-6D08-4090-9A1D-2064D0466381}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
 		{3DADECBF-6D08-4090-9A1D-2064D0466381}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{3DADECBF-6D08-4090-9A1D-2064D0466381}.Debug|x86.ActiveCfg = Debug|Any CPU
+		{3DADECBF-6D08-4090-9A1D-2064D0466381}.Debug|x86.Build.0 = Debug|Any CPU
 		{3DADECBF-6D08-4090-9A1D-2064D0466381}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{3DADECBF-6D08-4090-9A1D-2064D0466381}.Release|Any CPU.Build.0 = Release|Any CPU
+		{3DADECBF-6D08-4090-9A1D-2064D0466381}.Release|x86.ActiveCfg = Release|Any CPU
+		{F5C842CB-2C68-44A1-8C4C-600B00F0C3B5}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{F5C842CB-2C68-44A1-8C4C-600B00F0C3B5}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{F5C842CB-2C68-44A1-8C4C-600B00F0C3B5}.Debug|x86.ActiveCfg = Debug|x86
+		{F5C842CB-2C68-44A1-8C4C-600B00F0C3B5}.Debug|x86.Build.0 = Debug|x86
+		{F5C842CB-2C68-44A1-8C4C-600B00F0C3B5}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{F5C842CB-2C68-44A1-8C4C-600B00F0C3B5}.Release|Any CPU.Build.0 = Release|Any CPU
+		{F5C842CB-2C68-44A1-8C4C-600B00F0C3B5}.Release|x86.ActiveCfg = Release|x86
+		{F5C842CB-2C68-44A1-8C4C-600B00F0C3B5}.Release|x86.Build.0 = Release|x86
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

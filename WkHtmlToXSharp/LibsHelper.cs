@@ -40,14 +40,20 @@ namespace WkHtmlToXSharp
 	{
 		private static readonly global::Common.Logging.ILog _Log = global::Common.Logging.LogManager.GetLogger(System.Reflection.MethodBase.GetCurrentMethod().DeclaringType);
 
+		private static readonly Assembly Assembly = SysAssembly.GetExecutingAssembly();
+		// FIXME: Find a valid path on linux & windows.
+		//private static readonly string _OutputPath = AppDomain.CurrentDomain.BaseDirectory;
+		private static readonly string _OutputPath = Path.GetDirectoryName(Assembly.GetCallingAssembly().Location);
+
 		private static string _OSName = null;
 		private static string _ResourcePath = null;
-		private static Assembly Assembly = SysAssembly.GetExecutingAssembly();
 
 		private static bool RunningIn64Bits { get { return IntPtr.Size == 8; } }
 
 		[DllImport("libc")]
 		static extern int uname(IntPtr buf);
+		[DllImport("kernel32.dll", SetLastError = true)]
+		static extern bool SetDllDirectory(string lpPathName);
 
 		private static string GetOsName()
 		{
@@ -146,11 +152,10 @@ namespace WkHtmlToXSharp
 
 		private static void DeployLibrary(string resource)
 		{
-			var outputPath = AppDomain.CurrentDomain.BaseDirectory;
 			var resourcePath = GetResourcePath();
 			var fileName = resource.Substring(resourcePath.Length + 1);
 
-			fileName = Path.Combine(outputPath, fileName);
+			fileName = Path.Combine(_OutputPath, fileName);
 
 			if (File.Exists(fileName))
 			{
@@ -164,7 +169,7 @@ namespace WkHtmlToXSharp
 				}
 			}
 
-			_Log.InfoFormat("Deploying {0} to {1}..", fileName, outputPath);
+			_Log.InfoFormat("Deploying {0} to {1}..", fileName, _OutputPath);
 
 			using (var input = Assembly.GetManifestResourceStream(resource))
 			using (var output = new FileStream(fileName, FileMode.Create, FileAccess.Write, FileShare.None))
@@ -189,6 +194,11 @@ namespace WkHtmlToXSharp
 			{
 				if (res.StartsWith(resourcePath))
 					DeployLibrary(res);
+			}
+
+			if (Environment.OSVersion.Platform == PlatformID.Win32NT)
+			{
+				//SetDllDirectory(_OutputPath);
 			}
 		}
 	}

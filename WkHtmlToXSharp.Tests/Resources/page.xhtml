@@ -1,0 +1,1008 @@
+
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+    "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+  <meta name="generator" content=
+  "HTML Tidy for Linux/x86 (vers 11 February 2007), see www.w3.org" />
+
+  <title>java - Using IKVM to convert a JAR (Flying Saucer - xhtmlrenderer) - Stack
+  Overflow</title>
+  <link rel="stylesheet" type="text/css" href=
+  "http://sstatic.net/stackoverflow/all.css?v=a82c4257a613" />
+  <link rel="shortcut icon" href="http://sstatic.net/stackoverflow/img/favicon.ico" />
+  <link rel="apple-touch-icon" href=
+  "http://sstatic.net/stackoverflow/img/apple-touch-icon.png" />
+  <link rel="search" type="application/opensearchdescription+xml" title="Stack Overflow"
+  href="/opensearch.xml" />
+  <script type="text/javascript" src=
+  "http://ajax.googleapis.com/ajax/libs/jquery/1.4.4/jquery.min.js">
+</script>
+  <script type="text/javascript" src=
+  "http://sstatic.net/js/master.min.js?v=2d51af9ba6b1">
+</script>
+  <script type="text/javascript">
+//<![CDATA[
+    var imagePath='http://sstatic.net/stackoverflow/img/';
+    var inboxUnviewedCount = -1;
+    
+  //]]>
+  </script>
+  <link rel="canonical" href=
+  "http://stackoverflow.com/questions/2947990/using-ikvm-to-convert-a-jar-flying-saucer-xhtmlrenderer" />
+  <link rel="alternate" type="application/atom+xml" title=
+  "Feed for question 'Using IKVM to convert a JAR (Flying Saucer - xhtmlrenderer)'" href=
+  "/feeds/question/2947990" />
+  <script src="http://sstatic.net/js/question.js?v=c3fa5a8dc89f" type="text/javascript">
+</script>
+  <script type="text/javascript">
+//<![CDATA[
+        var fkey = "62034fd87c874d7e9c2027e875213ce8";
+    
+        
+        
+        $(function() {
+            
+            vote.init(2947990);
+            comments.init();
+            $(initTagMenu);
+            styleCode();
+        
+        });
+  //]]>
+  </script>
+  <script type="text/javascript">
+//<![CDATA[
+  gauth.checkStackAuth('http://stackauth.com');
+  //]]>
+  </script>
+  <script type="text/javascript">
+//<![CDATA[
+  gauth.informStackAuth('http://stackauth.com');
+  //]]>
+  </script>
+</head>
+
+<body class="question-page">
+  <noscript>
+  <div id="noscript-padding"></div></noscript>
+
+  <div id="notify-container"></div><script type="text/javascript">
+//<![CDATA[
+        $(function() { notify.showFirstTime('Q&amp;A for professional and enthusiast programmers'); });
+  //]]>
+  </script>
+
+  <div id="overlay-header"></div>
+
+  <div id="custom-header"></div>
+
+  <div class="container">
+    <div id="header">
+      <div id="portalLink">
+        <a class="genu" href="http://stackexchange.com">Stack Exchange</a>
+      </div>
+
+      <div id="topbar">
+        <div id="hlinks">
+          <span id="hlinks-user"></span> <span id="hlinks-nav"><a href=
+          "/users/login?returnurl=%2fquestions%2f2947990%2fusing-ikvm-to-convert-a-jar-flying-saucer-xhtmlrenderer">
+          log in</a> <span class="lsep">|</span> <a href=
+          "http://careers.stackoverflow.com">careers</a> <span class=
+          "lsep">|</span></span> <span id="hlinks-custom"><a href=
+          "http://chat.stackoverflow.com">chat</a> <span class="lsep">|</span> <a href=
+          "http://meta.stackoverflow.com">meta</a> <span class="lsep">|</span> <a href=
+          "/about">about</a> <span class="lsep">|</span> <a href="/faq">faq</a></span>
+        </div>
+
+        <div id="hsearch">
+          <form id="search" action="/search" method="get" name="search">
+            <div>
+              <input name="q" class="textbox" tabindex="1" onfocus=
+              "if (this.value=='search') this.value = ''" type="text" maxlength="80"
+              size="28" value="search" />
+            </div>
+          </form>
+        </div>
+      </div><br class="cbt" />
+
+      <div id="hlogo">
+        <a href="/">Stack Overflow</a>
+      </div>
+
+      <div id="hmenus">
+        <div class="nav mainnavs">
+          <ul>
+            <li class="youarehere"><a id="nav-questions" href="/questions" name=
+            "nav-questions">Questions</a></li>
+
+            <li><a id="nav-tags" href="/tags" name="nav-tags">Tags</a></li>
+
+            <li><a id="nav-users" href="/users" name="nav-users">Users</a></li>
+
+            <li><a id="nav-badges" href="/badges" name="nav-badges">Badges</a></li>
+
+            <li><a id="nav-unanswered" href="/unanswered" name=
+            "nav-unanswered">Unanswered</a></li>
+          </ul>
+        </div>
+
+        <div class="nav askquestion">
+          <ul>
+            <li><a id="nav-askquestion" href="/questions/ask" name="nav-askquestion">Ask
+            Question</a></li>
+          </ul>
+        </div>
+      </div>
+    </div>
+
+    <div id="content">
+      <div id="question-header">
+        <h1><a href=
+        "/questions/2947990/using-ikvm-to-convert-a-jar-flying-saucer-xhtmlrenderer"
+        class="question-hyperlink">Using IKVM to convert a JAR (Flying Saucer -
+        xhtmlrenderer)</a></h1>
+      </div>
+
+      <div id="mainbar">
+        <div id="question">
+          <div class="everyonelovesstackoverflow" id="adzerk1"></div>
+
+          <table>
+            <tr>
+              <td class="votecell">
+                <div class="vote">
+                  <input type="hidden" value="2947990" /> <a class="vote-up-off" title=
+                  "This question is useful and clear (click again to undo)">up vote</a>
+                  <span class="vote-count-post">1</span> <a class="vote-down-off" title=
+                  "This question is unclear or not useful (click again to undo)">down
+                  vote</a> <a class="star-off" href="#" title=
+                  "This is a favorite question (click again to undo)">favorite</a>
+
+                  <div class="favoritecount">
+                    <b>1</b>
+                  </div>
+                </div>
+              </td>
+
+              <td class="postcell">
+                <div>
+                  <div class="post-text">
+                    <p>I wanted to use the Flying Saucer Java API in .NET so I tried to
+                    use <a href="http://ikvm.net" rel="nofollow">IKVM</a> to convert the
+                    <a href="https://xhtmlrenderer.dev.java.net/" rel="nofollow">Flying
+                    Saucer</a> library:</p>
+                    <pre>
+<code>ikvmc core-renderer.jar
+</code>
+</pre>
+
+                    <p>For some reason, IKVMC gave me an exe
+                    <code>core-renderer.exe</code> so I renamed it to
+                    <code>core-renderer.dll</code>, added to my assemblies and hacked
+                    away</p>
+                    <pre>
+<code>using java.io;
+using java.lang;
+using com.lowagie.text;
+using org.xhtmlrenderer.pdf;
+
+namespace flying_saucer
+{
+    class FlyingSaucerApp
+    {
+        static void Main(string[] args)
+        {
+            // This works
+            DocumentException dummy = new DocumentException();
+
+            ITextRenderer renderer = new ITextRenderer();
+
+
+            // For some reason, this raises NoClassDefFoundError                
+            renderer.setDocument(File("hello.xhtml").toURI().toURL().toString());
+        }
+    }
+}
+</code>
+</pre>
+
+                    <p>For some reason, it is giving
+                    <code>java.lang.NoClassDefFoundError:
+                    com.lowagie.text.DocumentException</code>. I realized
+                    <code>DocumentException</code> is something
+                    <code>ITextRender()</code> may throw, but I've already included
+                    <code>com.lowagie.text</code>, any ideas?</p>
+                  </div>
+
+                  <div class="post-taglist">
+                    <a href="/questions/tagged/java" class="post-tag" title=
+                    "show questions tagged 'java'" rel="tag">java</a> <a href=
+                    "/questions/tagged/.net" class="post-tag" title=
+                    "show questions tagged '.net'" rel="tag">.net</a> <a href=
+                    "/questions/tagged/ikvm" class="post-tag" title=
+                    "show questions tagged 'ikvm'" rel="tag">ikvm</a> <a href=
+                    "/questions/tagged/flying-saucer" class="post-tag" title=
+                    "show questions tagged 'flying-saucer'" rel="tag">flying-saucer</a>
+                  </div>
+
+                  <table class="fw">
+                    <tr>
+                      <td class="vt">
+                        <div class="post-menu">
+                          <a href="/q/2947990" title=
+                          "short permalink to this question">link</a><span class=
+                          "lsep">|</span><a href="/posts/2947990/edit" title=
+                          "edit this post">edit</a><span class="lsep">|</span><a id=
+                          "flag-post-2947990" title=
+                          "flag this post for serious problems or moderator attention"
+                          name="flag-post-2947990">flag</a>
+                        </div>
+                      </td>
+
+                      <td class="post-signature owner">
+                        <div class="user-info">
+                          <div class="user-action-time">
+                            asked <span title="2010-06-01 07:41:03Z" class=
+                            "relativetime">Jun 1 '10 at 7:41</span>
+                          </div>
+
+                          <div class="user-gravatar32">
+                            <a href="/users/111021/kizzx2"><img src=
+                            "http://www.gravatar.com/avatar/6b1a4aaa3c76925b2923327f9556a738?s=32&amp;d=identicon&amp;r=PG"
+                            height="32" width="32" alt="" /></a>
+                          </div>
+
+                          <div class="user-details">
+                            <a href="/users/111021/kizzx2">kizzx2</a><br />
+                            <span class="reputation-score" title=
+                            "reputation score">1,389</span><span title=
+                            "2 gold badges"><span class=
+                            "badgecount">2</span></span><span title=
+                            "8 silver badges"><span class=
+                            "badgecount">8</span></span><span title=
+                            "19 bronze badges"><span class="badgecount">19</span></span>
+                          </div>
+                        </div><br class="cbt" />
+
+                        <div class="accept-rate accept-answer-link" title=
+                        "this user has accepted an answer for 18 of 22 eligible questions">
+                        82% accept rate
+                        </div>
+                      </td>
+                    </tr>
+                  </table>
+                </div>
+              </td>
+            </tr>
+
+            <tr>
+              <td class="votecell"></td>
+
+              <td>
+                <div id="comments-2947990" class="comments dno">
+                  <table>
+                    <tbody>
+                      <tr>
+                        <td></td>
+
+                        <td></td>
+                      </tr>
+                    </tbody>
+                  </table>
+                </div>
+              </td>
+            </tr>
+          </table>
+        </div>
+
+        <div id="answers">
+          <a name="tab-top" id="tab-top"></a>
+
+          <div id="answers-header">
+            <div class="subheader answers-subheader">
+              <h2>2 Answers</h2>
+
+              <div id="tabs">
+                <a href=
+                "/questions/2947990/using-ikvm-to-convert-a-jar-flying-saucer-xhtmlrenderer?tab=active#tab-top"
+                title="Answers with the latest activity first">active</a> <a href=
+                "/questions/2947990/using-ikvm-to-convert-a-jar-flying-saucer-xhtmlrenderer?tab=oldest#tab-top"
+                title="Answers in the order they were provided">oldest</a> <a class=
+                "youarehere" href=
+                "/questions/2947990/using-ikvm-to-convert-a-jar-flying-saucer-xhtmlrenderer?tab=votes#tab-top"
+                title="Answers with the highest score first">votes</a>
+              </div>
+            </div>
+          </div><a name="2973241"></a>
+
+          <div id="answer-2973241" class="answer">
+            <table>
+              <tr>
+                <td class="votecell">
+                  <div class="vote">
+                    <input type="hidden" value="2973241" /> <a class="vote-up-off" title=
+                    "This answer is useful (click again to undo)">up vote</a>
+                    <span class="vote-count-post">2</span> <a class="vote-down-off"
+                    title="This answer is not useful (click again to undo)">down vote</a>
+                    <span class="vote-accepted-on" title=
+                    "The question owner accepted this as the best answer Jun 4 '10 at 10:23">
+                    accepted</span>
+                  </div>
+                </td>
+
+                <td>
+                  <div class="post-text">
+                    <p>It turned out that for this particular situation, I needed to
+                    render both Flying Saucer and iText (a dependency of Flying Saucer)
+                    and have the Flying Saucer assembly reference to its dependency:</p>
+                    <pre>
+<code>ikvmc -target:library itext.jar
+ikvmc -target:library -reference:itext.dll core-renderer.jar
+</code>
+</pre>
+
+                    <p>(For newbies: If you didn't read any documentation and are just
+                    trying the commands, you also need to make sure the DLL files
+                    accompanying IKVMC is also present -- the easiest way to do this is
+                    to dump all the IKVMC files beside your iText JAR files)</p>
+                  </div>
+
+                  <table class="fw">
+                    <tr>
+                      <td class="vt">
+                        <div class="post-menu">
+                          <a href=
+                          "/questions/2947990/using-ikvm-to-convert-a-jar-flying-saucer-xhtmlrenderer/2973241#2973241"
+                          title="permalink to this answer">link</a><span class=
+                          "lsep">|</span><a href="/posts/2973241/edit" title=
+                          "edit this post">edit</a><span class="lsep">|</span><a id=
+                          "flag-post-2973241" title=
+                          "flag this post for serious problems or moderator attention"
+                          name="flag-post-2973241">flag</a>
+                        </div>
+                      </td>
+
+                      <td align="right" class="post-signature">
+                        <div class="user-info">
+                          <div class="user-action-time">
+                            edited <a href="/posts/2973241/revisions" title=
+                            "show all edits to this post"><span title=
+                            "2010-07-06 17:14:48Z" class="relativetime">Jul 6 '10 at
+                            17:14</span></a>
+                          </div>
+
+                          <div class="user-gravatar32"></div>
+
+                          <div class="user-details">
+                            <br />
+                          </div>
+                        </div>
+                      </td>
+
+                      <td align="right" class="post-signature owner">
+                        <div class="user-info">
+                          <div class="user-action-time">
+                            answered <span title="2010-06-04 10:22:58Z" class=
+                            "relativetime">Jun 4 '10 at 10:22</span>
+                          </div>
+
+                          <div class="user-gravatar32">
+                            <a href="/users/111021/kizzx2"><img src=
+                            "http://www.gravatar.com/avatar/6b1a4aaa3c76925b2923327f9556a738?s=32&amp;d=identicon&amp;r=PG"
+                            height="32" width="32" alt="" /></a>
+                          </div>
+
+                          <div class="user-details">
+                            <a href="/users/111021/kizzx2">kizzx2</a><br />
+                            <span class="reputation-score" title=
+                            "reputation score">1,389</span><span title=
+                            "2 gold badges"><span class=
+                            "badgecount">2</span></span><span title=
+                            "8 silver badges"><span class=
+                            "badgecount">8</span></span><span title=
+                            "19 bronze badges"><span class="badgecount">19</span></span>
+                          </div>
+                        </div>
+                      </td>
+                    </tr>
+                  </table>
+                </td>
+              </tr>
+
+              <tr>
+                <td class="votecell"></td>
+
+                <td>
+                  <div id="comments-2973241" class="comments">
+                    <table>
+                      <tbody>
+                        <tr id="comment-3282996" class="comment">
+                          <td></td>
+
+                          <td class="comment-text">
+                            <div>
+                              <span class="comment-copy">tried your commands but it says
+                              core-renderer.dll is an unknown filetype</span>
+                              &ndash;&nbsp;<a href="/users/45471/drahcir" title=
+                              "950 reputation" class="comment-user">Drahcir</a>
+                              <span class="comment-date"><span title=
+                              "2010-07-06 15:10:47Z">Jul 6 '10 at 15:10</span></span>
+                            </div>
+                          </td>
+                        </tr>
+
+                        <tr id="comment-3284319" class="comment">
+                          <td></td>
+
+                          <td class="comment-text">
+                            <div>
+                              <span class="comment-copy">Obviously, I made that answer in
+                              a haste :p I changed it and again obviously, the arguments
+                              should be <code>jar</code> files lol</span>
+                              &ndash;&nbsp;<a href="/users/111021/kizzx2" title=
+                              "1389 reputation" class="comment-user owner">kizzx2</a>
+                              <span class="comment-date"><span title=
+                              "2010-07-06 17:15:08Z">Jul 6 '10 at 17:15</span></span>
+                            </div>
+                          </td>
+                        </tr>
+
+                        <tr id="comment-4620457" class="comment">
+                          <td></td>
+
+                          <td class="comment-text">
+                            <div>
+                              <span class="comment-copy">+1 This saved me so much effort.
+                              Thanks!</span> &ndash;&nbsp;<a href=
+                              "/users/27581/michael-kropat" title="461 reputation" class=
+                              "comment-user">Michael Kropat</a> <span class=
+                              "comment-date"><span title="2010-11-24 03:30:47Z">Nov 24
+                              '10 at 3:30</span></span>
+                            </div>
+                          </td>
+                        </tr>
+                      </tbody>
+                    </table>
+                  </div>
+                </td>
+              </tr>
+            </table>
+          </div>
+
+          <div class="everyonelovesstackoverflow" id="adzerk3"></div><a name=
+          "2948180"></a>
+
+          <div id="answer-2948180" class="answer">
+            <table>
+              <tr>
+                <td class="votecell">
+                  <div class="vote">
+                    <input type="hidden" value="2948180" /> <a class="vote-up-off" title=
+                    "This answer is useful (click again to undo)">up vote</a>
+                    <span class="vote-count-post">1</span> <a class="vote-down-off"
+                    title="This answer is not useful (click again to undo)">down vote</a>
+                  </div>
+                </td>
+
+                <td>
+                  <div class="post-text">
+                    <p>Make sure you've included <code>IKVM.AWT.WinForms.dll</code>,
+                    <code>IKVM.OpenJDK.ClassLibrary.dll</code>,
+                    <code>IKVM.Runtime.dll</code> and <code>IKVM.Runtime.JNI.dll</code>
+                    assemblies into your project. Also to avoid generating an executable
+                    and then renaming it you could specify the
+                    <code>-target:library</code> switch when compiling.</p>
+                  </div>
+
+                  <table class="fw">
+                    <tr>
+                      <td class="vt">
+                        <div class="post-menu">
+                          <a href=
+                          "/questions/2947990/using-ikvm-to-convert-a-jar-flying-saucer-xhtmlrenderer/2948180#2948180"
+                          title="permalink to this answer">link</a><span class=
+                          "lsep">|</span><a href="/posts/2948180/edit" title=
+                          "edit this post">edit</a><span class="lsep">|</span><a id=
+                          "flag-post-2948180" title=
+                          "flag this post for serious problems or moderator attention"
+                          name="flag-post-2948180">flag</a>
+                        </div>
+                      </td>
+
+                      <td align="right" class="post-signature">
+                        <div class="user-info">
+                          <div class="user-action-time">
+                            answered <span title="2010-06-01 08:18:25Z" class=
+                            "relativetime">Jun 1 '10 at 8:18</span>
+                          </div>
+
+                          <div class="user-gravatar32">
+                            <a href="/users/29407/darin-dimitrov"><img src=
+                            "http://www.gravatar.com/avatar/e3a181e9cdd4757a8b416d93878770c5?s=32&amp;d=identicon&amp;r=PG"
+                            height="32" width="32" alt="" /></a>
+                          </div>
+
+                          <div class="user-details">
+                            <a href="/users/29407/darin-dimitrov">Darin
+                            Dimitrov</a><br />
+                            <span class="reputation-score" title=
+                            "reputation score 141827">142k</span><span title=
+                            "10 gold badges"><span class=
+                            "badgecount">10</span></span><span title=
+                            "79 silver badges"><span class=
+                            "badgecount">79</span></span><span title=
+                            "180 bronze badges"><span class=
+                            "badgecount">180</span></span>
+                          </div>
+                        </div>
+                      </td>
+                    </tr>
+                  </table>
+                </td>
+              </tr>
+
+              <tr>
+                <td class="votecell"></td>
+
+                <td>
+                  <div id="comments-2948180" class="comments">
+                    <table>
+                      <tbody>
+                        <tr id="comment-3012345" class="comment">
+                          <td></td>
+
+                          <td class="comment-text">
+                            <div>
+                              <span class="comment-copy">Thanks for the note for
+                              <code>-target:library</code>. It felt cleaner than having
+                              to rename the exe file. Still getting the mentioned error
+                              though :\</span> &ndash;&nbsp;<a href=
+                              "/users/111021/kizzx2" title="1389 reputation" class=
+                              "comment-user owner">kizzx2</a> <span class=
+                              "comment-date"><span title="2010-06-02 04:08:17Z">Jun 2 '10
+                              at 4:08</span></span>
+                            </div>
+                          </td>
+                        </tr>
+                      </tbody>
+                    </table>
+                  </div>
+                </td>
+              </tr>
+            </table>
+          </div><a name='new-answer' id="new-answer"></a>
+
+          <form id="post-form" action="/questions/2947990/answer/submit" method="post"
+          name="post-form">
+            <h2 class="space">Your Answer</h2><script src=
+            "http://sstatic.net/Js/wmd.js?v=508538fa9757" type="text/javascript">
+</script> <script type="text/javascript">
+//<![CDATA[
+
+            var enableImageUploads = true; 
+
+            $(function() {
+
+            editorReady('answer', true/* confirm navigation after wmd keypress */);
+            });  
+            //]]>
+            </script>
+
+            <div id="post-editor">
+              <div id="wmd-container">
+                <div id="wmd-button-bar"></div>
+                <textarea id="wmd-input" name="post-text" cols="92" rows="15" tabindex=
+                "101">
+</textarea>
+              </div>
+
+              <div class="fl" style="margin-top: 8px; height:24px;">
+                &nbsp;
+              </div>
+
+              <div id="draft-saved" class="community-option fl" style=
+              "margin-top: 8px; height:24px; display:none;">
+                draft saved
+              </div>
+
+              <div id="wmd-preview"></div>
+
+              <div id="edit-block">
+                <input id="fkey" name="fkey" type="hidden" value=
+                "62034fd87c874d7e9c2027e875213ce8" /> <input id="author" name="author"
+                type="text" />
+              </div>
+            </div>
+
+            <div class="form-item">
+              <table>
+                <tr>
+                  <td class="vm open-id-login">
+                    <a id="login-link" style="font-size: 200%; margin-left: 30px;" href=
+                    "/users/login?returnurl=%2fquestions%2f2947990%2fusing-ikvm-to-convert-a-jar-flying-saucer-xhtmlrenderer"
+                    name="login-link">log in</a> <script type="text/javascript">
+//<![CDATA[
+                    master.onClickDraftSave('#login-link');
+                    //]]>
+                    </script>
+                  </td>
+
+                  <td class="orcell">
+                    <div class="orword">
+                      or
+                    </div>
+
+                    <div class="orline"></div>
+                  </td>
+
+                  <td class="vm">
+                    <div>
+                      <label for="display-name">Name</label> <input id="display-name"
+                      name="display-name" type="text" size="30" maxlength="30" value=""
+                      tabindex="105" />
+                    </div>
+
+                    <div>
+                      <label for="m-address">Email</label> <input id="m-address" name=
+                      "m-address" type="text" size="40" maxlength="100" value=""
+                      tabindex="106" /> <span class="edit-field-overlay">never
+                      shown</span>
+                    </div>
+
+                    <div>
+                      <label for="home-page">Home Page</label> <input id="home-page"
+                      name="home-page" type="text" size="40" maxlength="200" value=""
+                      tabindex="107" />
+                    </div>
+                  </td>
+                </tr>
+              </table>
+            </div>
+
+            <div class="form-submit cbt">
+              <input id="submit-button" type="submit" value="Post Your Answer" tabindex=
+              "110" />
+            </div>
+          </form>
+
+          <h2 class="bottom-notice">Not the answer you're looking for? Browse other
+          questions tagged <a href="/questions/tagged/java" class="post-tag" title=
+          "show questions tagged 'java'" rel="tag">java</a> <a href=
+          "/questions/tagged/.net" class="post-tag" title="show questions tagged '.net'"
+          rel="tag">.net</a> <a href="/questions/tagged/ikvm" class="post-tag" title=
+          "show questions tagged 'ikvm'" rel="tag">ikvm</a> <a href=
+          "/questions/tagged/flying-saucer" class="post-tag" title=
+          "show questions tagged 'flying-saucer'" rel="tag">flying-saucer</a> or <a href=
+          "/questions/ask">ask your own question</a>.</h2>
+        </div>
+      </div>
+
+      <div id="sidebar">
+        <div class="module newuser newuser-greeting" style="display:none">
+          <h4>Hello World!</h4>
+
+          <div>
+            <p>This is a collaboratively edited question and answer site for
+            <b>professional and enthusiast programmers</b>. It's 100% free, no
+            registration required.</p>
+
+            <p class="ar"><a href="/about">about &raquo;</a>&nbsp;&nbsp;&nbsp;<a href=
+            "/faq">faq &raquo;</a></p>
+          </div>
+        </div>
+
+        <div class="module">
+          <p class="label-key">tagged</p>
+
+          <div class="tagged">
+            <a href="/questions/tagged/java" class="post-tag" title=
+            "show questions tagged 'java'" rel="tag">java</a>&nbsp;<span class=
+            "item-multiplier">&times;&nbsp;92447</span><br />
+            <a href="/questions/tagged/.net" class="post-tag" title=
+            "show questions tagged '.net'" rel="tag">.net</a>&nbsp;<span class=
+            "item-multiplier">&times;&nbsp;64488</span><br />
+            <a href="/questions/tagged/ikvm" class="post-tag" title=
+            "show questions tagged 'ikvm'" rel="tag">ikvm</a>&nbsp;<span class=
+            "item-multiplier">&times;&nbsp;43</span><br />
+            <a href="/questions/tagged/flying-saucer" class="post-tag" title=
+            "show questions tagged 'flying-saucer'" rel=
+            "tag">flying-saucer</a>&nbsp;<span class=
+            "item-multiplier">&times;&nbsp;23</span><br />
+          </div>
+
+          <p class="label-key">asked</p>
+
+          <p class="label-value" title="2010-06-01 07:41:03Z">7 months ago</p>
+
+          <p class="label-key">viewed</p>
+
+          <p class="label-value">358 times</p>
+
+          <p class="label-key">latest activity</p>
+
+          <p class="label-value"><a href="?lastactivity" class="lastactivity-link" title=
+          "2010-07-06 17:14:48Z">6 months ago</a></p>
+        </div><script type="text/javascript">
+//<![CDATA[
+            var z = document.createElement("script"); z.type = "text/javascript"; z.async = true; z.src = "http://engine2.adzerk.net/z/8277/adzerk1_2_4_43,adzerk2_2_17_45,adzerk3_2_4_44?keywords=java,.net,ikvm,flying-saucer"; var s = document.getElementsByTagName("script")[0]; s.parentNode.insertBefore(z, s);
+        //]]>
+        </script>
+
+        <div class="everyonelovesstackoverflow" id="adzerk2"></div>
+
+        <div>
+          <script type="text/javascript">
+//<![CDATA[
+            (function(){var q="http://careers.stackoverflow.com/Ad/js",g=location.search=="?golarge",a,d=100,c=location.hash.indexOf("#ninjas")>-1,f="Pretty",h="#adzerk2",b="#adzerk1",i="#herebeninjas";(function(){var b="min-height:248px;margin:15px 0",c=$("<div>").addClass("hireme").attr("style",b),a=$("<div>").html(c);document.write(a.html())})();$(function(){setTimeout(r,2e3);a=setTimeout(e,d)});var e=function(){clearTimeout(a);if(m()&&!k()){a=setTimeout(e,d);return}c=c||n();c&&$(b).css("height",$(b).outerHeight()).attr("id","stop-adzerk");if(l()&&!j()){a=setTimeout(e,d);return}g=g||o();f=g?"Large":f;p()},r=function(){clearTimeout(a);var b=$("div.hireme, "+i);b.each(function(){var a=$(this),d=a.html().replace(/\s+/g,"").length==0;if(d){var c=a,b=a.parents(".everyonelovesstackoverflow").first();if(b.length>0)c=b;c.remove()}})},l=function(){return $(h).length>0},j=function(){var a=$(h);return a.length==0?false:a.html().replace(/\s+/g,"").length>0},o=function(){return $("#careersadsdoublehigh").length>0},m=function(){return $(b).length>0},k=function(){var a=$(b);return a.length==0?false:a.html().replace(/\s+/g,"").length>0},n=function(){return $(i).length>0},p=function(){$.ajax({url:s(),dataType:"script",cache:true})},s=function(){return q+"?style="+f+"&gobanner="+c.toString()}})();
+          //]]>
+          </script>
+        </div>
+
+        <div class="module">
+          <h4 id="h-related">Related</h4>
+
+          <div class="related">
+            <div class="spacer">
+              <a href="/questions/3368544/flying-saucer-xhtmlrenderer-out-of-memory"
+              class="question-hyperlink">flying saucer (xhtmlrenderer) out of memory</a>
+            </div>
+
+            <div class="spacer">
+              <a href=
+              "/questions/4014149/how-to-convert-url-of-html-page-to-pdf-in-java-using-itext-flying-saucer"
+              class="question-hyperlink">How to convert url of html page to pdf in java
+              using iText &amp; flying saucer?</a>
+            </div>
+
+            <div class="spacer">
+              <a href="/questions/2899237/net-version-or-port-of-flying-saucer" class=
+              "question-hyperlink">.NET version or port of Flying Saucer</a>
+            </div>
+
+            <div class="spacer">
+              <a href=
+              "/questions/3316810/flying-saucer-xhtmlrenderer-doesnt-bold-my-font" class=
+              "question-hyperlink">flying saucer (xhtmlrenderer) doesn't bold my
+              font?</a>
+            </div>
+
+            <div class="spacer">
+              <a href=
+              "/questions/4322550/flying-saucer-xhtmlrenderer-wont-display-generated-images"
+              class="question-hyperlink">Flying saucer/xhtmlrenderer won't display
+              generated images</a>
+            </div>
+
+            <div class="spacer">
+              <a href=
+              "/questions/3369395/flying-saucer-xhtmlrenderer-requests-image-4-times"
+              class="question-hyperlink">flying saucer (xhtmlrenderer) requests image 4
+              times</a>
+            </div>
+
+            <div class="spacer">
+              <a href=
+              "/questions/1236429/whats-the-easiest-way-of-converting-an-xhtml-string-to-pdf-using-flying-saucer"
+              class="question-hyperlink">What's the easiest way of converting an xhtml
+              string to PDF using Flying Saucer?</a>
+            </div>
+
+            <div class="spacer">
+              <a href=
+              "/questions/1747554/is-it-possible-to-resolve-css-as-a-classpath-resource-using-flying-saucer-xhtml"
+              class="question-hyperlink">Is it possible to resolve css as a classpath
+              resource using Flying Saucer (XHTML-Renderer)?</a>
+            </div>
+
+            <div class="spacer">
+              <a href=
+              "/questions/4446113/ikvmc-how-to-convert-a-jar-to-dll-the-jar-depending-on-multi-jars"
+              class="question-hyperlink">[ikvmc] how to convert a jar to dll, the jar
+              depending on multi jars</a>
+            </div>
+
+            <div class="spacer">
+              <a href="/questions/3330539/change-flying-saucer-header" class=
+              "question-hyperlink">Change flying saucer header</a>
+            </div>
+
+            <div class="spacer">
+              <a href=
+              "/questions/3660740/content-not-allowed-in-prolog-from-document-created-by-dom-when-printing-using-fl"
+              class="question-hyperlink">content not allowed in prolog from document
+              created by DOM when printing using flying saucer</a>
+            </div>
+
+            <div class="spacer">
+              <a href="/questions/3321425/using-an-ampersand-in-flying-saucer" class=
+              "question-hyperlink">Using an ampersand in flying saucer</a>
+            </div>
+
+            <div class="spacer">
+              <a href="/questions/3193701/flying-saucer-not-reading-stylesheet" class=
+              "question-hyperlink">Flying Saucer not reading stylesheet</a>
+            </div>
+
+            <div class="spacer">
+              <a href="/questions/2378317/relative-paths-in-flying-saucer-xhtml" class=
+              "question-hyperlink">Relative paths in Flying Saucer XHTML?</a>
+            </div>
+
+            <div class="spacer">
+              <a href=
+              "/questions/3460987/pdfbox-building-the-latest-version-for-net-using-ikvm"
+              class="question-hyperlink">PDFBox - Building the latest version for .NET
+              using IKVM</a>
+            </div>
+
+            <div class="spacer">
+              <a href=
+              "/questions/4265699/ikvm-net-ikvmstub-chokes-on-mscorelib-version-issue"
+              class="question-hyperlink">IKVM.NET: ikvmstub chokes on mscorelib version
+              issue</a>
+            </div>
+
+            <div class="spacer">
+              <a href=
+              "/questions/682244/ikvm-and-system-core-system-runtime-compilerservices-extensionattribute"
+              class="question-hyperlink">IKVM and System.Core
+              System.Runtime.CompilerServices.ExtensionAttribute</a>
+            </div>
+
+            <div class="spacer">
+              <a href=
+              "/questions/2988098/crazy-idea-connect-net-and-sap-with-sap-jco-using-ikvm-net"
+              class="question-hyperlink">Crazy idea: Connect .NET and SAP with SAP JCo
+              using IKVM.NET</a>
+            </div>
+
+            <div class="spacer">
+              <a href="/questions/883736/castor-and-ikvm" class=
+              "question-hyperlink">Castor and IKVM</a>
+            </div>
+
+            <div class="spacer">
+              <a href=
+              "/questions/3905229/how-to-create-toc-or-index-using-the-flying-saucer-project"
+              class="question-hyperlink">How to create TOC or index using the Flying
+              Saucer project?</a>
+            </div>
+
+            <div class="spacer">
+              <a href="/questions/4192680/drools-error-with-ikvm" class=
+              "question-hyperlink">Drools error with IKVM</a>
+            </div>
+
+            <div class="spacer">
+              <a href=
+              "/questions/3493180/pdf-generation-with-flying-saucer-specifying-a-fallback-font-for-unknown-glyphs"
+              class="question-hyperlink">PDF generation with Flying Saucer: Specifying a
+              fallback font for unknown glyphs?</a>
+            </div>
+
+            <div class="spacer">
+              <a href=
+              "/questions/4443241/flying-saucer-does-not-render-well-the-page-and-outputs-css"
+              class="question-hyperlink">Flying Saucer does not render well the page (and
+              outputs CSS)!</a>
+            </div>
+
+            <div class="spacer">
+              <a href=
+              "/questions/1698067/how-to-render-asian-characters-in-a-pdf-using-xhtmlrenderer"
+              class="question-hyperlink">How to render Asian characters in a PDF using
+              xhtmlrenderer</a>
+            </div>
+
+            <div class="spacer">
+              <a href="/questions/3744068/java-xhtmlrenderer-print-margin" class=
+              "question-hyperlink">Java XHTMLRenderer print margin</a>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div id="feed-link">
+        <div id="feed-link-text">
+          <a href="/feeds/question/2947990" title=
+          "feed of this question and its answers">question feed</a>
+        </div>
+      </div><script type="text/javascript" src="/posts/2947990/ivc/a345">
+</script> <noscript>
+      <div><img src="/posts/2947990/ivc/a345" class="dno" alt="" /></div></noscript>
+
+      <div style="display:none" id="prettify-lang">
+        lang-java
+      </div>
+    </div>
+  </div>
+
+  <div id="footer">
+    <div class="footerwrap">
+      <div id="footer-menu">
+        <a href="/about">about</a> | <a href="/faq">faq</a> | <a href=
+        "http://blog.stackoverflow.com">blog</a> | <a href=
+        "http://data.stackexchange.com">data</a> | <a href=
+        "http://itc.conversationsnetwork.org/series/stackoverflow.html">podcast</a> |
+        <a href="/legal">legal</a> | <a href=
+        "http://engine.adzerk.net/redirect/0/2776/2751/0/4de3c60f719c4dfcb1a57531c7050090/0">
+        advertising info</a> | <b><a href="mailto:team@stackoverflow.com">contact
+        us</a></b> | <b><a href="http://meta.stackoverflow.com">feedback always
+        welcome</a></b>
+
+        <div id="footer-sites">
+          <span style="color:#FE7A15;font-size:140%">&#9632;</span>&nbsp;<a href=
+          "http://stackoverflow.com">stackoverflow.com</a>&nbsp; <span style=
+          "color:#FE7A15;font-size:140%">&#9632;</span>&nbsp;<a href=
+          "http://stackapps.com">api/apps</a>&nbsp; <span style=
+          "color:#FE7A15;font-size:140%">&#9632;</span>&nbsp;<a href=
+          "http://careers.stackoverflow.com">careers</a>&nbsp; <span style=
+          "color:#E8272C;font-size:140%">&#9632;</span>&nbsp;<a href=
+          "http://serverfault.com">serverfault.com</a>&nbsp; <span style=
+          "color:#00AFEF;font-size:140%">&#9632;</span>&nbsp;<a href=
+          "http://superuser.com">superuser.com</a>&nbsp; <span style=
+          "color:#969696;font-size:140%">&#9632;</span>&nbsp;<a href=
+          "http://meta.stackoverflow.com">meta</a>&nbsp; <span style=
+          "color:#46937D;font-size:140%">&#9632;</span>&nbsp;<a href=
+          "http://area51.stackexchange.com">area&nbsp;51</a>&nbsp; <span style=
+          "color:#C0D0DC;font-size:140%">&#9632;</span>&nbsp;<a href=
+          "http://webapps.stackexchange.com">webapps</a>&nbsp; <span style=
+          "color:#000000;font-size:140%">&#9632;</span>&nbsp;<a href=
+          "http://gaming.stackexchange.com">gaming</a>&nbsp; <span style=
+          "color:#dd4814;font-size:140%">&#9632;</span>&nbsp;<a href=
+          "http://askubuntu.com">ubuntu</a>&nbsp; <span style=
+          "color:#9ce4fe;font-size:140%">&#9632;</span>&nbsp;<a href=
+          "http://webmasters.stackexchange.com">webmasters</a>&nbsp; <span style=
+          "color:#cf4d3f;font-size:140%">&#9632;</span>&nbsp;<a href=
+          "http://cooking.stackexchange.com">cooking</a>&nbsp; <span style=
+          "color:#f4f28d;font-size:140%">&#9632;</span>&nbsp;<a href=
+          "http://gamedev.stackexchange.com">game development</a>&nbsp; <span style=
+          "color:#0f3559;font-size:140%">&#9632;</span>&nbsp;<a href=
+          "http://math.stackexchange.com">math</a>&nbsp; <span style=
+          "color:#f2f2f2;font-size:140%">&#9632;</span>&nbsp;<a href=
+          "http://photo.stackexchange.com">photography</a>&nbsp; <span style=
+          "color:#037187;font-size:140%">&#9632;</span>&nbsp;<a href=
+          "http://stats.stackexchange.com">stats</a>&nbsp; <span style=
+          "color:#f1e7cc;font-size:140%">&#9632;</span>&nbsp;<a href=
+          "http://tex.stackexchange.com">tex</a>&nbsp; <span style=
+          "color:#e1cdae;font-size:140%">&#9632;</span>&nbsp;<a href=
+          "http://english.stackexchange.com">english</a>&nbsp; <span style=
+          "color:#a2d9f6;font-size:140%">&#9632;</span>&nbsp;<a href=
+          "http://cstheory.stackexchange.com">theoretical cs</a>&nbsp; <span style=
+          "color:#1b3e6c;font-size:140%">&#9632;</span>&nbsp;<a href=
+          "http://programmers.stackexchange.com">programmers</a>&nbsp; <span style=
+          "color:#293a5d;font-size:140%">&#9632;</span>&nbsp;<a href=
+          "http://unix.stackexchange.com">unix</a>
+        </div>
+      </div>
+
+      <div id="footer-flair">
+        <a href="http://creativecommons.org/licenses/by-sa/2.5/" class=
+        "cc-wiki-link"></a>
+
+        <div id="svnrev">
+          revision: 2011.1.25.2
+        </div>
+      </div>
+
+      <div id="copyright">
+        site design / logo &copy; 2011 stack overflow internet services, inc; <a href=
+        "/questions-all">user contributions</a> licensed under <a href=
+        "http://creativecommons.org/licenses/by-sa/2.5/" rel="license">cc-wiki</a> with
+        <a href="http://blog.stackoverflow.com/2009/06/attribution-required/" rel=
+        "license">attribution required</a>
+      </div>
+    </div>
+  </div><noscript>
+  <div id="noscript-warning">Stack Overflow works best with JavaScript enabled<img src=
+  "http://pixel.quantserve.com/pixel/p-c1rF4kxgLUzNc.gif" alt="" class=
+  "dno" /></div></noscript><script type="text/javascript">
+//<![CDATA[
+  var _gaq=_gaq||[];_gaq.push(['_setAccount','UA-5620270-1']);_gaq.push(['_trackPageview']);(function(){var ga=document.createElement('script');ga.type='text/javascript';ga.async=true;ga.src='http://www.google-analytics.com/ga.js';var s=document.getElementsByTagName('script')[0];s.parentNode.insertBefore(ga,s);})();_qoptions={qacct:"p-c1rF4kxgLUzNc"};
+  //]]>
+  </script><script type="text/javascript" src="http://edge.quantserve.com/quant.js">
+</script>
+</body>
+</html>

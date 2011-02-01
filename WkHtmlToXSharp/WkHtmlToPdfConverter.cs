@@ -32,15 +32,19 @@ using System.Text;
 
 using SysConvert = System.Convert;
 
-// TODO: Rename to WkHtmlToX
 namespace WkHtmlToXSharp
 {
+	/// <summary>
+	/// Plain wrapper around wkhtmltox API library.
+	/// </summary>
+	/// <remarks>
+	/// WARNING: Due to underlaying's API restrictions all call to
+	/// Convert() should be made from within the same thread!!
+	/// </remarks>
 	public sealed class WkHtmlToPdfConverter : IDisposable
 	{
 		#region private fields
 		private static readonly global::Common.Logging.ILog _Log = global::Common.Logging.LogManager.GetLogger(System.Reflection.MethodBase.GetCurrentMethod().DeclaringType);
-		private static object _lock = new object();
-		private static int _usageCount = 0;
 
 		private const string DLL_NAME = "wkhtmltox0.dll";
 		private PdfGlobalSettings _globalSettings = new PdfGlobalSettings();
@@ -162,16 +166,6 @@ namespace WkHtmlToXSharp
 
 		public WkHtmlToPdfConverter()
 		{
-		}
-
-		public static void DeInit()
-		{
-			wkhtmltopdf_deinit();
-		}
-
-		private static void InitLibrary()
-		{
-			// TODO: Create a thread to initialize (and at some point de-init)
 		}
 
 		#region Global/Object settings code..
@@ -319,6 +313,8 @@ namespace WkHtmlToXSharp
 				wkhtmltopdf_set_finished_callback(converter, finishCb);
 
 				Console.WriteLine("PHASES --> " + wkhtmltopdf_phase_count(converter));
+				
+				_errorString = new StringBuilder();
 
 				if (!wkhtmltopdf_convert(converter))
 				{
