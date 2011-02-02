@@ -45,7 +45,7 @@ namespace Sanford.Threading
     /// <summary>
     /// Represents an asynchronous queue of delegates.
     /// </summary>
-    public partial class DelegateQueue : SynchronizationContext, IComponent, ISynchronizeInvoke
+    internal partial class DelegateQueue : SynchronizationContext, IComponent, ISynchronizeInvoke
     {
         #region DelegateQueue Members
 

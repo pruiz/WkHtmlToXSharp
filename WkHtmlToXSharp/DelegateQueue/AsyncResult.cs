@@ -40,7 +40,7 @@ namespace Sanford.Threading
     /// <summary>
     /// Provides basic implementation of the IAsyncResult interface.
     /// </summary>
-    public class AsyncResult : IAsyncResult
+    internal class AsyncResult : IAsyncResult
     {
         #region AsyncResult Members
 

@@ -40,7 +40,7 @@ namespace Sanford.Threading
     /// <summary>
     /// Represents information about the InvokeCompleted event.
     /// </summary>
-    public class InvokeCompletedEventArgs : EventArgs
+    internal class InvokeCompletedEventArgs : EventArgs
     {
         private Delegate method;
 

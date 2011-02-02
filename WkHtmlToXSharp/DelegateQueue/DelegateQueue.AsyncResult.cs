@@ -4,7 +4,7 @@ using System.Threading;
 
 namespace Sanford.Threading
 {
-    public partial class DelegateQueue
+    internal partial class DelegateQueue
     {
         private enum NotificationType
         {

@@ -37,7 +37,7 @@ using System.Threading;
 
 namespace Sanford.Threading
 {
-    public class PostCompletedEventArgs : EventArgs
+    internal class PostCompletedEventArgs : EventArgs
     {
         private SendOrPostCallback callback;
 

@@ -62,7 +62,7 @@ namespace WkHtmlToXSharp
 
 		public byte[] Convert(string inputHtml)
 		{
-			return (byte[])_worker.Invoke((Func<string, byte[]>)((x) => _converter.Convert(x)));
+			return (byte[])_worker.Invoke((Func<string, byte[]>)((x) => _converter.Convert(x)), inputHtml);
 		}
 
 		public void Dispose()

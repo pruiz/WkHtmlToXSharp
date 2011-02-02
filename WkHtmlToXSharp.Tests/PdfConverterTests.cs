@@ -148,5 +148,22 @@ namespace WkHtmlToXSharp.Tests
 
 			Assert.IsFalse(error, "At least one thread failed!");
 		}
+
+		[Test]
+		public void ConvertFromString()
+		{
+			using (var wk = _GetConverter())
+			{
+				_Log.DebugFormat("Performing conversion..");
+
+				using (var stream = new MemoryStream(Resources.SimplePage_xhtml))
+				using (var sr = new StreamReader(stream))
+				{
+					var str = sr.ReadToEnd();
+					var tmp = wk.Convert(str);
+					Assert.IsNotEmpty(tmp);
+				}
+			}
+		}
 	}
 }
