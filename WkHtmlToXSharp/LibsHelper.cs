@@ -26,6 +26,7 @@
 #endregion
 using System;
 using System.IO;
+using System.IO.Compression;
 using System.Reflection;
 using System.Runtime.InteropServices;
 using System.Collections.Generic;
@@ -150,7 +151,9 @@ namespace WkHtmlToXSharp
 		{
 			var resourcePath = GetResourcePath();
 			var fileName = resource.Substring(resourcePath.Length + 1);
+			var compressed = fileName.EndsWith(".gz", StringComparison.InvariantCultureIgnoreCase);
 
+			fileName = compressed ? Path.GetFileNameWithoutExtension(fileName) : fileName;
 			fileName = Path.Combine(_OutputPath, fileName);
 
 			if (File.Exists(fileName))
@@ -167,7 +170,9 @@ namespace WkHtmlToXSharp
 
 			_Log.InfoFormat("Deploying {0} to {1}..", fileName, _OutputPath);
 
-			using (var input = Assembly.GetManifestResourceStream(resource))
+			var res = Assembly.GetManifestResourceStream(resource);
+
+			using (var input = compressed ? new GZipStream(res, CompressionMode.Decompress, false) : res)
 			using (var output = new FileStream(fileName, FileMode.Create, FileAccess.Write, FileShare.None))
 			{
 				CopyStream(input, output);

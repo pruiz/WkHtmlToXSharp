@@ -71,7 +71,7 @@ namespace WkHtmlToXSharp
 
 		#region P/Invokes
 		[DllImport(DLL_NAME)]
-		static extern string wkhtmltopdf_version();
+		static extern IntPtr wkhtmltopdf_version();
 
 		[DllImport(DLL_NAME)]
 		static extern bool wkhtmltopdf_init(int use_graphics);
@@ -157,6 +157,10 @@ namespace WkHtmlToXSharp
 		{
 			// Deploy native assemblies..
 			LibsHelper.DeployLibraries();
+
+			var ptr = wkhtmltopdf_version();
+			var version = Marshal.PtrToStringAnsi(ptr);
+			_Log.InfoFormat("Using libwkhtmltopdf version: {0}", version);
 		}
 
 		public WkHtmlToPdfConverter()

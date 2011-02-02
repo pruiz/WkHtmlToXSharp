@@ -122,15 +122,11 @@
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
-    <EmbeddedResource Include="Libs\Win32\libeay32.dll" />
-    <EmbeddedResource Include="Libs\Win32\libgcc_s_dw2-1.dll" />
-    <EmbeddedResource Include="Libs\Win32\mingwm10.dll" />
-    <EmbeddedResource Include="Libs\Win32\ssleay32.dll" />
-    <EmbeddedResource Include="Libs\Win32\wkhtmltox0.dll" />
-  </ItemGroup>
-  <ItemGroup>
-    <Folder Include="Libs\Linux32\" />
-    <Folder Include="Libs\Linux64\" />
+    <EmbeddedResource Include="Libs\Win32\libeay32.dll.gz" />
+    <EmbeddedResource Include="Libs\Win32\libgcc_s_dw2-1.dll.gz" />
+    <EmbeddedResource Include="Libs\Win32\mingwm10.dll.gz" />
+    <EmbeddedResource Include="Libs\Win32\ssleay32.dll.gz" />
+    <EmbeddedResource Include="Libs\Win32\wkhtmltox0.dll.gz" />
   </ItemGroup>
   <ItemGroup>
     <BootstrapperPackage Include="Microsoft.Net.Client.3.5">
@@ -148,6 +144,10 @@
       <ProductName>Windows Installer 3.1</ProductName>
       <Install>true</Install>
     </BootstrapperPackage>
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="Libs\Linux32\libwkhtmltox.so.gz" />
+    <EmbeddedResource Include="Libs\Linux64\libwkhtmltox.so.gz" />
   </ItemGroup>
   <Choose>
     <When Condition=" '$(Platform)'=='x64'">
