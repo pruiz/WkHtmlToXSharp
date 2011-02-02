@@ -41,8 +41,6 @@ namespace WkHtmlToXSharp
 		private static readonly global::Common.Logging.ILog _Log = global::Common.Logging.LogManager.GetLogger(System.Reflection.MethodBase.GetCurrentMethod().DeclaringType);
 
 		private static readonly Assembly Assembly = SysAssembly.GetExecutingAssembly();
-		// FIXME: Find a valid path on linux & windows.
-		//private static readonly string _OutputPath = AppDomain.CurrentDomain.BaseDirectory;
 		private static readonly string _OutputPath = Path.GetDirectoryName(Assembly.GetCallingAssembly().Location);
 
 		private static string _OSName = null;
@@ -52,8 +50,6 @@ namespace WkHtmlToXSharp
 
 		[DllImport("libc")]
 		static extern int uname(IntPtr buf);
-		[DllImport("kernel32.dll", SetLastError = true)]
-		static extern bool SetDllDirectory(string lpPathName);
 
 		private static string GetOsName()
 		{
@@ -159,7 +155,7 @@ namespace WkHtmlToXSharp
 
 			if (File.Exists(fileName))
 			{
-				if (File.GetCreationTime(fileName) > File.GetCreationTime(Assembly.Location))
+				if (File.GetLastWriteTime(fileName) > File.GetLastWriteTime(Assembly.Location))
 					return;
 
 				if (IsFileLocked(fileName))
@@ -194,11 +190,6 @@ namespace WkHtmlToXSharp
 			{
 				if (res.StartsWith(resourcePath))
 					DeployLibrary(res);
-			}
-
-			if (Environment.OSVersion.Platform == PlatformID.Win32NT)
-			{
-				//SetDllDirectory(_OutputPath);
 			}
 		}
 	}

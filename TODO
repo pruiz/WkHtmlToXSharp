@@ -4,10 +4,9 @@ TODO
  - Find a way to make (real) concurrent conversions.
 	- This depends on an internal limitation of wkhtmltopdf-qt. (only one qApplication)
  - Correctly marshal strings as UTF-8.
- - Unit tests!!
+ - More unit tests!!
  - Add more properties to PdfGlobalSettings & PdfObjectSettings.
  - Support more than one PdfObjectSettings per conversion.
- - Create a common IHtmlToPdfConverter
  - Implement our own SynchronizationContext code to avoid using DelegateQueue.
 	- It works great, but seems a bit to bloat for this use case.
 	- See: http://www.idesign.net/idesign/DesktopDefault.aspx?tabindex=5&tabid=11 (Custom Synchronization Context)

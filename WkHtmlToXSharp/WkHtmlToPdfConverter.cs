@@ -41,21 +41,32 @@ namespace WkHtmlToXSharp
 	/// WARNING: Due to underlaying's API restrictions all call to
 	/// Convert() should be made from within the same thread!!
 	/// </remarks>
-	public sealed class WkHtmlToPdfConverter : IDisposable
+	public sealed class WkHtmlToPdfConverter : IHtmlToPdfConverter
 	{
 		#region private fields
 		private static readonly global::Common.Logging.ILog _Log = global::Common.Logging.LogManager.GetLogger(System.Reflection.MethodBase.GetCurrentMethod().DeclaringType);
+		//private static readonly object _lock = new object();
 
 		private const string DLL_NAME = "wkhtmltox0.dll";
 		private PdfGlobalSettings _globalSettings = new PdfGlobalSettings();
 		private PdfObjectSettings _objectSettings = new PdfObjectSettings();
 		private StringBuilder _errorString = null;
 		private int _currentPhase = 0;
+		private bool _disposed = false;
 		#endregion
 
-		#region properties
+		#region Properties
 		public PdfGlobalSettings GlobalSettings { get { return _globalSettings; } }
 		public PdfObjectSettings ObjectSettings { get { return _objectSettings; } }
+		#endregion
+
+		#region Events
+		public event EventHandler<EventArgs<int>> Begin = delegate { };
+		public event EventHandler<EventArgs<int, string>> PhaseChanged = delegate { };
+		public event EventHandler<EventArgs<int, string>> ProgressChanged = delegate { };
+		public event EventHandler<EventArgs<bool>> Finished = delegate { };
+		public event EventHandler<EventArgs<string>> Error = delegate { };
+		public event EventHandler<EventArgs<string>> Warning = delegate { };
 		#endregion
 
 		#region P/Invokes
@@ -141,32 +152,19 @@ namespace WkHtmlToXSharp
 		static extern void wkhtmltopdf_set_finished_callback(IntPtr converter, [MarshalAs(UnmanagedType.FunctionPtr)] wkhtmltopdf_bool_callback cb);
 		#endregion
 
+		#region .ctors
 		static WkHtmlToPdfConverter()
 		{
-			//Console.WriteLine("INIT");
-
 			// Deploy native assemblies..
 			LibsHelper.DeployLibraries();
-
-			if (!wkhtmltopdf_init(0))
-				throw new InvalidOperationException("wkhtmltopdf_init failed!");
-
-			// At some point I tried to deinit when an usage counter reaches 0,
-			// but this doesnt work as calling init()/deinit()/init() causes some
-			// sort of memory corruption on wk's internals and this point forward
-			// all pdf files produced appear corrupted. 
-
-			// However, not calling _deinit() at all, is not a solution either, 
-			// we need to register a clean up callback to avoid the following message:
-			//		'QWaitCondition: Destroyed while threads are still waiting'
-
-// TODO!!
-//			AppDomain.CurrentDomain.ProcessExit += (o, e) => wkhtmltopdf_deinit();
 		}
 
 		public WkHtmlToPdfConverter()
 		{
+			if (!wkhtmltopdf_init(0))
+				throw new InvalidOperationException("wkhtmltopdf_init failed!");
 		}
+		#endregion
 
 		#region Global/Object settings code..
 		private IDictionary<string, object> GetProperties(string prefix, object instance)
@@ -249,7 +247,85 @@ namespace WkHtmlToXSharp
 		}
 		#endregion
 		#endregion
+		
+		#region Event dispatchers.
+		private void OnBegin(int expectedPhases)
+		{
+			try
+			{
+				Begin(this, new EventArgs<int>(expectedPhases));
+			}
+			catch (Exception ex)
+			{
+				_Log.Error("Begin event handler failed.", ex);
+			}
+		}
+		private void OnError(IntPtr ptr, string error)
+		{
+			_errorString.AppendFormat("{0}{1}", error, Environment.NewLine);
 
+			try
+			{
+				Error(this, new EventArgs<string>(error));
+			}
+			catch (Exception ex)
+			{
+				_Log.Error("Error event handler failed.", ex);
+			}
+		}
+		private void OnWarning(IntPtr ptr, string warn)
+		{
+			try
+			{
+				Warning(this, new EventArgs<string>(warn));
+			}
+			catch (Exception ex)
+			{
+				_Log.Error("Warning event handler failed.", ex);
+			}
+		}
+		private void OnPhaseChanged(IntPtr converter)
+		{
+			var tmp = wkhtmltopdf_phase_description(converter, _currentPhase);
+			var str = Marshal.PtrToStringAnsi(tmp);
+
+			try
+			{
+				PhaseChanged(this, new EventArgs<int, string>(++_currentPhase, str));
+			}
+			catch (Exception ex)
+			{
+				_Log.Error("PhaseChanged event handler failed.", ex);
+			}
+		}
+		private void OnProgressChanged(IntPtr converter, int progress)
+		{
+			var tmp = wkhtmltopdf_progress_string(converter);
+			var str = Marshal.PtrToStringAnsi(tmp);
+
+			try
+			{
+				ProgressChanged(this, new EventArgs<int, string>(progress, str));
+			}
+			catch (Exception ex)
+			{
+				_Log.Error("ProgressChanged event handler failed.", ex);
+			}
+		}
+		private void OnFinished(IntPtr converter, bool success)
+		{
+			try
+			{
+				Finished(this, new EventArgs<bool>(success));
+			}
+			catch (Exception ex)
+			{
+				_Log.Error("Finished event handler failed.", ex);
+			}
+		}
+		#endregion
+
+		#region
 		private IntPtr _BuildConverter(IntPtr globalSettings, IntPtr objectSettings, string inputHtml)
 		{
 			var converter = wkhtmltopdf_create_converter(globalSettings);
@@ -258,45 +334,14 @@ namespace WkHtmlToXSharp
 			return converter;
 		}
 
-		private void ErrorCb(IntPtr ptr, string error)
-		{
-			Console.WriteLine("ERROR --> " + error);
-			_Log.Error(error);
-			_errorString.AppendFormat("{0}{1}", error, Environment.NewLine);
-		}
-
-		private void WarnCb(IntPtr ptr, string warn)
-		{
-			Console.WriteLine("WARN --> " + warn);
-			_Log.Warn(warn);
-		}
-
-		private void PhaseChangeCb(IntPtr converter)
-		{
-			var tmp = wkhtmltopdf_phase_description(converter, _currentPhase);
-			Console.WriteLine("NEW PHASE {0} --> " + Marshal.PtrToStringAnsi(tmp), _currentPhase);
-			_currentPhase++;
-		}
-
-		private void ProgressChangedCb(IntPtr converter, int progress)
-		{
-			var tmp = wkhtmltopdf_progress_string(converter);
-			Console.WriteLine("PROGRESS --> {0} -- {1}", progress, Marshal.PtrToStringAnsi(tmp));
-		}
-
-		private void FinishedCb(IntPtr converter, bool num)
-		{
-			Console.WriteLine("FINISHED --> " + num);
-		}
-
 		private byte[] _Convert(string inputHtml)
 		{
 			IntPtr converter = IntPtr.Zero;
-			var errorCb = new wkhtmltopdf_str_callback(ErrorCb);
-			var warnCb = new wkhtmltopdf_str_callback(WarnCb);
-			var phaseCb = new wkhtmltopdf_void_callback(PhaseChangeCb);
-			var progressCb = new wkhtmltopdf_int_callback(ProgressChangedCb);
-			var finishCb = new wkhtmltopdf_bool_callback(FinishedCb);
+			var errorCb = new wkhtmltopdf_str_callback(OnError);
+			var warnCb = new wkhtmltopdf_str_callback(OnWarning);
+			var phaseCb = new wkhtmltopdf_void_callback(OnPhaseChanged);
+			var progressCb = new wkhtmltopdf_int_callback(OnProgressChanged);
+			var finishCb = new wkhtmltopdf_bool_callback(OnFinished);
 
 			try
 			{
@@ -304,7 +349,7 @@ namespace WkHtmlToXSharp
 				var oSettings = _BuildObjectsettings();
 				converter = _BuildConverter(gSettings, oSettings, inputHtml);
 
-				//Console.WriteLine("CONVERTER --> {0}", converter.ToString("x"));
+				_errorString = new StringBuilder();
 				
 				wkhtmltopdf_set_error_callback(converter, errorCb);
 				wkhtmltopdf_set_warning_callback(converter, warnCb);
@@ -312,9 +357,7 @@ namespace WkHtmlToXSharp
 				wkhtmltopdf_set_progress_changed_callback(converter, progressCb);
 				wkhtmltopdf_set_finished_callback(converter, finishCb);
 
-				Console.WriteLine("PHASES --> " + wkhtmltopdf_phase_count(converter));
-				
-				_errorString = new StringBuilder();
+				OnBegin(wkhtmltopdf_phase_count(converter));
 
 				if (!wkhtmltopdf_convert(converter))
 				{
@@ -325,15 +368,12 @@ namespace WkHtmlToXSharp
 				if (!string.IsNullOrEmpty(GlobalSettings.Out))
 					return null;
 
-				Console.WriteLine("CONVERSION DONE.. getting output.");
+				_Log.Debug("CONVERSION DONE.. getting output.");
 
 				// Get output from internal buffer..
 
 				IntPtr tmp = IntPtr.Zero;
 				var len = wkhtmltopdf_get_output(converter, out tmp);
-
-				//Console.WriteLine("OUTPUT --> {0} (Len: {1})", tmp.ToString("x"), len);
-
 				var output = new byte[len];
 				Marshal.Copy(tmp, output, 0, output.Length);
 
@@ -368,16 +408,31 @@ namespace WkHtmlToXSharp
 
 			return _Convert(inputHtml);
 		}
+		#endregion
 
 		#region IDisposable
 		private void Dispose(bool disposing)
 		{
+			if (_disposed)
+			{
+				_Log.Warn("Disposed was called more than once?!");
+				return;
+			}
+
 			if (disposing)
 			{
 				// Dispose managed resources..
+				Begin = null;
+				PhaseChanged = null;
+				ProgressChanged = null;
+				Finished = null;
+				Error = null;
+				Warning = null;
 			}
 
 			// Dispose un-managed resources..
+			wkhtmltopdf_deinit();
+			_disposed = true;
 		}
 
 		public void Dispose()
