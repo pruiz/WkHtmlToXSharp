@@ -146,8 +146,8 @@
     </BootstrapperPackage>
   </ItemGroup>
   <ItemGroup>
-    <EmbeddedResource Include="Libs\Linux32\libwkhtmltox.so.gz" />
-    <EmbeddedResource Include="Libs\Linux64\libwkhtmltox.so.gz" />
+    <EmbeddedResource Include="Libs\Linux32\libwkhtmltox0.so.gz" />
+    <EmbeddedResource Include="Libs\Linux64\libwkhtmltox0.so.gz" />
   </ItemGroup>
   <Choose>
     <When Condition=" '$(Platform)'=='x64'">

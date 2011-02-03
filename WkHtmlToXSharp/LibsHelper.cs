@@ -168,7 +168,7 @@ namespace WkHtmlToXSharp
 				}
 			}
 
-			_Log.InfoFormat("Deploying {0} to {1}..", fileName, _OutputPath);
+			_Log.InfoFormat("Deploying embedded {0} to {1}..", Path.GetFileName(fileName), _OutputPath);
 
 			var res = Assembly.GetManifestResourceStream(resource);
 

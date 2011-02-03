@@ -17,6 +17,7 @@ namespace WkHtmlToXSharp.Tests
 		private static readonly global::Common.Logging.ILog _Log = global::Common.Logging.LogManager.GetLogger(System.Reflection.MethodBase.GetCurrentMethod().DeclaringType);
 
 		public static string SimplePageFile = null;
+		public static int count = 0;
 
 		[TestFixtureSetUp]
 		public void FixtureSetup()
@@ -71,6 +72,9 @@ namespace WkHtmlToXSharp.Tests
 				var tmp = wk.Convert();
 
 				Assert.IsNotEmpty(tmp);
+				var number = 0;
+				lock (this) number = count++;
+				File.WriteAllBytes(@"c:\temp\tmp" + (number) + ".pdf", tmp);
 			}
 		}
 

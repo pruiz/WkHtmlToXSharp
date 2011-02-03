@@ -38,16 +38,16 @@ namespace WkHtmlToXSharp
 	/// Plain wrapper around wkhtmltox API library.
 	/// </summary>
 	/// <remarks>
-	/// WARNING: Due to underlaying's API restrictions all call to
-	/// Convert() should be made from within the same thread!!
+	/// WARNING: Due to underlaying's API restrictions all calls to
+	/// instances of this class should be made from within the same thread!!
+	/// See MultiplexingConverter for an interim & transparent solution.
 	/// </remarks>
 	public sealed class WkHtmlToPdfConverter : IHtmlToPdfConverter
 	{
 		#region private fields
 		private static readonly global::Common.Logging.ILog _Log = global::Common.Logging.LogManager.GetLogger(System.Reflection.MethodBase.GetCurrentMethod().DeclaringType);
-		//private static readonly object _lock = new object();
 
-		private const string DLL_NAME = "wkhtmltox0.dll";
+		private const string DLL_NAME = "wkhtmltox0";
 		private PdfGlobalSettings _globalSettings = new PdfGlobalSettings();
 		private PdfObjectSettings _objectSettings = new PdfObjectSettings();
 		private StringBuilder _errorString = null;
@@ -436,6 +436,7 @@ namespace WkHtmlToXSharp
 
 			// Dispose un-managed resources..
 			wkhtmltopdf_deinit();
+
 			_disposed = true;
 		}
 

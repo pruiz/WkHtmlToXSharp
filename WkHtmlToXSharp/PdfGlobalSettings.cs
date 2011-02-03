@@ -31,6 +31,11 @@ using System.Text;
 
 namespace WkHtmlToXSharp
 {
+	public enum PdfOrientation {
+		Landscape,
+		Portrait
+	}
+
 	public class PdfGlobalSettings
 	{
 		private PdfMarginSettings _margins = new PdfMarginSettings();
@@ -41,6 +46,7 @@ namespace WkHtmlToXSharp
 		public PdfMarginSettings Margin { get { return _margins; } }
 
 		public string Out { get; set; }
+		public PdfOrientation Orientation { get; set; }
 
 		// TODO: Add as many as you need..
 	}
