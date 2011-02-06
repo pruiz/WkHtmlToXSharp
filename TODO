@@ -3,7 +3,8 @@ TODO
 
  - Find a way to make (real) concurrent conversions.
 	- This depends on an internal limitation of wkhtmltopdf-qt. (only one qApplication)
- - Correctly marshal strings as UTF-8.
+ - Correctly marshal strings as UTF-8. 
+	- Done at inputHtml, but global/object settings should be passed as utf8ptrs too.
  - More unit tests!!
  - Add more properties to PdfGlobalSettings & PdfObjectSettings.
  - Support more than one PdfObjectSettings per conversion.

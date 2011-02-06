@@ -113,6 +113,7 @@
     <Compile Include="DelegateQueue\PostCompletedEventArgs.cs" />
     <Compile Include="LibsHelper.cs" />
     <Compile Include="LoadSettings.cs" />
+    <Compile Include="Marshaller.cs" />
     <Compile Include="PdfGlobalSettings.cs" />
     <Compile Include="PdfMarginSettings.cs" />
     <Compile Include="PdfObjectSettings.cs" />

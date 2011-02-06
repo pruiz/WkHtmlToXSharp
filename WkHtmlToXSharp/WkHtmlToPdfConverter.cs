@@ -99,7 +99,7 @@ namespace WkHtmlToXSharp
 		static extern bool wkhtmltopdf_set_object_setting(IntPtr objectSettings, string name, string value);
 
 		[DllImport(DLL_NAME)]
-		static extern void wkhtmltopdf_add_object(IntPtr converter, IntPtr objectSettings, string htmlData);
+		static extern void wkhtmltopdf_add_object(IntPtr converter, IntPtr objectSettings, IntPtr htmlData);
 
 		[DllImport(DLL_NAME)]
 		static extern bool wkhtmltopdf_convert(IntPtr converter);
@@ -330,7 +330,7 @@ namespace WkHtmlToXSharp
 		#endregion
 
 		#region Convertion methods
-		private IntPtr _BuildConverter(IntPtr globalSettings, IntPtr objectSettings, string inputHtml)
+		private IntPtr _BuildConverter(IntPtr globalSettings, IntPtr objectSettings, IntPtr inputHtml)
 		{
 			var converter = wkhtmltopdf_create_converter(globalSettings);
 			wkhtmltopdf_add_object(converter, objectSettings, inputHtml);
@@ -340,7 +340,8 @@ namespace WkHtmlToXSharp
 
 		private byte[] _Convert(string inputHtml)
 		{
-			IntPtr converter = IntPtr.Zero;
+			var converter = IntPtr.Zero;
+			var inputHtmlUtf8Ptr = IntPtr.Zero;
 			var errorCb = new wkhtmltopdf_str_callback(OnError);
 			var warnCb = new wkhtmltopdf_str_callback(OnWarning);
 			var phaseCb = new wkhtmltopdf_void_callback(OnPhaseChanged);
@@ -351,7 +352,9 @@ namespace WkHtmlToXSharp
 			{
 				var gSettings = _BuildGlobalSettings();
 				var oSettings = _BuildObjectsettings();
-				converter = _BuildConverter(gSettings, oSettings, inputHtml);
+
+				inputHtmlUtf8Ptr = Marshaller.StringToUtf8Ptr(inputHtml);
+				converter = _BuildConverter(gSettings, oSettings, inputHtmlUtf8Ptr);
 
 				_errorString = new StringBuilder();
 				
@@ -393,6 +396,11 @@ namespace WkHtmlToXSharp
 					wkhtmltopdf_set_progress_changed_callback(converter, null);
 					wkhtmltopdf_set_finished_callback(converter, null);
 					wkhtmltopdf_destroy_converter(converter);
+				}
+
+				if (inputHtmlUtf8Ptr != IntPtr.Zero)
+				{
+					Marshaller.FreeUtf8Ptr(inputHtmlUtf8Ptr);
 				}
 			}
 		}
