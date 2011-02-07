@@ -26,6 +26,7 @@
 #endregion
 using System;
 using System.Collections.Generic;
+using System.Configuration;
 using System.Globalization;
 using System.Runtime.InteropServices;
 using System.Text;
@@ -165,7 +166,18 @@ namespace WkHtmlToXSharp
 
 		public WkHtmlToPdfConverter()
 		{
-			if (!wkhtmltopdf_init(0))
+			bool useX11 = false;
+
+			try
+			{
+				useX11 = SysConvert.ToBoolean(ConfigurationManager.AppSettings["WkHtmlToXSharp.UseX11"]);
+			}
+			catch (Exception ex)
+			{
+				_Log.Error("Unable to parse 'WkHtmlToXSharp.UseX11' app. setting.", ex);
+			}
+
+			if (!wkhtmltopdf_init(useX11 ? 1 : 0))
 				throw new InvalidOperationException("wkhtmltopdf_init failed!");
 		}
 		#endregion

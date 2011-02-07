@@ -5,6 +5,7 @@ using System.Text;
 
 namespace WkHtmlToXSharp
 {
+	// See: http://www.codeproject.com/KB/cs/pinvokeStringMarshaling.aspx
 	public static class Marshaller
 	{
 #if false
