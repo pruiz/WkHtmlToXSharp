@@ -37,6 +37,7 @@ namespace WkHtmlToXSharp
 		public bool LoadImages { get; set; }
 		public bool EnablePlugins { get; set; }
 		public bool EnableJavascript { get; set; }
+		public string DefaultEncoding { get; set; }
 
 		// TODO: Add remaining settings..
 

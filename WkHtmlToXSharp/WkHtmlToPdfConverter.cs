@@ -179,6 +179,8 @@ namespace WkHtmlToXSharp
 
 			if (!wkhtmltopdf_init(useX11 ? 1 : 0))
 				throw new InvalidOperationException("wkhtmltopdf_init failed!");
+
+			_Log.DebugFormat("Initialized new converter instance (UseX11 = {0})", useX11);
 		}
 		#endregion
 
