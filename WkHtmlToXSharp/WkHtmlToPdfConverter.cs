@@ -159,9 +159,6 @@ namespace WkHtmlToXSharp
 			// Deploy native assemblies..
 			LibsHelper.DeployLibraries();
 
-			var ptr = wkhtmltopdf_version();
-			var version = Marshal.PtrToStringAnsi(ptr);
-			_Log.InfoFormat("Using libwkhtmltopdf version: {0}", version);
 		}
 
 		public WkHtmlToPdfConverter()
@@ -177,10 +174,13 @@ namespace WkHtmlToXSharp
 				_Log.Error("Unable to parse 'WkHtmlToXSharp.UseX11' app. setting.", ex);
 			}
 
-			if (!wkhtmltopdf_init(useX11 ? 1 : 0))
-				throw new InvalidOperationException("wkhtmltopdf_init failed!");
+			var ptr = wkhtmltopdf_version();
+			var version = Marshal.PtrToStringAnsi(ptr);
 
-			_Log.DebugFormat("Initialized new converter instance (UseX11 = {0})", useX11);
+			if (!wkhtmltopdf_init(useX11 ? 1 : 0))
+				throw new InvalidOperationException(string.Format("wkhtmltopdf_init failed! (version: {0}, useX11 = {1})", version, useX11));
+
+			_Log.DebugFormat("Initialized new converter instance (Version: {0}, UseX11 = {1})", version, useX11);
 		}
 		#endregion
 
