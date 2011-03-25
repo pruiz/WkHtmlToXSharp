@@ -222,7 +222,7 @@ namespace WkHtmlToXSharp
 		#region GlobalSettings
 		private void _SetGlobalSetting(IntPtr settings, string name, object value)
 		{
-			var tmp = value is string ? value as string : SysConvert.ToString(value, CultureInfo.InvariantCulture);
+            var tmp = GetStringValue(value);
 
 			if (!wkhtmltopdf_set_global_setting(settings, name, tmp))
 			{
@@ -242,10 +242,19 @@ namespace WkHtmlToXSharp
 		}
 		#endregion
 
+        private string GetStringValue(object value) 
+        {
+            var tmp = value is string ? value as string : SysConvert.ToString(value, CultureInfo.InvariantCulture);
+            // Correct for differences between C booleans and C# booleans
+            tmp = tmp == "True" ? "true" : tmp;
+            tmp = tmp == "False" ? "false" : tmp;
+            return tmp;
+        }
+
 		#region ObjectSettings
-		private void _SetObjectSetting(IntPtr settings, string name, object value)
-		{
-			var tmp = value is string ? value as string : SysConvert.ToString(value, CultureInfo.InvariantCulture);
+		private void _SetObjectSetting(IntPtr settings, string name, object value) 
+        {
+		    var tmp = GetStringValue(value);
 
 			if (!wkhtmltopdf_set_object_setting(settings, name, tmp))
 			{
@@ -457,9 +466,14 @@ namespace WkHtmlToXSharp
 			}
 
 			// Dispose un-managed resources..
-			wkhtmltopdf_deinit();
+            try {
+                wkhtmltopdf_deinit();
+            }
+            catch (DllNotFoundException) {
+                // We may not be initialized yet
+            }
 
-			_disposed = true;
+		    _disposed = true;
 		}
 
 		public void Dispose()
