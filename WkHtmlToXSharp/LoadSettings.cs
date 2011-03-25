@@ -35,10 +35,43 @@ namespace WkHtmlToXSharp
 	{
 		public bool UserName { get; set; }
 		public bool Password { get; set; }
-		public bool BlockLocalFileAccess { get; set; }
-		public string Proxy { get; set; }
+	    public string Proxy { get; set; }
 
-		// TODO: Add remaining settings..
+        private string _windowStatus = "";
+	    public string WindowStatus {
+	        get { return _windowStatus; }
+	        set { _windowStatus = value; }
+	    }
+
+	    private int _jsdelay = 200;
+	    public int Jsdelay {
+	        get { return _jsdelay; }
+	        set { _jsdelay = value; }
+	    }
+
+	    private double _zoomFactor = 1.0;
+	    public double ZoomFactor {
+	        get { return _zoomFactor; }
+	        set { _zoomFactor = value; }
+	    }
+
+	    private bool _stopSlowScripts = true;
+	    public bool StopSlowScripts {
+	        get { return _stopSlowScripts; }
+	        set { _stopSlowScripts = value; }
+	    }
+
+        private LoadErrorHandlingType _loadErrorHandling = LoadErrorHandlingType.abort;
+        public LoadErrorHandlingType LoadErrorHandling
+        {
+            get { return _loadErrorHandling; }
+            set { _loadErrorHandling = value; }
+        }
+
+        // The following default to false
+	    public bool RepeatCustomHeaders { get; set;}
+        public bool BlockLocalFileAccess { get; set;}
+        public bool DebugJavascript { get; set; }
 
 	}
 }
