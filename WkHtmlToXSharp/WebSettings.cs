@@ -33,13 +33,59 @@ namespace WkHtmlToXSharp
 {
 	public class WebSettings
 	{
-		public bool Background { get; set; }
-		public bool LoadImages { get; set; }
-		public bool EnablePlugins { get; set; }
-		public bool EnableJavascript { get; set; }
-		public string DefaultEncoding { get; set; }
+	    private bool _background = true;
+	    public bool Background {
+	        get { return _background; }
+	        set { _background = value; }
+	    }
 
-		// TODO: Add remaining settings..
+	    private bool _loadImages = true;
+	    public bool LoadImages {
+	        get { return _loadImages; }
+	        set { _loadImages = value; }
+	    }
+
+	    private bool _enablePlugins = false;
+	    public bool EnablePlugins {
+	        get { return _enablePlugins; }
+	        set { _enablePlugins = value; }
+	    }
+
+	    private bool _enableJavascript = true;
+	    public bool EnableJavascript {
+	        get { return _enableJavascript; }
+	        set { _enableJavascript = value; }
+	    }
+
+	    private string _defaultEncoding = "";
+	    public string DefaultEncoding {
+	        get { return _defaultEncoding; }
+	        set { _defaultEncoding = value; }
+	    }
+
+        private bool _enableIntelligentShrinking = true;
+	    public bool EnableIntelligentShrinking {
+	        get { return _enableIntelligentShrinking; }
+	        set { _enableIntelligentShrinking = value; }
+	    }
+
+        private int _minimumFontSize = -1;
+	    public int MinimumFontSize {
+	        get { return _minimumFontSize; }
+	        set { _minimumFontSize = value; }
+	    }
+
+        private bool _printMediaType = false;
+	    public bool PrintMediaType {
+	        get { return _printMediaType; }
+	        set { _printMediaType = value; }
+	    }
+
+        private string _userStyleSheet = "";
+	    public string UserStyleSheet {
+	        get { return _userStyleSheet; }
+	        set { _userStyleSheet = value; }
+	    }
 
 	}
 }
