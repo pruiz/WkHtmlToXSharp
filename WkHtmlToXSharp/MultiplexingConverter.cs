@@ -58,16 +58,16 @@ namespace WkHtmlToXSharp
 			lock (_worker)
 			{
 				// XXX: We need to keep a converter instance alive during the whole application
-				//		lifetime due to some underliying's library bug by which re-initializing
+				//		lifetime due to some underlying's library bug by which re-initializing
 				//		the API after having deinitiaized it, causes all newlly rendered pdf
-				//		file to be corrupted. So we will keep this convertr alive to avoid 
+				//		file to be corrupted. So we will keep this converter alive to avoid 
 				//		de-initialization until app's shutdown. (pruiz)
 				// See: http://code.google.com/p/wkhtmltopdf/issues/detail?id=511
 				if (_initiWorkAround == null)
 				{
-					_Log.InfoFormat("Initializing converter infraestructure..");
+					_Log.InfoFormat("Initializing converter infrastructure..");
 					_worker.Invoke((Action)(() => _initiWorkAround = new WkHtmlToPdfConverter()));
-					_Log.InfoFormat("Initialized converter infraestructure..");
+					_Log.InfoFormat("Initialized converter infrastructure..");
 
 					AppDomain.CurrentDomain.ProcessExit += (o, e) =>
 						_worker.Invoke((Action)(() => {
