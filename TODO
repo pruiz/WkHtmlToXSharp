@@ -1,6 +1,7 @@
 TODO
 ====
 
+ - Support x64 (depends on wkhtmltopdf-qt).
  - Find a way to make (real) concurrent conversions.
 	- This depends on an internal limitation of wkhtmltopdf-qt. (only one qApplication)
  - Correctly marshal strings as UTF-8. 
