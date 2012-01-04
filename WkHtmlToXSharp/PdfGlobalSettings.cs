@@ -32,8 +32,8 @@ using System.Text;
 namespace WkHtmlToXSharp
 {
 	public enum PdfOrientation {
-		Landscape,
-		Portrait
+		Portrait,
+		Landscape
 	}
 
 	public class PdfGlobalSettings
