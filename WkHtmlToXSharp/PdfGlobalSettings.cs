@@ -35,10 +35,23 @@ namespace WkHtmlToXSharp
 		Portrait,
 		Landscape
 	}
+	
+	public enum PdfPageSize {
+		A4, B5, Letter, Legal, Executive, A0, A1, A2, A3, A5, A6, A7, 
+	        A8, A9, B0, B1, B10, B2, B3, B4, B6, B7, B8, B9, C5E,
+	        Comm10E, DLE, Folio, Ledger, Tabloid, Custom
+	}
+
+    	public class PdfSize {
+        	public PdfPageSize PageSize { get; set; }
+       		public float Height { get; set; }
+        	public float Width { get; set; }
+    	}
 
 	public class PdfGlobalSettings
 	{
 		private PdfMarginSettings _margins = new PdfMarginSettings();
+		private PdfSize _size = new PdfSize();
 
 		public int Dpi { get; set; }
 		public int ImageDpi { get; set; }
@@ -47,6 +60,7 @@ namespace WkHtmlToXSharp
 
 		public string Out { get; set; }
 		public PdfOrientation Orientation { get; set; }
+		public PdfSize Size { get { return _size; } }
 
 		// TODO: Add as many as you need..
 	}
