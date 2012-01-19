@@ -33,8 +33,8 @@ namespace WkHtmlToXSharp
 {
 	public class LoadSettings
 	{
-		public bool UserName { get; set; }
-		public bool Password { get; set; }
+		public string Username { get; set; }
+		public string Password { get; set; }
 	    public string Proxy { get; set; }
 
         private string _windowStatus = "";
