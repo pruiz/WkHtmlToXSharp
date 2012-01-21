@@ -15,7 +15,29 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution Items", "Solution 
 		TODO = TODO
 	EndProjectSection
 EndProject
-Project("{00000000-0000-0000-0000-000000000000}") = "WkHtmlToXSharp.Tests", "WkHtmlToXSharp.Tests\WkHtmlToXSharp.Tests.csproj", "{F5C842CB-2C68-44A1-8C4C-600B00F0C3B5}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "WkHtmlToXSharp.Tests", "WkHtmlToXSharp.Tests\WkHtmlToXSharp.Tests.csproj", "{F5C842CB-2C68-44A1-8C4C-600B00F0C3B5}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Packages", "Packages", "{142239E2-0554-49E5-A929-3EEBEDD7CCC1}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "NuGet.CommandLine.1.6.0", "NuGet.CommandLine.1.6.0", "{C1F2D225-CBAC-420B-8F79-7CAE6606EB2F}"
+	ProjectSection(SolutionItems) = preProject
+		Packages\NuGet.CommandLine.1.6.0\NuGet.CommandLine.1.6.0.nupkg = Packages\NuGet.CommandLine.1.6.0\NuGet.CommandLine.1.6.0.nupkg
+	EndProjectSection
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "tools", "tools", "{DD2E578C-C004-47B2-AA7C-731314D717A4}"
+	ProjectSection(SolutionItems) = preProject
+		Packages\NuGet.CommandLine.1.6.0\tools\NuGet.exe = Packages\NuGet.CommandLine.1.6.0\tools\NuGet.exe
+	EndProjectSection
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Tools", "Tools", "{4D64807C-4F56-4BAB-BD10-287F99DE048C}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "UnixUtils", "UnixUtils", "{B1814D74-4919-40B1-95B9-DD71E413DA1B}"
+	ProjectSection(SolutionItems) = preProject
+		Tools\UnixUtils\libiconv2.dll = Tools\UnixUtils\libiconv2.dll
+		Tools\UnixUtils\libintl3.dll = Tools\UnixUtils\libintl3.dll
+		Tools\UnixUtils\regex2.dll = Tools\UnixUtils\regex2.dll
+		Tools\UnixUtils\sed.exe = Tools\UnixUtils\sed.exe
+	EndProjectSection
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -48,5 +70,10 @@ Global
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(NestedProjects) = preSolution
+		{C1F2D225-CBAC-420B-8F79-7CAE6606EB2F} = {142239E2-0554-49E5-A929-3EEBEDD7CCC1}
+		{DD2E578C-C004-47B2-AA7C-731314D717A4} = {C1F2D225-CBAC-420B-8F79-7CAE6606EB2F}
+		{B1814D74-4919-40B1-95B9-DD71E413DA1B} = {4D64807C-4F56-4BAB-BD10-287F99DE048C}
 	EndGlobalSection
 EndGlobal
