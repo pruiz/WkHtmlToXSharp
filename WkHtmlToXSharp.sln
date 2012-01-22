@@ -20,24 +20,12 @@ EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Packages", "Packages", "{142239E2-0554-49E5-A929-3EEBEDD7CCC1}"
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "NuGet.CommandLine.1.6.0", "NuGet.CommandLine.1.6.0", "{C1F2D225-CBAC-420B-8F79-7CAE6606EB2F}"
-	ProjectSection(SolutionItems) = preProject
-		Packages\NuGet.CommandLine.1.6.0\NuGet.CommandLine.1.6.0.nupkg = Packages\NuGet.CommandLine.1.6.0\NuGet.CommandLine.1.6.0.nupkg
-	EndProjectSection
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "tools", "tools", "{DD2E578C-C004-47B2-AA7C-731314D717A4}"
-	ProjectSection(SolutionItems) = preProject
-		Packages\NuGet.CommandLine.1.6.0\tools\NuGet.exe = Packages\NuGet.CommandLine.1.6.0\tools\NuGet.exe
-	EndProjectSection
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Tools", "Tools", "{4D64807C-4F56-4BAB-BD10-287F99DE048C}"
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "UnixUtils", "UnixUtils", "{B1814D74-4919-40B1-95B9-DD71E413DA1B}"
-	ProjectSection(SolutionItems) = preProject
-		Tools\UnixUtils\libiconv2.dll = Tools\UnixUtils\libiconv2.dll
-		Tools\UnixUtils\libintl3.dll = Tools\UnixUtils\libintl3.dll
-		Tools\UnixUtils\regex2.dll = Tools\UnixUtils\regex2.dll
-		Tools\UnixUtils\sed.exe = Tools\UnixUtils\sed.exe
-	EndProjectSection
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -58,6 +46,7 @@ Global
 		{3DADECBF-6D08-4090-9A1D-2064D0466381}.Release|Any CPU.Build.0 = Release|Any CPU
 		{3DADECBF-6D08-4090-9A1D-2064D0466381}.Release|x64.ActiveCfg = Release|Any CPU
 		{3DADECBF-6D08-4090-9A1D-2064D0466381}.Release|x86.ActiveCfg = Release|Any CPU
+		{3DADECBF-6D08-4090-9A1D-2064D0466381}.Release|x86.Build.0 = Release|Any CPU
 		{F5C842CB-2C68-44A1-8C4C-600B00F0C3B5}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
 		{F5C842CB-2C68-44A1-8C4C-600B00F0C3B5}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{F5C842CB-2C68-44A1-8C4C-600B00F0C3B5}.Debug|x64.ActiveCfg = Debug|Any CPU
@@ -67,6 +56,7 @@ Global
 		{F5C842CB-2C68-44A1-8C4C-600B00F0C3B5}.Release|Any CPU.Build.0 = Release|Any CPU
 		{F5C842CB-2C68-44A1-8C4C-600B00F0C3B5}.Release|x64.ActiveCfg = Release|Any CPU
 		{F5C842CB-2C68-44A1-8C4C-600B00F0C3B5}.Release|x86.ActiveCfg = Release|Any CPU
+		{F5C842CB-2C68-44A1-8C4C-600B00F0C3B5}.Release|x86.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
