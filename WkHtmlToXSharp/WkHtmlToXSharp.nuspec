@@ -11,7 +11,7 @@
     <requireLicenseAcceptance>false</requireLicenseAcceptance>
 		<releaseNotes>See changes for this revision at: http://github.com/pruiz/WkHtmlToXSharp/commit/GIT_COMMIT </releaseNotes>
 		<description>C# wrapper wrapper (using P/Invoke) for the excelent Html to PDF conversion library wkhtmltopdf library.</description>
-    <copyright>Copyright Pablo Ruiz García  2010-2012</copyright>
+    <copyright>Copyright Pablo Ruiz Garc&iacute;a  2010-2012</copyright>
 		<tags>PDF HTML WkHtmlToPdf WkHtmlToXSharp html2pdf htmltopdf</tags>
 		
     <dependencies>
