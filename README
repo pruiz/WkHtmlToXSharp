@@ -3,7 +3,7 @@ This is a C# wrapper (using P/Invoke) for the excelent Html to PDF conversion li
 CURRENT STATUS & LIMITATIONS
 ----------------------------
 
-I've been using it on production since a couple of weeks ago, and has worked fine so far, so we might say it's almost 'production ready'..
+I've been using it on production since Q4/2010, and has worked fine so far, so we might say it's almost 'production ready'..
 
 The way I'm using the component is from a back office windows service which handles html->pdf conversion as part of some workflows initiated by users from a web application, so, the web application does not directly call WkHtmlToXSharp, but instead sends a message thru NServiceBus to an independent service which handles (among other tasks) generation of a PDF
 from Html, a Pdf document which it's later made available to our user thru the web application..
