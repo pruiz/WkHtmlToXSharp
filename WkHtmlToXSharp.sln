@@ -17,15 +17,17 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution Items", "Solution 
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "WkHtmlToXSharp.Tests", "WkHtmlToXSharp.Tests\WkHtmlToXSharp.Tests.csproj", "{F5C842CB-2C68-44A1-8C4C-600B00F0C3B5}"
 EndProject
-Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Packages", "Packages", "{142239E2-0554-49E5-A929-3EEBEDD7CCC1}"
-EndProject
-Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "NuGet.CommandLine.1.6.0", "NuGet.CommandLine.1.6.0", "{C1F2D225-CBAC-420B-8F79-7CAE6606EB2F}"
-EndProject
-Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "tools", "tools", "{DD2E578C-C004-47B2-AA7C-731314D717A4}"
-EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Tools", "Tools", "{4D64807C-4F56-4BAB-BD10-287F99DE048C}"
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "UnixUtils", "UnixUtils", "{B1814D74-4919-40B1-95B9-DD71E413DA1B}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = ".nuget", ".nuget", "{75E0B052-136E-4AB8-8B3F-59157FA291DD}"
+	ProjectSection(SolutionItems) = preProject
+		.nuget\NuGet.Config = .nuget\NuGet.Config
+		.nuget\NuGet.exe = .nuget\NuGet.exe
+		.nuget\NuGet.targets = .nuget\NuGet.targets
+		.nuget\packages.config = .nuget\packages.config
+	EndProjectSection
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -62,8 +64,6 @@ Global
 		HideSolutionNode = FALSE
 	EndGlobalSection
 	GlobalSection(NestedProjects) = preSolution
-		{C1F2D225-CBAC-420B-8F79-7CAE6606EB2F} = {142239E2-0554-49E5-A929-3EEBEDD7CCC1}
-		{DD2E578C-C004-47B2-AA7C-731314D717A4} = {C1F2D225-CBAC-420B-8F79-7CAE6606EB2F}
 		{B1814D74-4919-40B1-95B9-DD71E413DA1B} = {4D64807C-4F56-4BAB-BD10-287F99DE048C}
 	EndGlobalSection
 EndGlobal

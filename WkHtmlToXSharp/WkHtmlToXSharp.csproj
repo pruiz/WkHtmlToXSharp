@@ -163,7 +163,9 @@
     <EmbeddedResource Include="Libs\Linux64\libwkhtmltox0.so.gz" />
   </ItemGroup>
   <ItemGroup>
-    <None Include="WkHtmlToXSharp.nuspec" />
+    <None Include="WkHtmlToXSharp.nuspec">
+      <SubType>Designer</SubType>
+    </None>
     <None Include="WkHtmlToXSharp.snk" />
   </ItemGroup>
   <Choose>
