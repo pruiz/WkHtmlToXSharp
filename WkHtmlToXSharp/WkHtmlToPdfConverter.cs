@@ -474,18 +474,27 @@ namespace WkHtmlToXSharp
             }
 
 		    _disposed = true;
-		}
+	}
 
-		public void Dispose()
-		{
-			Dispose(true);
-			GC.SuppressFinalize(this);
-		}
+	public void Dispose()
+	{
+		Dispose(true);
+		GC.SuppressFinalize(this);
+	}
 
-		~WkHtmlToPdfConverter()
-		{
-			Dispose(false);
-		}
-		#endregion
+	~WkHtmlToPdfConverter()
+	{
+		Dispose(false);
+	}
+	#endregion
+		
+	#region Helper Functions
+
+        public static float InchesToMillimeters(float inches)
+        {
+            return inches * 25.4f;
+        }
+
+        #endregion
 	}
 }
