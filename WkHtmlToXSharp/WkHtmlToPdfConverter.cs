@@ -352,7 +352,7 @@ namespace WkHtmlToXSharp
 		}
 		#endregion
 
-		#region Convertion methods
+		#region Conversion methods
 		private IntPtr _BuildConverter(IntPtr globalSettings, IntPtr objectSettings, IntPtr inputHtml)
 		{
 			var converter = wkhtmltopdf_create_converter(globalSettings);
