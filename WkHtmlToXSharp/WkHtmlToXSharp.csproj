@@ -115,14 +115,13 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="IHtmlToImageConverter.cs" />
-    <Compile Include="IHtmlToPdfConverter.cs" />
     <Compile Include="EventArgs.cs" />
     <Compile Include="DelegateQueue\AsyncResult.cs" />
     <Compile Include="DelegateQueue\DelegateQueue.AsyncResult.cs" />
     <Compile Include="DelegateQueue\DelegateQueue.cs" />
     <Compile Include="DelegateQueue\InvokeCompletedEventArgs.cs" />
     <Compile Include="DelegateQueue\PostCompletedEventArgs.cs" />
+    <Compile Include="IHtmlToXConverter.cs" />
     <Compile Include="ImageCropSettings.cs" />
     <Compile Include="ImageGlobalSettings.cs" />
     <Compile Include="LibsHelper.cs" />
@@ -137,6 +136,7 @@
     <Compile Include="WkHtmlToImageConverter.cs" />
     <Compile Include="WkHtmlToPdfConverter.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="WkHtmlToXConverter.cs" />
   </ItemGroup>
   <ItemGroup>
     <EmbeddedResource Include="Libs\Win32\libeay32.dll.gz" />
@@ -171,6 +171,12 @@
       <SubType>Designer</SubType>
     </None>
     <None Include="WkHtmlToXSharp.snk" />
+  </ItemGroup>
+  <ItemGroup />
+  <ItemGroup>
+    <EmbeddedResource Include="Libs\Win64\libgcc_s_sjlj-1.dll" />
+    <EmbeddedResource Include="Libs\Win64\libstdc++-6.dll" />
+    <EmbeddedResource Include="Libs\Win64\wkhtmltox0.dll" />
   </ItemGroup>
   <Choose>
     <When Condition=" '$(Platform)'=='x64'">

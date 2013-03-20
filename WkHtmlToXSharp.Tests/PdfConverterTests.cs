@@ -39,7 +39,7 @@ namespace WkHtmlToXSharp.Tests
 				File.Delete(SimplePageFile);
 		}
 
-		private MultiplexingConverter _GetConverter()
+        private MultiplexingConverter _GetConverter()
 		{
 			var obj = new MultiplexingConverter();
 			obj.Begin += (s,e) => _Log.DebugFormat("Conversion begin, phase count: {0}", e.Value);
@@ -57,17 +57,17 @@ namespace WkHtmlToXSharp.Tests
 			{
 				_Log.DebugFormat("Performing conversion..");
 
-				wk.GlobalSettings.Margin.Top = "0cm";
-				wk.GlobalSettings.Margin.Bottom = "0cm";
-				wk.GlobalSettings.Margin.Left = "0cm";
-				wk.GlobalSettings.Margin.Right = "0cm";
-				//wk.GlobalSettings.Out = @"c:\temp\tmp.pdf";
+                wk.PdfGlobalSettings.Margin.Top = "0cm";
+                wk.PdfGlobalSettings.Margin.Bottom = "0cm";
+                wk.PdfGlobalSettings.Margin.Left = "0cm";
+                wk.PdfGlobalSettings.Margin.Right = "0cm";
+                //wk.PdfGlobalSettings.Out = @"c:\temp\tmp.pdf";
 
-				wk.ObjectSettings.Web.EnablePlugins = false;
-				wk.ObjectSettings.Web.EnableJavascript = false;
-				wk.ObjectSettings.Page = SimplePageFile;
-				//wk.ObjectSettings.Page = "http://doc.trolltech.com/4.6/qstring.html";
-				wk.ObjectSettings.Load.Proxy = "none";
+				wk.PdfObjectSettings.Web.EnablePlugins = false;
+                wk.PdfObjectSettings.Web.EnableJavascript = false;
+                wk.PdfObjectSettings.Page = SimplePageFile;
+                //wk.PdfObjectSettings.Page = "http://doc.trolltech.com/4.6/qstring.html";
+                wk.PdfObjectSettings.Load.Proxy = "none";
 
 				var tmp = wk.Convert();
 
@@ -79,7 +79,6 @@ namespace WkHtmlToXSharp.Tests
 		}
 
 		[Test]
-		
 		public void CanConvertFromFile()
 		{
 			_SimpleConversion();
@@ -165,6 +164,7 @@ namespace WkHtmlToXSharp.Tests
 				{
 					var str = sr.ReadToEnd();
 					var tmp = wk.Convert(str);
+                    File.WriteAllBytes("C:\\test.pdf", tmp);
 					Assert.IsNotEmpty(tmp);
 				}
 			}
