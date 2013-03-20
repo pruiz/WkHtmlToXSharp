@@ -129,10 +129,11 @@
     <Compile Include="LoadErrorHandlingType.cs" />
     <Compile Include="LoadSettings.cs" />
     <Compile Include="Marshaller.cs" />
+    <Compile Include="MultiplexingImageConverter.cs" />
     <Compile Include="PdfGlobalSettings.cs" />
     <Compile Include="PdfMarginSettings.cs" />
     <Compile Include="PdfObjectSettings.cs" />
-    <Compile Include="MultiplexingConverter.cs" />
+    <Compile Include="MultiplexingPdfConverter.cs" />
     <Compile Include="WebSettings.cs" />
     <Compile Include="WkHtmlToImageConverter.cs" />
     <Compile Include="WkHtmlToPdfConverter.cs" />

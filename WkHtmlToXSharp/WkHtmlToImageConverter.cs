@@ -51,7 +51,8 @@ namespace WkHtmlToXSharp
         private const string DLL_NAME = "wkhtmltox0";
         private ImageGlobalSettings _globalSettings = new ImageGlobalSettings()
         {
-            Fmt = "PNG"
+            Fmt = "PNG",
+            SmartWidth = false
         };
         private StringBuilder _errorString = null;
         private int _currentPhase = 0;

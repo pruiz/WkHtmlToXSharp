@@ -39,9 +39,9 @@ namespace WkHtmlToXSharp.Tests
 				File.Delete(SimplePageFile);
 		}
 
-		private MultiplexingConverter _GetConverter()
+		private MultiplexingPdfConverter _GetConverter()
 		{
-			var obj = new MultiplexingConverter();
+			var obj = new MultiplexingPdfConverter();
 			obj.Begin += (s,e) => _Log.DebugFormat("Conversion begin, phase count: {0}", e.Value);
 			obj.Error += (s, e) => _Log.Error(e.Value);
 			obj.Warning += (s, e) => _Log.Warn(e.Value);
