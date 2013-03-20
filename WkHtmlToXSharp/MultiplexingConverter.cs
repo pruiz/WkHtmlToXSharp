@@ -7,15 +7,15 @@ using Sanford.Threading;
 
 namespace WkHtmlToXSharp
 {
-	public class MultiplexingConverter : IHtmlToPdfConverter
+	public class GenericMultiplexingConverter<T> : IHtmlToXConverter where T: class, IHtmlToXConverter, IDisposable, new()
 	{
 		private static readonly global::Common.Logging.ILog _Log = global::Common.Logging.LogManager.GetLogger(System.Reflection.MethodBase.GetCurrentMethod().DeclaringType);
 
 		// Internal 'thread delegate proxy' which handles multiplexing 
 		// of calls  to qk/qt from a single thread.
 		private static readonly DelegateQueue _worker = new DelegateQueue();
-		private static WkHtmlToPdfConverter _initiWorkAround = null;
-		private WkHtmlToPdfConverter _converter = null;
+        private static T _initiWorkAround = null;
+        protected T _converter = null;
 
 		#region Events
 		public event EventHandler<EventArgs<int>> Begin
@@ -50,10 +50,10 @@ namespace WkHtmlToXSharp
 		}
 		#endregion
 
-		public PdfGlobalSettings GlobalSettings { get { return _converter.GlobalSettings; } }
-		public PdfObjectSettings ObjectSettings { get { return _converter.ObjectSettings; } }
+		public IGlobalSettings GlobalSettings { get { return _converter.GlobalSettings; } }
+		public IObjectSettings ObjectSettings { get { return _converter.ObjectSettings; } }
 
-		public MultiplexingConverter()
+        public GenericMultiplexingConverter()
 		{
 			lock (_worker)
 			{
@@ -66,7 +66,7 @@ namespace WkHtmlToXSharp
 				if (_initiWorkAround == null)
 				{
 					_Log.InfoFormat("Initializing converter infrastructure..");
-					_worker.Invoke((Action)(() => _initiWorkAround = new WkHtmlToPdfConverter()));
+					_worker.Invoke((Action)(() => _initiWorkAround = new T()));
 					_Log.InfoFormat("Initialized converter infrastructure..");
 
 					AppDomain.CurrentDomain.ProcessExit += (o, e) =>
@@ -79,7 +79,7 @@ namespace WkHtmlToXSharp
 				}
 			}
 
-			_worker.Invoke((Action)(() => _converter = new WkHtmlToPdfConverter()));
+			_worker.Invoke((Action)(() => _converter = new T()));
 		}
 
 		public byte[] Convert()
@@ -100,4 +100,21 @@ namespace WkHtmlToXSharp
 			_converter = null;
 		}
 	}
+
+    
+    public class PdfMultiplexingConverter : GenericMultiplexingConverter<WkHtmlToPdfConverter>, IHtmlToPdfConverter
+    {
+        public PdfObjectSettings PdfObjectSettings { get { return _converter.PdfObjectSettings; } }
+        public PdfGlobalSettings PdfGlobalSettings { get { return _converter.PdfGlobalSettings; } }
+    }
+
+    // backwards compatibility
+    public class MultiplexingConverter : PdfMultiplexingConverter  {}
+
+    public class ImageMultiplexingConverter : GenericMultiplexingConverter<WkHtmlToImageConverter>, IHtmlToImageConverter
+    {
+        public ImageGlobalSettings ImageGlobalSettings { get { return _converter.ImageGlobalSettings; } }
+    }
+
+
 }

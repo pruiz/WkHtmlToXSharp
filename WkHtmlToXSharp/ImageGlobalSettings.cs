@@ -31,7 +31,7 @@ using System.Text;
 
 namespace WkHtmlToXSharp
 {
-    public class ImageGlobalSettings
+    public class ImageGlobalSettings : IGlobalSettings
     {
         private ImageCropSettings _crop = new ImageCropSettings();
         private WebSettings _webSettings = new WebSettings();
