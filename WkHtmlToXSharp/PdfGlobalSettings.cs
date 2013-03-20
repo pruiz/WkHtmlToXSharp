@@ -36,7 +36,7 @@ namespace WkHtmlToXSharp
 		Landscape
 	}
 
-	public class PdfGlobalSettings
+    public class PdfGlobalSettings : IGlobalSettings
 	{
 		private PdfMarginSettings _margins = new PdfMarginSettings();
 

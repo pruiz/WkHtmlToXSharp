@@ -1,3 +1,4 @@
+<<<<<<< HEAD
 ﻿<?xml version="1.0" encoding="utf-8"?>
 <Project ToolsVersion="4.0" DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
   <PropertyGroup>
@@ -115,6 +116,7 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="IHtmlToImageConverter.cs" />
     <Compile Include="IHtmlToPdfConverter.cs" />
     <Compile Include="EventArgs.cs" />
     <Compile Include="DelegateQueue\AsyncResult.cs" />
@@ -122,15 +124,19 @@
     <Compile Include="DelegateQueue\DelegateQueue.cs" />
     <Compile Include="DelegateQueue\InvokeCompletedEventArgs.cs" />
     <Compile Include="DelegateQueue\PostCompletedEventArgs.cs" />
+    <Compile Include="ImageCropSettings.cs" />
+    <Compile Include="ImageGlobalSettings.cs" />
     <Compile Include="LibsHelper.cs" />
     <Compile Include="LoadErrorHandlingType.cs" />
     <Compile Include="LoadSettings.cs" />
     <Compile Include="Marshaller.cs" />
+    <Compile Include="MultiplexingImageConverter.cs" />
     <Compile Include="PdfGlobalSettings.cs" />
     <Compile Include="PdfMarginSettings.cs" />
     <Compile Include="PdfObjectSettings.cs" />
-    <Compile Include="MultiplexingConverter.cs" />
+    <Compile Include="MultiplexingPdfConverter.cs" />
     <Compile Include="WebSettings.cs" />
+    <Compile Include="WkHtmlToImageConverter.cs" />
     <Compile Include="WkHtmlToPdfConverter.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
@@ -178,6 +184,206 @@
     </When>
   </Choose>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
+  <PropertyGroup>
+    <PostBuildEvent>
+    </PostBuildEvent>
+  </PropertyGroup>
+=======
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="4.0" DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <PropertyGroup>
+    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
+    <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
+    <ProductVersion>9.0.30729</ProductVersion>
+    <SchemaVersion>2.0</SchemaVersion>
+    <ProjectGuid>{3DADECBF-6D08-4090-9A1D-2064D0466381}</ProjectGuid>
+    <OutputType>Library</OutputType>
+    <AppDesignerFolder>Properties</AppDesignerFolder>
+    <RootNamespace>WkHtmlToXSharp</RootNamespace>
+    <AssemblyName>WkHtmlToXSharp</AssemblyName>
+    <TargetFrameworkVersion Condition=" '$(TargetFrameworkVersion)' == '' ">v3.5</TargetFrameworkVersion>
+    <TargetFrameworkProfile Condition=" '$(TargetFrameworkProfile)' == '' ">Client</TargetFrameworkProfile>
+    <!-- We need a framework full name to use as base artifacts directory name -->
+    <TargetFrameworkFullName Condition=" '$(TargetFrameworkProfile)' == '' ">$(TargetFrameworkVersion)</TargetFrameworkFullName>
+    <TargetFrameworkFullName Condition=" '$(TargetFrameworkProfile)' != '' ">$(TargetFrameworkVersion)-$(TargetFrameworkProfile)</TargetFrameworkFullName>
+    <FileAlignment>512</FileAlignment>
+    <FileUpgradeFlags>
+    </FileUpgradeFlags>
+    <UpgradeBackupLocation>
+    </UpgradeBackupLocation>
+    <OldToolsVersion>3.5</OldToolsVersion>
+    <PublishUrl>publish\</PublishUrl>
+    <Install>true</Install>
+    <InstallFrom>Disk</InstallFrom>
+    <UpdateEnabled>false</UpdateEnabled>
+    <UpdateMode>Foreground</UpdateMode>
+    <UpdateInterval>7</UpdateInterval>
+    <UpdateIntervalUnits>Days</UpdateIntervalUnits>
+    <UpdatePeriodically>false</UpdatePeriodically>
+    <UpdateRequired>false</UpdateRequired>
+    <MapFileExtensions>true</MapFileExtensions>
+    <ApplicationRevision>0</ApplicationRevision>
+    <ApplicationVersion>1.0.0.%2a</ApplicationVersion>
+    <IsWebBootstrapper>false</IsWebBootstrapper>
+    <UseApplicationTrust>false</UseApplicationTrust>
+    <BootstrapperEnabled>true</BootstrapperEnabled>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
+    <DebugSymbols>true</DebugSymbols>
+    <DebugType>full</DebugType>
+    <Optimize>false</Optimize>
+    <OutputPath>bin\$(TargetFrameworkFullName)\Debug\</OutputPath>
+    <DefineConstants>DEBUG;TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+    <CodeAnalysisRuleSet>AllRules.ruleset</CodeAnalysisRuleSet>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
+    <DebugType>pdbonly</DebugType>
+    <Optimize>true</Optimize>
+    <OutputPath>bin\$(TargetFrameworkFullName)\Release\</OutputPath>
+    <DefineConstants>TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+    <CodeAnalysisRuleSet>AllRules.ruleset</CodeAnalysisRuleSet>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)' == 'Debug|x86'">
+    <DebugSymbols>true</DebugSymbols>
+    <OutputPath>bin\$(TargetFrameworkFullName)\Debug\</OutputPath>
+    <DefineConstants>DEBUG;TRACE</DefineConstants>
+    <DebugType>full</DebugType>
+    <PlatformTarget>x86</PlatformTarget>
+    <CodeAnalysisLogFile>bin\Debug\WkHtmlToXSharp.dll.CodeAnalysisLog.xml</CodeAnalysisLogFile>
+    <CodeAnalysisUseTypeNameInSuppression>true</CodeAnalysisUseTypeNameInSuppression>
+    <CodeAnalysisModuleSuppressionsFile>GlobalSuppressions.cs</CodeAnalysisModuleSuppressionsFile>
+    <ErrorReport>prompt</ErrorReport>
+    <CodeAnalysisRuleSet>AllRules.ruleset</CodeAnalysisRuleSet>
+    <CodeAnalysisRuleSetDirectories>;C:\Program Files (x86)\Microsoft Visual Studio 10.0\Team Tools\Static Analysis Tools\\Rule Sets</CodeAnalysisRuleSetDirectories>
+    <CodeAnalysisIgnoreBuiltInRuleSets>true</CodeAnalysisIgnoreBuiltInRuleSets>
+    <CodeAnalysisRuleDirectories>;C:\Program Files (x86)\Microsoft Visual Studio 10.0\Team Tools\Static Analysis Tools\FxCop\\Rules</CodeAnalysisRuleDirectories>
+    <CodeAnalysisIgnoreBuiltInRules>false</CodeAnalysisIgnoreBuiltInRules>
+    <CodeAnalysisFailOnMissingRules>false</CodeAnalysisFailOnMissingRules>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)' == 'Release|x86'">
+    <OutputPath>bin\$(TargetFrameworkFullName)\Release\</OutputPath>
+    <DefineConstants>TRACE</DefineConstants>
+    <Optimize>true</Optimize>
+    <DebugType>pdbonly</DebugType>
+    <PlatformTarget>x86</PlatformTarget>
+    <CodeAnalysisLogFile>bin\Release\WkHtmlToXSharp.dll.CodeAnalysisLog.xml</CodeAnalysisLogFile>
+    <CodeAnalysisUseTypeNameInSuppression>true</CodeAnalysisUseTypeNameInSuppression>
+    <CodeAnalysisModuleSuppressionsFile>GlobalSuppressions.cs</CodeAnalysisModuleSuppressionsFile>
+    <ErrorReport>prompt</ErrorReport>
+    <CodeAnalysisRuleSet>AllRules.ruleset</CodeAnalysisRuleSet>
+    <CodeAnalysisRuleSetDirectories>;C:\Program Files (x86)\Microsoft Visual Studio 10.0\Team Tools\Static Analysis Tools\\Rule Sets</CodeAnalysisRuleSetDirectories>
+    <CodeAnalysisIgnoreBuiltInRuleSets>true</CodeAnalysisIgnoreBuiltInRuleSets>
+    <CodeAnalysisRuleDirectories>;C:\Program Files (x86)\Microsoft Visual Studio 10.0\Team Tools\Static Analysis Tools\FxCop\\Rules</CodeAnalysisRuleDirectories>
+    <CodeAnalysisIgnoreBuiltInRules>false</CodeAnalysisIgnoreBuiltInRules>
+    <CodeAnalysisFailOnMissingRules>false</CodeAnalysisFailOnMissingRules>
+  </PropertyGroup>
+  <PropertyGroup>
+    <SignAssembly>true</SignAssembly>
+  </PropertyGroup>
+  <PropertyGroup>
+    <AssemblyOriginatorKeyFile>WkHtmlToXSharp.snk</AssemblyOriginatorKeyFile>
+  </PropertyGroup>
+  <ItemGroup>
+    <Reference Include="Common.Logging">
+      <HintPath>..\Libs\Common.Logging.dll</HintPath>
+    </Reference>
+    <Reference Include="System" />
+    <Reference Include="System.configuration" />
+    <Reference Include="System.Core">
+      <RequiredTargetFramework>3.5</RequiredTargetFramework>
+    </Reference>
+    <Reference Include="System.Xml.Linq">
+      <RequiredTargetFramework>3.5</RequiredTargetFramework>
+    </Reference>
+    <Reference Include="System.Data.DataSetExtensions">
+      <RequiredTargetFramework>3.5</RequiredTargetFramework>
+    </Reference>
+    <Reference Include="System.Data" />
+    <Reference Include="System.Xml" />
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="EventArgs.cs" />
+    <Compile Include="DelegateQueue\AsyncResult.cs" />
+    <Compile Include="DelegateQueue\DelegateQueue.AsyncResult.cs" />
+    <Compile Include="DelegateQueue\DelegateQueue.cs" />
+    <Compile Include="DelegateQueue\InvokeCompletedEventArgs.cs" />
+    <Compile Include="DelegateQueue\PostCompletedEventArgs.cs" />
+    <Compile Include="IHtmlToXConverter.cs" />
+    <Compile Include="ImageCropSettings.cs" />
+    <Compile Include="ImageGlobalSettings.cs" />
+    <Compile Include="LibsHelper.cs" />
+    <Compile Include="LoadErrorHandlingType.cs" />
+    <Compile Include="LoadSettings.cs" />
+    <Compile Include="Marshaller.cs" />
+    <Compile Include="PdfGlobalSettings.cs" />
+    <Compile Include="PdfMarginSettings.cs" />
+    <Compile Include="PdfObjectSettings.cs" />
+    <Compile Include="MultiplexingConverter.cs" />
+    <Compile Include="WebSettings.cs" />
+    <Compile Include="WkHtmlToImageConverter.cs" />
+    <Compile Include="WkHtmlToPdfConverter.cs" />
+    <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="WkHtmlToXConverter.cs" />
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="Libs\Win32\libeay32.dll.gz" />
+    <EmbeddedResource Include="Libs\Win32\libgcc_s_dw2-1.dll.gz" />
+    <EmbeddedResource Include="Libs\Win32\mingwm10.dll.gz" />
+    <EmbeddedResource Include="Libs\Win32\ssleay32.dll.gz" />
+    <EmbeddedResource Include="Libs\Win32\wkhtmltox0.dll.gz" />
+  </ItemGroup>
+  <ItemGroup>
+    <BootstrapperPackage Include="Microsoft.Net.Client.3.5">
+      <Visible>False</Visible>
+      <ProductName>.NET Framework 3.5 SP1 Client Profile</ProductName>
+      <Install>false</Install>
+    </BootstrapperPackage>
+    <BootstrapperPackage Include="Microsoft.Net.Framework.3.5.SP1">
+      <Visible>False</Visible>
+      <ProductName>.NET Framework 3.5 SP1</ProductName>
+      <Install>true</Install>
+    </BootstrapperPackage>
+    <BootstrapperPackage Include="Microsoft.Windows.Installer.3.1">
+      <Visible>False</Visible>
+      <ProductName>Windows Installer 3.1</ProductName>
+      <Install>true</Install>
+    </BootstrapperPackage>
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="Libs\Linux32\libwkhtmltox0.so.gz" />
+    <EmbeddedResource Include="Libs\Linux64\libwkhtmltox0.so.gz" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="WkHtmlToXSharp.nuspec">
+      <SubType>Designer</SubType>
+    </None>
+    <None Include="WkHtmlToXSharp.snk" />
+  </ItemGroup>
+  <ItemGroup />
+  <ItemGroup>
+    <EmbeddedResource Include="Libs\Win64\libgcc_s_sjlj-1.dll" />
+    <EmbeddedResource Include="Libs\Win64\libstdc++-6.dll" />
+    <EmbeddedResource Include="Libs\Win64\wkhtmltox0.dll" />
+  </ItemGroup>
+  <Choose>
+    <When Condition=" '$(Platform)'=='x64'">
+      <ItemGroup>
+        <EmbeddedResource Include="Libs\Win64\wkhtmltox0.dll" />
+        <EmbeddedResource Include="Libs\Win64\libgcc_s_sjlj-1.dll" />
+        <EmbeddedResource Include="Libs\Win64\libstdc++-6.dll" />
+      </ItemGroup>
+    </When>
+  </Choose>
+  <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
+  <PropertyGroup>
+    <PostBuildEvent>
+    </PostBuildEvent>
+  </PropertyGroup>
+>>>>>>> dca205949928617a22e3e0258c28f3736ce96915
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
        Other similar extension points exist, see Microsoft.Common.targets.
   <Target Name="BeforeBuild">
