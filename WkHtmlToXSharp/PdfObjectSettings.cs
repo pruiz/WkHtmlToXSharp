@@ -31,7 +31,7 @@ using System.Text;
 
 namespace WkHtmlToXSharp
 {
-	public class PdfObjectSettings
+    public class PdfObjectSettings : IObjectSettings
 	{
 		private WebSettings _webSettings = new WebSettings();
 		private LoadSettings _loadSettings = new LoadSettings();

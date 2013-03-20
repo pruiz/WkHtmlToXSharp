@@ -39,9 +39,11 @@ namespace WkHtmlToXSharp.Tests
 				File.Delete(SimplePageFile);
 		}
 
-		private MultiplexingConverter _GetConverter()
+        private T _GetConverter<T,TH>() 
+            where T : GenericMultiplexingConverter<TH>, IDisposable, new()
+            where TH : class, IHtmlToXConverter, new()
 		{
-			var obj = new MultiplexingConverter();
+			var obj = new T();
 			obj.Begin += (s,e) => _Log.DebugFormat("Conversion begin, phase count: {0}", e.Value);
 			obj.Error += (s, e) => _Log.Error(e.Value);
 			obj.Warning += (s, e) => _Log.Warn(e.Value);
@@ -53,21 +55,21 @@ namespace WkHtmlToXSharp.Tests
 
 		private void _SimpleConversion()
 		{
-			using (var wk = _GetConverter())
+			using (var wk = _GetConverter<PdfMultiplexingConverter, WkHtmlToPdfConverter>())
 			{
 				_Log.DebugFormat("Performing conversion..");
 
-				wk.GlobalSettings.Margin.Top = "0cm";
-				wk.GlobalSettings.Margin.Bottom = "0cm";
-				wk.GlobalSettings.Margin.Left = "0cm";
-				wk.GlobalSettings.Margin.Right = "0cm";
-				//wk.GlobalSettings.Out = @"c:\temp\tmp.pdf";
+                wk.PdfGlobalSettings.Margin.Top = "0cm";
+                wk.PdfGlobalSettings.Margin.Bottom = "0cm";
+                wk.PdfGlobalSettings.Margin.Left = "0cm";
+                wk.PdfGlobalSettings.Margin.Right = "0cm";
+                //wk.PdfGlobalSettings.Out = @"c:\temp\tmp.pdf";
 
-				wk.ObjectSettings.Web.EnablePlugins = false;
-				wk.ObjectSettings.Web.EnableJavascript = false;
-				wk.ObjectSettings.Page = SimplePageFile;
-				//wk.ObjectSettings.Page = "http://doc.trolltech.com/4.6/qstring.html";
-				wk.ObjectSettings.Load.Proxy = "none";
+				wk.PdfObjectSettings.Web.EnablePlugins = false;
+                wk.PdfObjectSettings.Web.EnableJavascript = false;
+                wk.PdfObjectSettings.Page = SimplePageFile;
+                //wk.PdfObjectSettings.Page = "http://doc.trolltech.com/4.6/qstring.html";
+                wk.PdfObjectSettings.Load.Proxy = "none";
 
 				var tmp = wk.Convert();
 
@@ -79,7 +81,6 @@ namespace WkHtmlToXSharp.Tests
 		}
 
 		[Test]
-		
 		public void CanConvertFromFile()
 		{
 			_SimpleConversion();
@@ -156,7 +157,7 @@ namespace WkHtmlToXSharp.Tests
 		[Test]
 		public void ConvertFromString()
 		{
-			using (var wk = _GetConverter())
+            using (var wk = _GetConverter<PdfMultiplexingConverter, WkHtmlToPdfConverter>())
 			{
 				_Log.DebugFormat("Performing conversion..");
 
@@ -165,9 +166,30 @@ namespace WkHtmlToXSharp.Tests
 				{
 					var str = sr.ReadToEnd();
 					var tmp = wk.Convert(str);
+                    //File.WriteAllBytes("C:\\test.pdf", tmp);
 					Assert.IsNotEmpty(tmp);
 				}
 			}
 		}
+
+        [Test]
+        public void ConvertImageFromString()
+        {
+            using (var wk = _GetConverter<ImageMultiplexingConverter, WkHtmlToImageConverter>())
+            {
+                wk.ImageGlobalSettings.Fmt = "jpg";
+                _Log.DebugFormat("Performing conversion..");
+                using (var stream = new MemoryStream(Resources.SimplePage_xhtml))
+                using (var sr = new StreamReader(stream))
+                {
+                    var str = sr.ReadToEnd();
+                    var tmp = wk.Convert(str);
+                    //File.WriteAllBytes(string.Format("C:\\test.{0}",wk.ImageGlobalSettings.Fmt), tmp);
+                    Assert.IsNotEmpty(tmp);
+                }
+            }
+        }
+
+
 	}
 }
