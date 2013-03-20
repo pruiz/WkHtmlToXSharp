@@ -37,12 +37,12 @@ namespace WkHtmlToXSharp
 
     public interface IGlobalSettings
     {
-        int Dpi { get; }
-        string Out { get; }
+        int Dpi { get; set; }
+        string Out { get; set; }
     }
 
     public interface IObjectSettings
     {
-        string Page { get; }
+        string Page { get; set; }
     }
 }
