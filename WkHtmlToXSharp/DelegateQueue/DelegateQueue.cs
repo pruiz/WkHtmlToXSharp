@@ -95,9 +95,9 @@ namespace Sanford.Threading
         /// <summary>
         /// Initializes a new instance of the DelegateQueue class.
         /// </summary>
-        public DelegateQueue()
+        public DelegateQueue(string name)
         {
-            InitializeDelegateQueue();
+            InitializeDelegateQueue(name);
 
             if(SynchronizationContext.Current == null)
             {
@@ -115,14 +115,14 @@ namespace Sanford.Threading
         /// <param name="container">
         /// The IContainer to which the DelegateQueue will add itself.
         /// </param>
-        public DelegateQueue(IContainer container)
+        public DelegateQueue(string name, IContainer container)
         {
             ///
             /// Required for Windows.Forms Class Composition Designer support
             ///
             container.Add(this);
 
-            InitializeDelegateQueue();
+            InitializeDelegateQueue(name);
         }
 
         ~DelegateQueue()
@@ -131,7 +131,7 @@ namespace Sanford.Threading
         }
 
         // Initializes the DelegateQueue.
-        private void InitializeDelegateQueue()
+        private void InitializeDelegateQueue(string name)
         {
             // Create thread for processing delegates.
             delegateThread = new Thread(DelegateProcedure);
@@ -143,7 +143,7 @@ namespace Sanford.Threading
                 threadID++;
 
                 // Create name for thread.
-                delegateThread.Name = "Delegate Queue Thread: " + threadID.ToString();
+                delegateThread.Name = string.Format("{0} Queue Thread: {1}", name, threadID.ToString());
 
                 // Start thread.
                 delegateThread.Start();

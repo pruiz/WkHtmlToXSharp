@@ -39,7 +39,7 @@ namespace WkHtmlToXSharp
 
 		// Internal 'thread delegate proxy' which handles multiplexing 
 		// of calls  to qk/qt from a single thread.
-		private static readonly DelegateQueue _worker = new DelegateQueue();
+		private static readonly DelegateQueue _worker = new DelegateQueue("WkHtmlToPdf");
 		private static WkHtmlToPdfConverter _initiWorkAround = null;
 		private WkHtmlToPdfConverter _converter = null;
 
@@ -93,7 +93,7 @@ namespace WkHtmlToXSharp
 				{
 					_Log.InfoFormat("Initializing converter infrastructure..");
 					_worker.Invoke((Action)(() => _initiWorkAround = new WkHtmlToPdfConverter()));
-					_Log.InfoFormat("Initialized converter infrastructure..");
+					_Log.InfoFormat("Initialized converter infrastructure.. (workaround: {0})", _initiWorkAround != null);
 
 					AppDomain.CurrentDomain.ProcessExit += (o, e) =>
 						_worker.Invoke((Action)(() => {
