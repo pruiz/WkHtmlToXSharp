@@ -1,6 +1,6 @@
 ﻿#region Copyright
 //
-// Author: Pablo Ruiz García (pruiz@crt0.net)
+// Author: Pablo Ruiz García (pablo.ruiz@gmail.com)
 //
 // (C) Pablo Ruiz García 2011
 //
