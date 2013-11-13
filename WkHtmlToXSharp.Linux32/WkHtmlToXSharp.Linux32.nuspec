@@ -20,5 +20,6 @@
   </metadata>
 	<files>
 		<file src="bin\Release\WkHtmlToXSharp.Linux32.*" target="lib" />
+		<file src="**\*.cs" target="src" />
 	</files>
 </package>
