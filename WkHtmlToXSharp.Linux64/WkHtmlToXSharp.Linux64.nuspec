@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <package>
   <metadata>
-    <id>WkHtmlToXSharp</id>
+    <id>WkHtmlToXSharp.Linux64</id>
     <version>0.0.0.0</version>
     <authors>pruiz</authors>
     <owners>pruiz</owners>
@@ -10,16 +10,15 @@
     <!-- iconUrl>http://ICON_URL_HERE_OR_DELETE_THIS_LINE</iconUrl -->
     <requireLicenseAcceptance>false</requireLicenseAcceptance>
 		<releaseNotes>See changes for this revision at: http://github.com/pruiz/WkHtmlToXSharp/commit/GIT_COMMIT </releaseNotes>
-		<description>C# wrapper wrapper (using P/Invoke) for the excelent Html to PDF conversion library wkhtmltopdf library.</description>
+		<description>WkHtmlToXSharp's Linux 64Bits natible library bundle.</description>
     <copyright>Copyright Pablo Ruiz García  2010-2013</copyright>
 		<tags>PDF HTML WkHtmlToPdf WkHtmlToXSharp html2pdf htmltopdf wkhtmltopdf</tags>
 		
     <dependencies>
-      <dependency id="Common.Logging" version="2.0.0" />
+      <dependency id="WkHtmlToXSharp" version="0.0.0.0" />
     </dependencies>
   </metadata>
 	<files>
-		<file src="bin\Release\WkHtmlToXSharp.*" target="lib" />
-		<file src="**\*.cs" target="src" />
+		<file src="bin\Release\WkHtmlToXSharp.Linux64.*" target="lib" />
 	</files>
 </package>
