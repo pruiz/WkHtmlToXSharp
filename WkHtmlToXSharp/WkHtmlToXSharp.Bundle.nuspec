@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <package>
 	<metadata>
-		<id>WkHtmlToXSharp:Bundle</id>
+		<id>WkHtmlToXSharp.Bundle</id>
 		<version>0.0.0.0</version>
 		<authors>pruiz</authors>
 		<owners>pruiz</owners>
