@@ -28,8 +28,8 @@ using System;
 using System.Collections.Generic;
 using System.Configuration;
 using System.Globalization;
-using System.Runtime.InteropServices;
 using System.Text;
+using System.Runtime.InteropServices;
 
 using SysConvert = System.Convert;
 
@@ -48,7 +48,6 @@ namespace WkHtmlToXSharp
 		#region private fields
 		private static readonly global::Common.Logging.ILog _Log = global::Common.Logging.LogManager.GetLogger(System.Reflection.MethodBase.GetCurrentMethod().DeclaringType);
 
-		private const string DLL_NAME = "wkhtmltox0";
 		private PdfGlobalSettings _globalSettings = new PdfGlobalSettings();
 		private PdfObjectSettings _objectSettings = new PdfObjectSettings();
 		private StringBuilder _errorString = null;
@@ -70,97 +69,7 @@ namespace WkHtmlToXSharp
 		public event EventHandler<EventArgs<string>> Warning = delegate { };
 		#endregion
 
-		#region P/Invokes
-		[DllImport(DLL_NAME)]
-		static extern IntPtr wkhtmltopdf_version();
-
-		[DllImport(DLL_NAME)]
-		static extern bool wkhtmltopdf_init(int use_graphics);
-
-		[DllImport(DLL_NAME)]
-		static extern bool wkhtmltopdf_deinit();
-
-		[DllImport(DLL_NAME)]
-		static extern bool wkhtmltopdf_extended_qt();
-
-		[DllImport(DLL_NAME)]
-		static extern IntPtr wkhtmltopdf_create_global_settings();
-
-		[DllImport(DLL_NAME)]
-		static extern bool wkhtmltopdf_set_global_setting(IntPtr globalSettings, string name, string value);
-
-		[DllImport(DLL_NAME)]
-		static extern IntPtr wkhtmltopdf_create_converter(IntPtr globalSettings);
-
-		[DllImport(DLL_NAME)]
-		static extern IntPtr wkhtmltopdf_create_object_settings();
-
-		[DllImport(DLL_NAME)]
-		// TODO: Marshal 'name' and 'value' as byte[] so we can pass UTF8Encoding.GetBytes(string) output..
-		static extern bool wkhtmltopdf_set_object_setting(IntPtr objectSettings, string name, string value);
-
-		[DllImport(DLL_NAME)]
-		static extern void wkhtmltopdf_add_object(IntPtr converter, IntPtr objectSettings, IntPtr htmlData);
-
-		[DllImport(DLL_NAME)]
-		static extern bool wkhtmltopdf_convert(IntPtr converter);
-
-		[DllImport(DLL_NAME)]
-		static extern int wkhtmltopdf_get_output(IntPtr converter, out IntPtr data);
-
-		[DllImport(DLL_NAME)]
-		static extern void wkhtmltopdf_destroy_converter(IntPtr converter);
-
-		[DllImport(DLL_NAME)]
-		static extern int wkhtmltopdf_current_phase(IntPtr converter);
-
-		[DllImport(DLL_NAME)]
-		static extern int wkhtmltopdf_phase_count(IntPtr converter);
-
-		[DllImport(DLL_NAME)]
-		// NOTE: Using IntPtr as return to avoid runtime from freeing returned string. (pruiz)
-		static extern IntPtr wkhtmltopdf_phase_description(IntPtr converter, int phase);
-
-		[DllImport(DLL_NAME)]
-		// NOTE: Using IntPtr as return to avoid runtime from freeing returned string. (pruiz)
-		static extern IntPtr wkhtmltopdf_progress_string (IntPtr converter);
-
-		[DllImport(DLL_NAME)]
-		static extern int wkhtmltopdf_http_error_code (IntPtr converter);
-
-		[UnmanagedFunctionPointer(CallingConvention.Cdecl)]
-		delegate void wkhtmltopdf_str_callback(IntPtr converter, string str);
-		[UnmanagedFunctionPointer(CallingConvention.Cdecl)]
-		delegate void wkhtmltopdf_int_callback(IntPtr converter, int val);
-		[UnmanagedFunctionPointer(CallingConvention.Cdecl)]
-		delegate void wkhtmltopdf_bool_callback(IntPtr converter, bool val);
-		[UnmanagedFunctionPointer(CallingConvention.Cdecl)]
-		delegate void wkhtmltopdf_void_callback(IntPtr converter);
-
-		[DllImport(DLL_NAME)]
-		static extern void wkhtmltopdf_set_error_callback(IntPtr converter, [MarshalAs(UnmanagedType.FunctionPtr)] wkhtmltopdf_str_callback cb);
-
-		[DllImport(DLL_NAME)]
-		static extern void wkhtmltopdf_set_warning_callback(IntPtr converter, [MarshalAs(UnmanagedType.FunctionPtr)] wkhtmltopdf_str_callback cb);
-
-		[DllImport(DLL_NAME)]
-		static extern void wkhtmltopdf_set_phase_changed_callback(IntPtr converter, [MarshalAs(UnmanagedType.FunctionPtr)] wkhtmltopdf_void_callback cb);
-
-		[DllImport(DLL_NAME)]
-		static extern void wkhtmltopdf_set_progress_changed_callback(IntPtr converter, [MarshalAs(UnmanagedType.FunctionPtr)] wkhtmltopdf_int_callback cb);
-
-		[DllImport(DLL_NAME)]
-		static extern void wkhtmltopdf_set_finished_callback(IntPtr converter, [MarshalAs(UnmanagedType.FunctionPtr)] wkhtmltopdf_bool_callback cb);
-		#endregion
-
 		#region .ctors
-		static WkHtmlToPdfConverter()
-		{
-			// Deploy native assemblies..
-			LibsHelper.DeployLibraries();
-
-		}
-
 		public WkHtmlToPdfConverter()
 		{
 			bool useX11 = false;
@@ -174,10 +83,9 @@ namespace WkHtmlToXSharp
 				_Log.Error("Unable to parse 'WkHtmlToXSharp.UseX11' app. setting.", ex);
 			}
 
-			var ptr = wkhtmltopdf_version();
-			var version = Marshal.PtrToStringAnsi(ptr);
+			var version = NativeCalls.WkHtmlToPdfVersion();
 
-			if (!wkhtmltopdf_init(useX11 ? 1 : 0))
+			if (NativeCalls.wkhtmltopdf_init(useX11 ? 1 : 0) == 0)
 				throw new InvalidOperationException(string.Format("wkhtmltopdf_init failed! (version: {0}, useX11 = {1})", version, useX11));
 
 			_Log.DebugFormat("Initialized new converter instance (Version: {0}, UseX11 = {1})", version, useX11);
@@ -185,6 +93,15 @@ namespace WkHtmlToXSharp
 		#endregion
 
 		#region Global/Object settings code..
+		private string GetStringValue(object value)
+		{
+			var tmp = value is string ? value as string : SysConvert.ToString(value, CultureInfo.InvariantCulture);
+			// Correct for differences between C booleans and C# booleans
+			tmp = tmp == "True" ? "true" : tmp;
+			tmp = tmp == "False" ? "false" : tmp;
+			return tmp;
+		}
+
 		private IDictionary<string, object> GetProperties(string prefix, object instance)
 		{
 			var dict = new Dictionary<string, object>();
@@ -222,9 +139,9 @@ namespace WkHtmlToXSharp
 		#region GlobalSettings
 		private void _SetGlobalSetting(IntPtr settings, string name, object value)
 		{
-            var tmp = GetStringValue(value);
+			var tmp = GetStringValue(value);
 
-			if (!wkhtmltopdf_set_global_setting(settings, name, tmp))
+			if (NativeCalls.wkhtmltopdf_set_global_setting(settings, name, tmp) == 0)
 			{
 				var msg = string.Format("Set GlobalSetting '{0}' as '{1}': operation failed!", name, tmp);
 				throw new ApplicationException(msg);
@@ -233,7 +150,7 @@ namespace WkHtmlToXSharp
 
 		private IntPtr _BuildGlobalSettings()
 		{
-			var ptr = wkhtmltopdf_create_global_settings();
+			var ptr = NativeCalls.wkhtmltopdf_create_global_settings();
 
 			foreach (var item in GetProperties(null, GlobalSettings))
 				_SetGlobalSetting(ptr, item.Key, item.Value);
@@ -242,21 +159,12 @@ namespace WkHtmlToXSharp
 		}
 		#endregion
 
-        private string GetStringValue(object value) 
-        {
-            var tmp = value is string ? value as string : SysConvert.ToString(value, CultureInfo.InvariantCulture);
-            // Correct for differences between C booleans and C# booleans
-            tmp = tmp == "True" ? "true" : tmp;
-            tmp = tmp == "False" ? "false" : tmp;
-            return tmp;
-        }
-
 		#region ObjectSettings
 		private void _SetObjectSetting(IntPtr settings, string name, object value) 
-        {
-		    var tmp = GetStringValue(value);
+		{
+			var tmp = GetStringValue(value);
 
-			if (!wkhtmltopdf_set_object_setting(settings, name, tmp))
+			if (NativeCalls.wkhtmltopdf_set_object_setting(settings, name, tmp) == 0)
 			{
 				var msg = string.Format("Set ObjectSetting '{0}' as '{1}': operation failed!", name, tmp);
 				throw new ApplicationException(msg);
@@ -265,7 +173,7 @@ namespace WkHtmlToXSharp
 
 		private IntPtr _BuildObjectsettings()
 		{
-			var ptr = wkhtmltopdf_create_object_settings();
+			var ptr = NativeCalls.wkhtmltopdf_create_object_settings();
 
 			foreach (var item in GetProperties(null, ObjectSettings))
 				_SetObjectSetting(ptr, item.Key, item.Value);
@@ -289,6 +197,7 @@ namespace WkHtmlToXSharp
 		}
 		private void OnError(IntPtr ptr, string error)
 		{
+			//var error = Marshaler.GetInstance(null).MarshalNativeToManaged(errorPtr) as string;
 			_errorString.AppendFormat("{0}{1}", error, Environment.NewLine);
 
 			try
@@ -304,6 +213,7 @@ namespace WkHtmlToXSharp
 		{
 			try
 			{
+				//var warn = Marshaler.Instance.MarshalNativeToManaged(warnPtr) as string;
 				Warning(this, new EventArgs<string>(warn));
 			}
 			catch (Exception ex)
@@ -313,7 +223,7 @@ namespace WkHtmlToXSharp
 		}
 		private void OnPhaseChanged(IntPtr converter)
 		{
-			var tmp = wkhtmltopdf_phase_description(converter, _currentPhase);
+			var tmp = NativeCalls.wkhtmltopdf_phase_description(converter, _currentPhase);
 			var str = Marshal.PtrToStringAnsi(tmp);
 
 			try
@@ -327,8 +237,8 @@ namespace WkHtmlToXSharp
 		}
 		private void OnProgressChanged(IntPtr converter, int progress)
 		{
-			var tmp = wkhtmltopdf_progress_string(converter);
-			var str = Marshal.PtrToStringAnsi(tmp);
+			var tmp = NativeCalls.wkhtmltopdf_progress_string(converter);
+			var str = Marshaler.GetInstance(null).MarshalNativeToManaged(tmp) as string;
 
 			try
 			{
@@ -353,10 +263,10 @@ namespace WkHtmlToXSharp
 		#endregion
 
 		#region Convertion methods
-		private IntPtr _BuildConverter(IntPtr globalSettings, IntPtr objectSettings, IntPtr inputHtml)
+		private IntPtr _BuildConverter(IntPtr globalSettings, IntPtr objectSettings, string inputHtml)
 		{
-			var converter = wkhtmltopdf_create_converter(globalSettings);
-			wkhtmltopdf_add_object(converter, objectSettings, inputHtml);
+			var converter = NativeCalls.wkhtmltopdf_create_converter(globalSettings);
+			NativeCalls.wkhtmltopdf_add_object(converter, objectSettings, inputHtml);
 
 			return converter;
 		}
@@ -364,32 +274,30 @@ namespace WkHtmlToXSharp
 		private byte[] _Convert(string inputHtml)
 		{
 			var converter = IntPtr.Zero;
-			var inputHtmlUtf8Ptr = IntPtr.Zero;
-			var errorCb = new wkhtmltopdf_str_callback(OnError);
-			var warnCb = new wkhtmltopdf_str_callback(OnWarning);
-			var phaseCb = new wkhtmltopdf_void_callback(OnPhaseChanged);
-			var progressCb = new wkhtmltopdf_int_callback(OnProgressChanged);
-			var finishCb = new wkhtmltopdf_bool_callback(OnFinished);
+			var errorCb = new NativeCalls.wkhtmltopdf_str_callback(OnError);
+			var warnCb = new NativeCalls.wkhtmltopdf_str_callback(OnWarning);
+			var phaseCb = new NativeCalls.wkhtmltopdf_void_callback(OnPhaseChanged);
+			var progressCb = new NativeCalls.wkhtmltopdf_int_callback(OnProgressChanged);
+			var finishCb = new NativeCalls.wkhtmltopdf_bool_callback(OnFinished);
 
 			try
 			{
 				var gSettings = _BuildGlobalSettings();
 				var oSettings = _BuildObjectsettings();
 
-				inputHtmlUtf8Ptr = Marshaller.StringToUtf8Ptr(inputHtml);
-				converter = _BuildConverter(gSettings, oSettings, inputHtmlUtf8Ptr);
+				converter = _BuildConverter(gSettings, oSettings, inputHtml);
 
 				_errorString = new StringBuilder();
-				
-				wkhtmltopdf_set_error_callback(converter, errorCb);
-				wkhtmltopdf_set_warning_callback(converter, warnCb);
-				wkhtmltopdf_set_phase_changed_callback(converter, phaseCb);
-				wkhtmltopdf_set_progress_changed_callback(converter, progressCb);
-				wkhtmltopdf_set_finished_callback(converter, finishCb);
 
-				OnBegin(wkhtmltopdf_phase_count(converter));
+				NativeCalls.wkhtmltopdf_set_error_callback(converter, errorCb);
+				NativeCalls.wkhtmltopdf_set_warning_callback(converter, warnCb);
+				NativeCalls.wkhtmltopdf_set_phase_changed_callback(converter, phaseCb);
+				NativeCalls.wkhtmltopdf_set_progress_changed_callback(converter, progressCb);
+				NativeCalls.wkhtmltopdf_set_finished_callback(converter, finishCb);
 
-				if (!wkhtmltopdf_convert(converter))
+				OnBegin(NativeCalls.wkhtmltopdf_phase_count(converter));
+
+				if (NativeCalls.wkhtmltopdf_convert(converter) == 0)
 				{
 					var msg = string.Format("HtmlToPdf conversion failed: {0}", _errorString.ToString());
 					throw new ApplicationException(msg);
@@ -403,8 +311,8 @@ namespace WkHtmlToXSharp
 				// Get output from internal buffer..
 
 				IntPtr tmp = IntPtr.Zero;
-				var len = wkhtmltopdf_get_output(converter, out tmp);
-				var output = new byte[len];
+				var ret = NativeCalls.wkhtmltopdf_get_output(converter, out tmp);
+				var output = new byte[ret.ToInt32()];
 				Marshal.Copy(tmp, output, 0, output.Length);
 
 				return output;
@@ -413,17 +321,13 @@ namespace WkHtmlToXSharp
 			{
 				if (converter != IntPtr.Zero)
 				{
-					wkhtmltopdf_set_error_callback(converter, null);
-					wkhtmltopdf_set_warning_callback(converter, null);
-					wkhtmltopdf_set_phase_changed_callback(converter, null);
-					wkhtmltopdf_set_progress_changed_callback(converter, null);
-					wkhtmltopdf_set_finished_callback(converter, null);
-					wkhtmltopdf_destroy_converter(converter);
-				}
-
-				if (inputHtmlUtf8Ptr != IntPtr.Zero)
-				{
-					Marshaller.FreeUtf8Ptr(inputHtmlUtf8Ptr);
+					NativeCalls.wkhtmltopdf_set_error_callback(converter, null);
+					NativeCalls.wkhtmltopdf_set_warning_callback(converter, null);
+					NativeCalls.wkhtmltopdf_set_phase_changed_callback(converter, null);
+					NativeCalls.wkhtmltopdf_set_progress_changed_callback(converter, null);
+					NativeCalls.wkhtmltopdf_set_finished_callback(converter, null);
+					NativeCalls.wkhtmltopdf_destroy_converter(converter);
+					converter = IntPtr.Zero;
 				}
 			}
 		}
@@ -466,14 +370,14 @@ namespace WkHtmlToXSharp
 			}
 
 			// Dispose un-managed resources..
-            try {
-                wkhtmltopdf_deinit();
-            }
-            catch (DllNotFoundException) {
-                // We may not be initialized yet
-            }
+			try {
+				NativeCalls.wkhtmltopdf_deinit();
+			}
+			catch (DllNotFoundException) {
+				// We may not be initialized yet
+			}
 
-		    _disposed = true;
+			_disposed = true;
 		}
 
 		public void Dispose()

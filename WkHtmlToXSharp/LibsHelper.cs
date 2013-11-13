@@ -30,6 +30,7 @@ using System.IO.Compression;
 using System.Reflection;
 using System.Runtime.InteropServices;
 using System.Collections.Generic;
+using System.Security.Cryptography;
 using System.Linq;
 using System.Text;
 
@@ -113,12 +114,21 @@ namespace WkHtmlToXSharp
 			throw new NotSupportedException("Sorry, WkHtmlToSharp does not support this platform at this time.");
 		}
 
-		private static void CopyStream(Stream input, Stream output)
+		private static byte[] CopyStream(Stream input, Stream output)
 		{
-			byte[] buffer = new byte[0x1000];
+			var hasher = HashAlgorithm.Create("MD5");
+			var buffer = new byte[0x1000];
 			int read;
+
+			hasher.Initialize();
 			while ((read = input.Read(buffer, 0, buffer.Length)) > 0)
+			{
+				hasher.TransformBlock(buffer, 0, read, buffer, 0);
 				output.Write(buffer, 0, read);
+			}
+			hasher.TransformFinalBlock(buffer, 0, 0);
+
+			return hasher.Hash;
 		}
 
 		private static bool IsFileLocked(string filePath)
@@ -170,13 +180,16 @@ namespace WkHtmlToXSharp
 
 			_Log.InfoFormat("Deploying embedded {0} to {1}..", Path.GetFileName(fileName), _OutputPath);
 
+			byte[] hash = null;
 			var res = Assembly.GetManifestResourceStream(resource);
 
 			using (var input = compressed ? new GZipStream(res, CompressionMode.Decompress, false) : res)
 			using (var output = new FileStream(fileName, FileMode.Create, FileAccess.Write, FileShare.None))
 			{
-				CopyStream(input, output);
+				hash = CopyStream(input, output);
 			}
+
+			_Log.InfoFormat("Deployed {0} with md5sum: {1}.", fileName, string.Concat(hash.Select(b => b.ToString("X2")).ToArray()));
 
 			if (Environment.OSVersion.Platform == PlatformID.Unix) 
 			{

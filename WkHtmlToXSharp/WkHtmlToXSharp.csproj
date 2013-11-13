@@ -55,6 +55,7 @@
     <ErrorReport>prompt</ErrorReport>
     <WarningLevel>4</WarningLevel>
     <CodeAnalysisRuleSet>AllRules.ruleset</CodeAnalysisRuleSet>
+    <AllowUnsafeBlocks>true</AllowUnsafeBlocks>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)' == 'Debug|x86'">
     <DebugSymbols>true</DebugSymbols>
@@ -125,7 +126,8 @@
     <Compile Include="LibsHelper.cs" />
     <Compile Include="LoadErrorHandlingType.cs" />
     <Compile Include="LoadSettings.cs" />
-    <Compile Include="Marshaller.cs" />
+    <Compile Include="Marshaler.cs" />
+    <Compile Include="NativeCalls.cs" />
     <Compile Include="PdfGlobalSettings.cs" />
     <Compile Include="PdfMarginSettings.cs" />
     <Compile Include="PdfObjectSettings.cs" />
