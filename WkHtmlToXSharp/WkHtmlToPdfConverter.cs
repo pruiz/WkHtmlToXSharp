@@ -82,6 +82,9 @@ namespace WkHtmlToXSharp
 			{
 				_Log.Error("Unable to parse 'WkHtmlToXSharp.UseX11' app. setting.", ex);
 			}
+			
+			// Try to deploy native libraries bundles.
+			WkHtmlToXLibrariesManager.DeployLibraries();
 
 			var version = NativeCalls.WkHtmlToPdfVersion();
 

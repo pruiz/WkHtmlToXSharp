@@ -113,6 +113,18 @@
     <Compile Include="PdfConverterTests.cs" />
   </ItemGroup>
   <ItemGroup>
+    <ProjectReference Include="..\WkHtmlToXSharp.Linux32\WkHtmlToXSharp.Linux32.csproj">
+      <Project>{32c05814-398b-436a-b76d-72edcd15f199}</Project>
+      <Name>WkHtmlToXSharp.Linux32</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\WkHtmlToXSharp.Linux64\WkHtmlToXSharp.Linux64.csproj">
+      <Project>{23b0d174-40f4-4bb3-a5aa-02f7e3d8a420}</Project>
+      <Name>WkHtmlToXSharp.Linux64</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\WkHtmlToXSharp.Win32\WkHtmlToXSharp.Win32.csproj">
+      <Project>{eff2501d-d316-40a9-9362-9f771fb6ca98}</Project>
+      <Name>WkHtmlToXSharp.Win32</Name>
+    </ProjectReference>
     <ProjectReference Include="..\WkHtmlToXSharp\WkHtmlToXSharp.csproj">
       <Project>{3DADECBF-6D08-4090-9A1D-2064D0466381}</Project>
       <Name>WkHtmlToXSharp</Name>

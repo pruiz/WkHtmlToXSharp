@@ -8,9 +8,9 @@ using System.Runtime.InteropServices;
 [assembly: AssemblyTitle("WkHtmlToXSharp")]
 [assembly: AssemblyDescription("")]
 [assembly: AssemblyConfiguration("")]
-[assembly: AssemblyCompany("Microsoft")]
+[assembly: AssemblyCompany("Pablo Ruiz García")]
 [assembly: AssemblyProduct("WkHtmlToXSharp")]
-[assembly: AssemblyCopyright("Copyright © Microsoft 2011")]
+[assembly: AssemblyCopyright("Copyright © Pablo Ruiz García 2011~2013")]
 [assembly: AssemblyTrademark("")]
 [assembly: AssemblyCulture("")]
 

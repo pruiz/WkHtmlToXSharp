@@ -11,10 +11,61 @@ namespace WkHtmlToXSharp
 		static NativeCalls()
 		{
 			// Deploy native assemblies..
-			LibsHelper.DeployLibraries();
+			WkHtmlToXLibrariesManager.DeployLibraries();
 		}
 
-		#region P/Invokes
+		#region Linux/Libc P/Invokes
+		[DllImport("libc")]
+		public static extern int uname(IntPtr buf);
+		#endregion
+
+		#region Linux/Libc Call Wrappers
+		private static object _OsNameLock = new object();
+		private static string _OsName = null;
+
+		private static string GetOsNameInternal()
+		{
+			if (!string.IsNullOrEmpty(_OsName))
+				return _OsName;
+
+			if (Environment.OSVersion.Platform != PlatformID.Unix
+				&& Environment.OSVersion.Platform != PlatformID.MacOSX)
+			{
+				return Environment.OSVersion.Platform.ToString();
+			}
+
+			IntPtr buf = IntPtr.Zero;
+			try
+			{
+				buf = Marshal.AllocHGlobal(8192);
+				// This is a hacktastic way of getting sysname from uname ()
+				if (uname(buf) == 0)
+				{
+					return Marshal.PtrToStringAnsi(buf);
+				}
+			}
+			catch { }
+			finally
+			{
+				if (buf != IntPtr.Zero) Marshal.FreeHGlobal(buf);
+			}
+
+			return null;
+		}
+
+		public static string GetOsName()
+		{
+			lock (_OsNameLock)
+			{
+				if (_OsName == null)
+					_OsName = GetOsNameInternal();
+
+				return _OsName;
+			}
+		}
+		#endregion
+
+		#region WkHtmlToPdf P/Invokes
 		[DllImport(DLL_NAME)]
 		public static extern IntPtr wkhtmltopdf_version();
 
@@ -113,7 +164,7 @@ namespace WkHtmlToXSharp
 		public static extern void wkhtmltopdf_set_finished_callback(IntPtr converter, [MarshalAs(UnmanagedType.FunctionPtr)] wkhtmltopdf_bool_callback cb);
 		#endregion
 
-		#region NativeCall Wrappers
+		#region WkHtmlToPdf Call Wrappers
 		public static string WkHtmlToPdfVersion()
 		{
 			var ptr = wkhtmltopdf_version();

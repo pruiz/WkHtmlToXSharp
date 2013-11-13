@@ -1,2 +1,5 @@
 *.suo
+*/*.??proj.user
+*/bin
+*/obj
 Packages
