@@ -19,9 +19,24 @@ namespace WkHtmlToXSharp.Tests
 		public static string SimplePageFile = null;
 		public static int count = 0;
 
+		private void TryRegisterLibraryBundles()
+		{
+			var ignore = Environment.GetEnvironmentVariable("WKHTMLTOXSHARP_NOBUNDLES");
+
+			if (ignore == null || ignore.ToLower() != "true")
+			{
+				// Register all available bundles..
+				WkHtmlToXLibrariesManager.Register(new Linux32NativeBundle());
+				WkHtmlToXLibrariesManager.Register(new Linux64NativeBundle());
+				WkHtmlToXLibrariesManager.Register(new Win32NativeBundle());
+			}
+		}
+
 		[TestFixtureSetUp]
 		public void FixtureSetup()
 		{
+			TryRegisterLibraryBundles();
+
 			// Avoid using Temp folder as WebKit doesnt like it.
 			SimplePageFile = Path.GetTempFileName();
 			File.Delete(SimplePageFile);
@@ -43,10 +58,10 @@ namespace WkHtmlToXSharp.Tests
 		{
 			var obj = new MultiplexingConverter();
 			obj.Begin += (s,e) => _Log.DebugFormat("Conversion begin, phase count: {0}", e.Value);
-			obj.Error += (s, e) => _Log.Error(e.Value);
+			//obj.Error += (s, e) => _Log.Error(e.Value);
 			obj.Warning += (s, e) => _Log.Warn(e.Value);
-			obj.PhaseChanged += (s, e) => _Log.InfoFormat("PhaseChanged: {0} - {1}", e.Value, e.Value2);
-			obj.ProgressChanged += (s, e) => _Log.InfoFormat("ProgressChanged: {0} - {1}", e.Value, e.Value2);
+			//obj.PhaseChanged += (s, e) => _Log.InfoFormat("PhaseChanged: {0} - {1}", e.Value, e.Value2);
+			//obj.ProgressChanged += (s, e) => _Log.InfoFormat("ProgressChanged: {0} - {1}", e.Value, e.Value2);
 			obj.Finished += (s, e) => _Log.InfoFormat("Finished: {0}", e.Value ? "success" : "failed!");
 			return obj;
 		}
@@ -79,12 +94,12 @@ namespace WkHtmlToXSharp.Tests
 		}
 
 		[Test]
-		
 		public void CanConvertFromFile()
 		{
 			_SimpleConversion();
 		}
 
+		#region Testing Threads handling
 		class ThreadData
 		{
 			public Thread Thread;
@@ -92,24 +107,25 @@ namespace WkHtmlToXSharp.Tests
 			public ManualResetEvent WaitHandle;
 		}
 
-        	void ThreadStart(object arg)
-        	{
-				_Log.DebugFormat("New thread {0}", arg);
+		void ThreadStart(object arg)
+		{
+			_Log.DebugFormat("New thread {0}", arg);
 
-				var tmp = arg as ThreadData;
-				try
-				{
-					_SimpleConversion();
-				}
-				catch (Exception ex)
-				{
-					tmp.Exception = ex;
-				}
-				finally
-				{
-					tmp.WaitHandle.Set();
-				}
-        	}
+			var tmp = arg as ThreadData;
+			try
+			{
+				_SimpleConversion();
+			}
+			catch (Exception ex)
+			{
+				tmp.Exception = ex;
+			}
+			finally
+			{
+				tmp.WaitHandle.Set();
+			}
+		}
+		#endregion
 
 		private const int ConcurrentTimeout = 50000;
 
@@ -121,7 +137,7 @@ namespace WkHtmlToXSharp.Tests
 			var error = false;
 			var threads = new List<ThreadData>();
 			
-			for (int i = 0; i < 5; i++)
+			for (int i = 0; i < 8; i++)
 			{
 				var tmp = new ThreadData()
 				{
@@ -167,6 +183,43 @@ namespace WkHtmlToXSharp.Tests
 					var tmp = wk.Convert(str);
 					Assert.IsNotEmpty(tmp);
 				}
+			}
+		}
+
+		[Test]
+		public void CanHandleAuthFailure()
+		{
+			using (var wk = new MultiplexingConverter())
+			{
+				var failed = false;
+
+				wk.GlobalSettings.Margin.Top = "0cm";
+				wk.GlobalSettings.Margin.Bottom = "0cm";
+				wk.GlobalSettings.Margin.Left = "0cm";
+				wk.GlobalSettings.Margin.Right = "0cm";
+
+				wk.ObjectSettings.Load.Proxy = "none";
+				wk.ObjectSettings.Load.LoadErrorHandling = LoadErrorHandlingType.abort;
+				wk.ObjectSettings.Load.StopSlowScripts = true;
+
+				wk.ObjectSettings.Web.EnablePlugins = false;
+				wk.ObjectSettings.Web.EnableJavascript = false;
+
+				wk.ObjectSettings.Page = @"http://192.236.37.129/"; // Some misg site requiring HTTP Basic auth.
+
+				wk.Begin += (s, e) => { Console.WriteLine("==>> Begin: {0}", e.Value); };
+				wk.PhaseChanged += (s, e) => { Console.WriteLine("==>> New Phase: {0} ({1})", e.Value, e.Value2); };
+				wk.ProgressChanged += (s, e) => { Console.WriteLine("==>> Progress: {0} ({1})", e.Value, e.Value2); };
+				wk.Error += (s, e) => {
+					failed = true;
+					Console.WriteLine("==>> ERROR: {0}", e.Value); 
+				};
+				wk.Finished += (s, e) => { Console.WriteLine("==>> WARN: {0}", e.Value); };
+
+				var tmp = wk.Convert();
+
+				Assert.IsNotNull(tmp);
+				Assert.IsTrue(failed);
 			}
 		}
 	}
