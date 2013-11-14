@@ -303,7 +303,7 @@ namespace WkHtmlToXSharp
 				if (NativeCalls.wkhtmltopdf_convert(converter) == 0)
 				{
 					var msg = string.Format("HtmlToPdf conversion failed: {0}", _errorString.ToString());
-					throw new ApplicationException(msg);
+					throw new ConverterException(msg);
 				}
 
 				if (!string.IsNullOrEmpty(GlobalSettings.Out))

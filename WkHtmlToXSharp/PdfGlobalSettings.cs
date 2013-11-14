@@ -44,6 +44,7 @@ namespace WkHtmlToXSharp
 		public int ImageDpi { get; set; }
 		public int ImageQuality { get; set; }
 		public PdfMarginSettings Margin { get { return _margins; } }
+		public bool Outline { get; set; }
 
 		public string Out { get; set; }
 		public PdfOrientation Orientation { get; set; }
