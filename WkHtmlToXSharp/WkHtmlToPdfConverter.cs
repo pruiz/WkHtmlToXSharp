@@ -84,7 +84,7 @@ namespace WkHtmlToXSharp
 			}
 			
 			// Try to deploy native libraries bundles.
-			WkHtmlToXLibrariesManager.DeployLibraries();
+			WkHtmlToXLibrariesManager.InitializeNativeLibrary();
 
 			var version = NativeCalls.WkHtmlToPdfVersion();
 

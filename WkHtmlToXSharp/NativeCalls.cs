@@ -11,7 +11,7 @@ namespace WkHtmlToXSharp
 		static NativeCalls()
 		{
 			// Deploy native assemblies..
-			WkHtmlToXLibrariesManager.DeployLibraries();
+			WkHtmlToXLibrariesManager.InitializeNativeLibrary();
 		}
 
 		#region Linux/Libc P/Invokes

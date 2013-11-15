@@ -83,6 +83,8 @@ namespace WkHtmlToXSharp
 		{
 			lock (_worker)
 			{
+				WkHtmlToXLibrariesManager.InitializeNativeLibrary();
+
 				// XXX: We need to keep a converter instance alive during the whole application
 				//		lifetime due to some underlying's library bug by which re-initializing
 				//		the API after having deinitiaized it, causes all newlly rendered pdf

@@ -92,7 +92,7 @@ namespace WkHtmlToXSharp
 			return false;
 		}
 
-		private static void DeployLibrariesInternal()
+		private static void DeployLibraries()
 		{
 			var manager = new WkHtmlToXLibrariesManager();
 
@@ -112,13 +112,13 @@ namespace WkHtmlToXSharp
 			}
 		}
 
-		internal static void DeployLibraries()
+		internal static void InitializeNativeLibrary()
 		{
 			lock (_lock)
 			{
-				if (!_done)
+				if (_done)
 				{
-					DeployLibrariesInternal();
+					DeployLibraries();
 					_done = true;
 				}
 			}
