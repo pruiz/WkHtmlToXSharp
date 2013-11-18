@@ -187,6 +187,7 @@ namespace WkHtmlToXSharp.Tests
 		}
 
 		[Test]
+		[Ignore("This test requires (still to be released) wkhtmltopdf v0.12+")]
 		public void CanHandleAuthFailure()
 		{
 			using (var wk = new MultiplexingConverter())
