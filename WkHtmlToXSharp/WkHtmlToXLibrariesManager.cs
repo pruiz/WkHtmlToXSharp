@@ -116,7 +116,7 @@ namespace WkHtmlToXSharp
 		{
 			lock (_lock)
 			{
-				if (_done)
+				if (!_done)
 				{
 					DeployLibraries();
 					_done = true;
