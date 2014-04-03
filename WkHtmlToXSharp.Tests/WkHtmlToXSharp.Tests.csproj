@@ -126,6 +126,10 @@
       <Project>{eff2501d-d316-40a9-9362-9f771fb6ca98}</Project>
       <Name>WkHtmlToXSharp.Win32</Name>
     </ProjectReference>
+    <ProjectReference Include="..\WkHtmlToXSharp.Win64\WkHtmlToXSharp.Win64.csproj">
+      <Project>{B5FA94A4-6988-49BF-844B-DBBA7903FA90}</Project>
+      <Name>WkHtmlToXSharp.Win64</Name>
+    </ProjectReference>
     <ProjectReference Include="..\WkHtmlToXSharp\WkHtmlToXSharp.csproj">
       <Project>{3DADECBF-6D08-4090-9A1D-2064D0466381}</Project>
       <Name>WkHtmlToXSharp</Name>

@@ -16,13 +16,7 @@ As I said, it is working quite nicely, however, I think I should advise you abou
 
  * **No html to image conversions yet**: Currently the API only supports Html->Pdf conversions, although wkhtmltox.dll supports html->image too.. While implementing WkHtmlToImage should be pretty easy, it's still on TODO due to time constraints.
 
- * **No 64bits on windows**: No native 64bit windows dll is available from  upstream project (code.google.com/p/wkhtmltopdf) is not available, and even I tried and built it by myself, the produced component worked pretty flawlessly, probably due to limitations on current gnu toolchain (or even qt) on windows 64.. so all this means there's no support for running on 64bit-only .Net environments.
-
-   Currently there are two possible workarounds: 
-
-     1. Build your projects linking with WkHtmlToXSharp.dll as 'x86' instead of 'AnyCpu'.
-
-     2. Or run your application on a 32bit-only application pool on IIS.
+ * At the moment of writting site http://wkhtmltopdf.org/downloads.html provides both x64 and x32 bits version of wkhtmltopdf application installs. I took the wkhtmltox.dll library of x64 application which can be found under bin folder in placed where application was installed and used in x64 wrapper project. In order to keep compatibility with the rest of the projects I renamed wkhtmltox.dll library to wkhtmltox0.dll and gizziped it. The resulting file was added the the project as embedded resource in order to keep deployment mechanism consistent. It seems also that wkhtmltox.dll library comes with all other dependencies embedded so wrapper doesn't require other dependencies like libeay32.dll, ssleay32.dll, etc to be present. I didn't try to replace the same wrapper for x32 version of wrapper.
 
  * **Normal P/Invoke restrictions**: This assembly uses P/Invoke to call wkhtmltox.dll, so normal restrictions deriving from using P/Invoke apply..
 

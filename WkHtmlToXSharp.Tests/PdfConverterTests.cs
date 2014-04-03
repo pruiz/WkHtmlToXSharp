@@ -26,9 +26,10 @@ namespace WkHtmlToXSharp.Tests
 			if (ignore == null || ignore.ToLower() != "true")
 			{
 				// Register all available bundles..
-				WkHtmlToXLibrariesManager.Register(new Linux32NativeBundle());
-				WkHtmlToXLibrariesManager.Register(new Linux64NativeBundle());
+                WkHtmlToXLibrariesManager.Register(new Linux32NativeBundle());
+                WkHtmlToXLibrariesManager.Register(new Linux64NativeBundle());
 				WkHtmlToXLibrariesManager.Register(new Win32NativeBundle());
+				WkHtmlToXLibrariesManager.Register(new Win64NativeBundle());
 			}
 		}
 
