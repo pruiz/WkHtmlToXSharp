@@ -29,6 +29,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "WkHtmlToXSharp.Win32", "WkH
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "WkHtmlToXSharp.Linux64", "WkHtmlToXSharp.Linux64\WkHtmlToXSharp.Linux64.csproj", "{23B0D174-40F4-4BB3-A5AA-02F7E3D8A420}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "WkHtmlToXSharp.Win64", "WkHtmlToXSharp.Win64\WkHtmlToXSharp.Win64.csproj", "{811C3340-4E30-498B-BC67-8EEAB18DE477}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -111,6 +113,18 @@ Global
 		{23B0D174-40F4-4BB3-A5AA-02F7E3D8A420}.Release|x64.ActiveCfg = Release|Any CPU
 		{23B0D174-40F4-4BB3-A5AA-02F7E3D8A420}.Release|x86.ActiveCfg = Release|Any CPU
 		{23B0D174-40F4-4BB3-A5AA-02F7E3D8A420}.Release|x86.Build.0 = Release|Any CPU
+		{811C3340-4E30-498B-BC67-8EEAB18DE477}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{811C3340-4E30-498B-BC67-8EEAB18DE477}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{811C3340-4E30-498B-BC67-8EEAB18DE477}.Debug|Mixed Platforms.ActiveCfg = Debug|Any CPU
+		{811C3340-4E30-498B-BC67-8EEAB18DE477}.Debug|Mixed Platforms.Build.0 = Debug|Any CPU
+		{811C3340-4E30-498B-BC67-8EEAB18DE477}.Debug|x64.ActiveCfg = Debug|Any CPU
+		{811C3340-4E30-498B-BC67-8EEAB18DE477}.Debug|x86.ActiveCfg = Debug|Any CPU
+		{811C3340-4E30-498B-BC67-8EEAB18DE477}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{811C3340-4E30-498B-BC67-8EEAB18DE477}.Release|Any CPU.Build.0 = Release|Any CPU
+		{811C3340-4E30-498B-BC67-8EEAB18DE477}.Release|Mixed Platforms.ActiveCfg = Release|Any CPU
+		{811C3340-4E30-498B-BC67-8EEAB18DE477}.Release|Mixed Platforms.Build.0 = Release|Any CPU
+		{811C3340-4E30-498B-BC67-8EEAB18DE477}.Release|x64.ActiveCfg = Release|Any CPU
+		{811C3340-4E30-498B-BC67-8EEAB18DE477}.Release|x86.ActiveCfg = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

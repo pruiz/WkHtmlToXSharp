@@ -10,7 +10,7 @@ using System.Runtime.InteropServices;
 [assembly: AssemblyConfiguration("")]
 [assembly: AssemblyCompany("Pablo Ruiz García")]
 [assembly: AssemblyProduct("WkHtmlToXSharp")]
-[assembly: AssemblyCopyright("Copyright © Pablo Ruiz García 2011~2013")]
+[assembly: AssemblyCopyright("Copyright © Pablo Ruiz García 2011~2014")]
 [assembly: AssemblyTrademark("")]
 [assembly: AssemblyCulture("")]
 

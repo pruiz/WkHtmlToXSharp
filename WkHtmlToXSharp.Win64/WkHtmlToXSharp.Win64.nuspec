@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="utf-8"?>
+<package>
+	<metadata>
+		<id>WkHtmlToXSharp.Win64</id>
+		<version>0.0.0.0</version>
+		<authors>pruiz</authors>
+		<owners>pruiz</owners>
+		<projectUrl>https://github.com/pruiz/WkHtmlToXSharp</projectUrl>
+		<licenseUrl>http://www.gnu.org/licenses/lgpl-2.1.html</licenseUrl>
+		<!-- iconUrl>http://ICON_URL_HERE_OR_DELETE_THIS_LINE</iconUrl -->
+		<requireLicenseAcceptance>false</requireLicenseAcceptance>
+		<releaseNotes>See changes for this revision at: http://github.com/pruiz/WkHtmlToXSharp/commit/GIT_COMMIT </releaseNotes>
+		<description>WkHtmlToXSharp's Windows 64Bits natible library bundle.</description>
+		<copyright>Copyright Pablo Ruiz García  2010-2013</copyright>
+		<tags>PDF HTML WkHtmlToPdf WkHtmlToXSharp html2pdf htmltopdf wkhtmltopdf</tags>
+		
+		<dependencies>
+			<dependency id="WkHtmlToXSharp" version="0.0.0.0" />
+		</dependencies>
+	</metadata>
+	<files>
+		<file src="bin\Release\WkHtmlToXSharp.Win64.*" target="lib" />
+		<file src="**\*.cs" target="src" />
+	</files>
+</package>

@@ -50,18 +50,6 @@
     </ProjectReference>
   </ItemGroup>
   <ItemGroup>
-    <EmbeddedResource Include="Libs\libeay32.dll.gz" />
-  </ItemGroup>
-  <ItemGroup>
-    <EmbeddedResource Include="Libs\libgcc_s_dw2-1.dll.gz" />
-  </ItemGroup>
-  <ItemGroup>
-    <EmbeddedResource Include="Libs\mingwm10.dll.gz" />
-  </ItemGroup>
-  <ItemGroup>
-    <EmbeddedResource Include="Libs\ssleay32.dll.gz" />
-  </ItemGroup>
-  <ItemGroup>
     <EmbeddedResource Include="Libs\wkhtmltox0.dll.gz" />
   </ItemGroup>
   <ItemGroup>
