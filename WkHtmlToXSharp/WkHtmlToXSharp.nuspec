@@ -15,7 +15,7 @@
 		<tags>PDF HTML WkHtmlToPdf WkHtmlToXSharp html2pdf htmltopdf wkhtmltopdf</tags>
 		
     <dependencies>
-      <dependency id="Common.Logging" version="2.0.0" />
+      <dependency id="Common.Logging" version="3.0.0" />
     </dependencies>
   </metadata>
 	<files>
