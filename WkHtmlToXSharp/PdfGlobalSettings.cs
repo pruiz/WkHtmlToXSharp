@@ -36,18 +36,49 @@ namespace WkHtmlToXSharp
 		Landscape
 	}
 
+	public enum PdfPageSize
+	{
+		A4, B5, Letter, Legal, Executive, A0, A1, A2, A3, A5, A6, A7,
+		A8, A9, B0, B1, B10, B2, B3, B4, B6, B7, B8, B9, C5E,
+		Comm10E, DLE, Folio, Ledger, Tabloid, Custom
+	}
+
+	public class PdfSize
+	{
+		/// <summary>
+		/// What size paper should we use
+		/// </summary>
+		public PdfPageSize PageSize { get; set; }
+	}
+
 	public class PdfGlobalSettings
 	{
-		private PdfMarginSettings _margins = new PdfMarginSettings();
+		private readonly PdfMarginSettings _margins = new PdfMarginSettings();
+		private readonly PdfSize _size = new PdfSize()
+		{
+			PageSize = PdfPageSize.A4
+		};
 
 		public int Dpi { get; set; }
 		public int ImageDpi { get; set; }
 		public int ImageQuality { get; set; }
 		public PdfMarginSettings Margin { get { return _margins; } }
+
+		/// <summary>
+		/// Should we generate an outline and put it into the pdf file
+		/// </summary>
 		public bool Outline { get; set; }
 
+		/// <summary>
+		/// The file where in to store the output
+		/// </summary>
 		public string Out { get; set; }
 		public PdfOrientation Orientation { get; set; }
+
+		/// <summary>
+		/// Size related settings
+		/// </summary>
+		public PdfSize Size { get { return _size; } }
 
 		// TODO: Add as many as you need..
 	}
