@@ -134,7 +134,7 @@ namespace WkHtmlToXSharp.Tests
 		}
 		#endregion
 
-		private const int ConcurrentTimeout = 50000;
+		private const int ConcurrentTimeout = 95000;
 
 		[Test]
 		[Timeout(ConcurrentTimeout)]
