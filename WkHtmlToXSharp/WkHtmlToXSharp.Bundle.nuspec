@@ -22,6 +22,7 @@
 			<dependency id="WkHtmlToXSharp.Linux32" version="0.0.0.0" />
 			<dependency id="WkHtmlToXSharp.Linux64" version="0.0.0.0" />
 			<dependency id="WkHtmlToXSharp.Win32" version="0.0.0.0" />
+			<dependency id="WkHtmlToXSharp.Win64" version="0.0.0.0" />
 		</dependencies>
 	</metadata>
 	<files/>
