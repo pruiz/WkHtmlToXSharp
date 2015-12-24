@@ -29,6 +29,7 @@ namespace WkHtmlToXSharp.Tests
 				WkHtmlToXLibrariesManager.Register(new Linux32NativeBundle());
 				WkHtmlToXLibrariesManager.Register(new Linux64NativeBundle());
 				WkHtmlToXLibrariesManager.Register(new Win32NativeBundle());
+				WkHtmlToXLibrariesManager.Register(new Win64NativeBundle());
 			}
 		}
 
@@ -89,7 +90,13 @@ namespace WkHtmlToXSharp.Tests
 				Assert.IsNotEmpty(tmp);
 				var number = 0;
 				lock (this) number = count++;
-				File.WriteAllBytes(@"c:\temp\tmp" + (number) + ".pdf", tmp);
+
+				var tempfname = Path.GetTempFileName();
+				var tempPath = Path.Combine(
+					Path.GetDirectoryName(tempfname),
+					Path.GetFileNameWithoutExtension(tempfname) + "." + (number) + ".pdf"
+				);
+				File.WriteAllBytes(tempPath, tmp);
 			}
 		}
 
@@ -206,7 +213,7 @@ namespace WkHtmlToXSharp.Tests
 				wk.ObjectSettings.Web.EnablePlugins = false;
 				wk.ObjectSettings.Web.EnableJavascript = false;
 
-				wk.ObjectSettings.Page = @"http://192.236.37.129/"; // Some misg site requiring HTTP Basic auth.
+				wk.ObjectSettings.Page = @"https://httpbin.org/basic-auth/user/passwd"; // Some misg site requiring HTTP Basic auth.
 
 				wk.Begin += (s, e) => { Console.WriteLine("==>> Begin: {0}", e.Value); };
 				wk.PhaseChanged += (s, e) => { Console.WriteLine("==>> New Phase: {0} ({1})", e.Value, e.Value2); };
