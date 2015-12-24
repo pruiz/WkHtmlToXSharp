@@ -36,17 +36,17 @@ namespace WkHtmlToXSharp
 	{
 		private WebSettings _webSettings = new WebSettings();
 		private LoadSettings _loadSettings = new LoadSettings();
-        private HeaderFooterSettings _headerSettings = new HeaderFooterSettings();
-        private HeaderFooterSettings _footerSettings = new HeaderFooterSettings();
+		private HeaderFooterSettings _headerSettings = new HeaderFooterSettings();
+		private HeaderFooterSettings _footerSettings = new HeaderFooterSettings();
 
 		public string Page { get; set; }
 
 		public WebSettings Web { get { return _webSettings; } }
 		public LoadSettings Load { get { return _loadSettings; } }
 		
-        public HeaderFooterSettings Header { get { return _headerSettings; } }
-        public HeaderFooterSettings Footer { get { return _footerSettings; } }
+		public HeaderFooterSettings Header { get { return _headerSettings; } }
+		public HeaderFooterSettings Footer { get { return _footerSettings; } }
 
-        // TODO: Add remaining settings..
+		// TODO: Add remaining settings..
 	}
 }

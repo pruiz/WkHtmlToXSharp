@@ -27,94 +27,95 @@
 
 namespace WkHtmlToXSharp
 {
-    public class HeaderFooterSettings
-    {
-        private int _fontSize = -1;
+	public class HeaderFooterSettings
+	{
+		private int _fontSize = -1;
+		
 
-        /// <summary>
-        /// The font size to use for the header, e.g. "13"
-        /// </summary>
-        public int FontSize
-        {
-            get { return _fontSize; }
-            set { _fontSize = value; }
-        }
+		/// <summary>
+		/// The font size to use for the header, e.g. "13"
+		/// </summary>
+		public int FontSize
+		{
+			get { return _fontSize; }
+			set { _fontSize = value; }
+		}
 
-        private string _fontName = string.Empty;
+		private string _fontName = string.Empty;
 
-        /// <summary>
-        /// The name of the font to use for the header. e.g. "times"
-        /// </summary>
-        public string FontName
-        {
-            get { return _fontName; }
-            set { _fontName = value; }
-        }
+		/// <summary>
+		/// The name of the font to use for the header. e.g. "times"
+		/// </summary>
+		public string FontName
+		{
+			get { return _fontName; }
+			set { _fontName = value; }
+		}
 
-        private string _left = string.Empty;
+		private string _left = string.Empty;
 
-        /// <summary>
-        /// The string to print in the left part of the header, note that some sequences are replaced in this string, see the wkhtmltopdf manual.
-        /// </summary>
-        public string Left
-        {
-            get { return _left; }
-            set { _left = value; }
-        }
+		/// <summary>
+		/// The string to print in the left part of the header, note that some sequences are replaced in this string, see the wkhtmltopdf manual.
+		/// </summary>
+		public string Left
+		{
+			get { return _left; }
+			set { _left = value; }
+		}
 
-        private string _center = string.Empty;
+		private string _center = string.Empty;
 
-        /// <summary>
-        /// The text to print in the center part of the header.
-        /// </summary>
-        public string Center
-        {
-            get { return _center; }
-            set { _center = value; }
-        }
+		/// <summary>
+		/// The text to print in the center part of the header.
+		/// </summary>
+		public string Center
+		{
+			get { return _center; }
+			set { _center = value; }
+		}
 
-        private string _right = string.Empty;
+		private string _right = string.Empty;
 
-        /// <summary>
-        /// The text to print in the right part of the header.
-        /// </summary>
-        public string Right
-        {
-            get { return _right; }
-            set { _right = value; }
-        }
+		/// <summary>
+		/// The text to print in the right part of the header.
+		/// </summary>
+		public string Right
+		{
+			get { return _right; }
+			set { _right = value; }
+		}
 
-        private bool _line = false;
+		private bool _line = false;
 
-        /// <summary>
-        /// Whether a line should be printed under the header (either "true" or "false").
-        /// </summary>
-        public bool Line
-        {
-            get { return _line; }
-            set { _line = value; }
-        }
+		/// <summary>
+		/// Whether a line should be printed under the header (either "true" or "false").
+		/// </summary>
+		public bool Line
+		{
+			get { return _line; }
+			set { _line = value; }
+		}
 
-        private float _spacing = 0.0f;
+		private float _spacing = 0.0f;
 
-        /// <summary>
-        /// The amount of space to put between the header and the content, e.g. "1.8". Be aware that if this is too large the header will be printed outside the pdf document. This can be corrected with the margin.top setting.
-        /// </summary>
-        public float Spacing
-        {
-            get { return _spacing; }
-            set { _spacing = value; }
-        }
+		/// <summary>
+		/// The amount of space to put between the header and the content, e.g. "1.8". Be aware that if this is too large the header will be printed outside the pdf document. This can be corrected with the margin.top setting.
+		/// </summary>
+		public float Spacing
+		{
+			get { return _spacing; }
+			set { _spacing = value; }
+		}
 
-        private string _htmlUrl = string.Empty;
+		private string _htmlUrl = string.Empty;
 
-        /// <summary>
-        /// Url for a HTML document to use for the header.
-        /// </summary>
-        public string HtmlUrl
-        {
-            get { return _htmlUrl; }
-            set { _htmlUrl = value; }
-        }
-    }
+		/// <summary>
+		/// Url for a HTML document to use for the header.
+		/// </summary>
+		public string HtmlUrl
+		{
+			get { return _htmlUrl; }
+			set { _htmlUrl = value; }
+		}
+	}
 }
