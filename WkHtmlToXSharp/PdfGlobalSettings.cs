@@ -40,7 +40,7 @@ namespace WkHtmlToXSharp
 	{
 		A4, B5, Letter, Legal, Executive, A0, A1, A2, A3, A5, A6, A7,
 		A8, A9, B0, B1, B10, B2, B3, B4, B6, B7, B8, B9, C5E,
-		Comm10E, DLE, Folio, Ledger, Tabloid, Custom
+		Comm10E, DLE, Folio, Ledger, Tabloid
 	}
 
 	public class PdfSize
@@ -49,7 +49,18 @@ namespace WkHtmlToXSharp
 		/// What size paper should we use
 		/// </summary>
 		public PdfPageSize PageSize { get; set; }
-	}
+
+        /// <summary>
+        /// Custom page width, with unit. For instance "21cm"
+        /// Overrides PageSize if set
+        /// </summary>
+        public string Width { get; set; }
+        /// <summary>
+        /// Custom page height, with unit. For instance "29.7cm"
+        /// Overrides PageSize if set
+        /// </summary>
+        public string Height { get; set; }
+    }
 
 	public class PdfGlobalSettings
 	{
