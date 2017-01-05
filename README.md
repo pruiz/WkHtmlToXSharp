@@ -30,4 +30,6 @@ As a final note, I should note that when using this component there's no need to
 
 This makes the dll bigger (even if native dll's are embedded as gzipped resources), but this makes things much more fun & easier.. ;)
 
+* **No ASP.NET/IIS Support**: This has to do with the way IIS manages underlaying threads, and application pools.  IIS instantiates & re-cycles pools and AppDomains from time to time, and this causes non-managed resources used by this library to not be released properly.
+
 
