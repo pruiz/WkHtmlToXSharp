@@ -53,6 +53,13 @@ namespace WkHtmlToXSharp
 		private StringBuilder _errorString = null;
 		private int _currentPhase = 0;
 		private bool _disposed = false;
+
+		// keeping class level references to callback functions will prevent garbage collecting them
+		private NativeCalls.wkhtmltopdf_str_callback _errorCallback = null;
+		private NativeCalls.wkhtmltopdf_str_callback _warnCallback = null;
+		private NativeCalls.wkhtmltopdf_void_callback _phaseCallback = null;
+		private NativeCalls.wkhtmltopdf_int_callback _progressCallback = null;
+		private NativeCalls.wkhtmltopdf_bool_callback _finishCallback = null;
 		#endregion
 
 		#region Properties
@@ -277,11 +284,11 @@ namespace WkHtmlToXSharp
 		private byte[] _Convert(string inputHtml)
 		{
 			var converter = IntPtr.Zero;
-			var errorCb = new NativeCalls.wkhtmltopdf_str_callback(OnError);
-			var warnCb = new NativeCalls.wkhtmltopdf_str_callback(OnWarning);
-			var phaseCb = new NativeCalls.wkhtmltopdf_void_callback(OnPhaseChanged);
-			var progressCb = new NativeCalls.wkhtmltopdf_int_callback(OnProgressChanged);
-			var finishCb = new NativeCalls.wkhtmltopdf_bool_callback(OnFinished);
+			_errorCallback = OnError;
+			_warnCallback = OnWarning;
+			_phaseCallback = OnPhaseChanged;
+			_progressCallback = OnProgressChanged;
+			_finishCallback = OnFinished;
 
 			try
 			{
@@ -292,11 +299,11 @@ namespace WkHtmlToXSharp
 
 				_errorString = new StringBuilder();
 
-				NativeCalls.wkhtmltopdf_set_error_callback(converter, errorCb);
-				NativeCalls.wkhtmltopdf_set_warning_callback(converter, warnCb);
-				NativeCalls.wkhtmltopdf_set_phase_changed_callback(converter, phaseCb);
-				NativeCalls.wkhtmltopdf_set_progress_changed_callback(converter, progressCb);
-				NativeCalls.wkhtmltopdf_set_finished_callback(converter, finishCb);
+				NativeCalls.wkhtmltopdf_set_error_callback(converter, _errorCallback);
+				NativeCalls.wkhtmltopdf_set_warning_callback(converter, _warnCallback);
+				NativeCalls.wkhtmltopdf_set_phase_changed_callback(converter, _phaseCallback);
+				NativeCalls.wkhtmltopdf_set_progress_changed_callback(converter, _progressCallback);
+				NativeCalls.wkhtmltopdf_set_finished_callback(converter, _finishCallback);
 
 				OnBegin(NativeCalls.wkhtmltopdf_phase_count(converter));
 
