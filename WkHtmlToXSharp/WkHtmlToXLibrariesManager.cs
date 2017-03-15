@@ -25,11 +25,12 @@
 //
 #endregion
 using System;
+using System.Collections.Generic;
+using System.Diagnostics;
 using System.IO;
 using System.IO.Compression;
 using System.Reflection;
 using System.Runtime.InteropServices;
-using System.Collections.Generic;
 using System.Security.Cryptography;
 using System.Linq;
 using System.Text;
@@ -40,7 +41,6 @@ namespace WkHtmlToXSharp
 {
 	public class WkHtmlToXLibrariesManager
 	{
-		private static readonly global::Common.Logging.ILog _Log = global::Common.Logging.LogManager.GetLogger(System.Reflection.MethodBase.GetCurrentMethod().DeclaringType);
 		private static readonly string _OutputPath = Path.GetDirectoryName(Assembly.GetCallingAssembly().Location);
 		private static readonly object _lock = new object();
 		private static readonly HashSet<INativeLibraryBundle> _bundles = new HashSet<INativeLibraryBundle>();
@@ -98,7 +98,7 @@ namespace WkHtmlToXSharp
 
 			foreach (var bundle in _bundles.Where(x => x.SupportsCurrentPlatform))
 			{
-				_Log.DebugFormat("Attempting to deploy bundle: {0}", bundle);
+				Debug.WriteLine(string.Format("Attempting to deploy bundle: {0}", bundle));
 
 				try
 				{
@@ -130,7 +130,7 @@ namespace WkHtmlToXSharp
 
 			if (!_bundles.Contains(bundle))
 			{
-				_Log.DebugFormat("Registering bundle: {0}", bundle);
+				Debug.WriteLine(string.Format("Registering bundle: {0}", bundle));
 				_bundles.Add(bundle);
 			}
 		}
@@ -150,12 +150,12 @@ namespace WkHtmlToXSharp
 
 				if (IsFileLocked(fileName))
 				{
-					_Log.WarnFormat("Unable to update {0}: file in use!", fileName);
+					Trace.TraceWarning("Unable to update {0}: file in use!", fileName);
 					return;
 				}
 			}
 
-			_Log.InfoFormat("Deploying embedded {0} to {1}..", Path.GetFileName(fileName), _OutputPath);
+			Trace.TraceInformation("Deploying embedded {0} to {1}..", Path.GetFileName(fileName), _OutputPath);
 
 			byte[] hash = null;
 
@@ -165,7 +165,7 @@ namespace WkHtmlToXSharp
 				hash = CopyStream(input, output);
 			}
 
-			_Log.InfoFormat("Deployed {0} with md5sum: {1}.", fileName, string.Concat(hash.Select(b => b.ToString("X2")).ToArray()));
+			Trace.TraceInformation("Deployed {0} with md5sum: {1}.", fileName, string.Concat(hash.Select(b => b.ToString("X2")).ToArray()));
 
 			if (Environment.OSVersion.Platform == PlatformID.Unix)
 			{

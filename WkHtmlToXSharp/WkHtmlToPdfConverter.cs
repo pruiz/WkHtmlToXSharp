@@ -27,6 +27,7 @@
 using System;
 using System.Collections.Generic;
 using System.Configuration;
+using System.Diagnostics;
 using System.Globalization;
 using System.Text;
 using System.Runtime.InteropServices;
@@ -46,8 +47,6 @@ namespace WkHtmlToXSharp
 	public sealed class WkHtmlToPdfConverter : IHtmlToPdfConverter
 	{
 		#region private fields
-		private static readonly global::Common.Logging.ILog _Log = global::Common.Logging.LogManager.GetLogger(System.Reflection.MethodBase.GetCurrentMethod().DeclaringType);
-
 		private PdfGlobalSettings _globalSettings = new PdfGlobalSettings();
 		private PdfObjectSettings _objectSettings = new PdfObjectSettings();
 		private StringBuilder _errorString = null;
@@ -87,7 +86,7 @@ namespace WkHtmlToXSharp
 			}
 			catch (Exception ex)
 			{
-				_Log.Error("Unable to parse 'WkHtmlToXSharp.UseX11' app. setting.", ex);
+				Trace.TraceError("Unable to parse 'WkHtmlToXSharp.UseX11' app. setting.", ex);
 			}
 			
 			// Try to deploy native libraries bundles.
@@ -98,7 +97,7 @@ namespace WkHtmlToXSharp
 			if (NativeCalls.wkhtmltopdf_init(useX11 ? 1 : 0) == 0)
 				throw new InvalidOperationException(string.Format("wkhtmltopdf_init failed! (version: {0}, useX11 = {1})", version, useX11));
 
-			_Log.DebugFormat("Initialized new converter instance (Version: {0}, UseX11 = {1})", version, useX11);
+			Debug.WriteLine(string.Format("Initialized new converter instance (Version: {0}, UseX11 = {1})", version, useX11));
 		}
 		#endregion
 
@@ -202,7 +201,7 @@ namespace WkHtmlToXSharp
 			}
 			catch (Exception ex)
 			{
-				_Log.Error("Begin event handler failed.", ex);
+				Trace.TraceError("Begin event handler failed.", ex);
 			}
 		}
 		private void OnError(IntPtr ptr, string error)
@@ -216,7 +215,7 @@ namespace WkHtmlToXSharp
 			}
 			catch (Exception ex)
 			{
-				_Log.Error("Error event handler failed.", ex);
+				Trace.TraceError("Error event handler failed.", ex);
 			}
 		}
 		private void OnWarning(IntPtr ptr, string warn)
@@ -228,7 +227,7 @@ namespace WkHtmlToXSharp
 			}
 			catch (Exception ex)
 			{
-				_Log.Error("Warning event handler failed.", ex);
+				Trace.TraceError("Warning event handler failed.", ex);
 			}
 		}
 		private void OnPhaseChanged(IntPtr converter)
@@ -242,7 +241,7 @@ namespace WkHtmlToXSharp
 			}
 			catch (Exception ex)
 			{
-				_Log.Error("PhaseChanged event handler failed.", ex);
+				Trace.TraceError("PhaseChanged event handler failed.", ex);
 			}
 		}
 		private void OnProgressChanged(IntPtr converter, int progress)
@@ -256,7 +255,7 @@ namespace WkHtmlToXSharp
 			}
 			catch (Exception ex)
 			{
-				_Log.Error("ProgressChanged event handler failed.", ex);
+				Trace.TraceError("ProgressChanged event handler failed.", ex);
 			}
 		}
 		private void OnFinished(IntPtr converter, bool success)
@@ -267,7 +266,7 @@ namespace WkHtmlToXSharp
 			}
 			catch (Exception ex)
 			{
-				_Log.Error("Finished event handler failed.", ex);
+				Trace.TraceError("Finished event handler failed.", ex);
 			}
 		}
 		#endregion
@@ -316,7 +315,7 @@ namespace WkHtmlToXSharp
 				if (!string.IsNullOrEmpty(GlobalSettings.Out))
 					return null;
 
-				_Log.Debug("CONVERSION DONE.. getting output.");
+				Debug.WriteLine("CONVERSION DONE.. getting output.");
 
 				// Get output from internal buffer..
 
@@ -364,7 +363,7 @@ namespace WkHtmlToXSharp
 		{
 			if (_disposed)
 			{
-				_Log.Warn("Disposed was called more than once?!");
+				Debug.WriteLine("Disposed was called more than once?!");
 				return;
 			}
 
