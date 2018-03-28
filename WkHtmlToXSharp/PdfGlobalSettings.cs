@@ -91,6 +91,8 @@ namespace WkHtmlToXSharp
 		/// </summary>
 		public PdfSize Size { get { return _size; } }
 
+		public string DocumentTitle { get; set; }
+
 		// TODO: Add as many as you need..
 	}
 }
