@@ -1,5 +1,7 @@
 This is a C# wrapper (using P/Invoke) for the excelent Html to PDF conversion library wkhtmltopdf.
 
+[![Build status](https://ci.appveyor.com/api/projects/status/4ble2cr9whmnrn9v/branch/master?svg=true)](https://ci.appveyor.com/project/pruiz/wkhtmltoxsharp/branch/master)
+
 CURRENT STATUS & LIMITATIONS
 ----------------------------
 
