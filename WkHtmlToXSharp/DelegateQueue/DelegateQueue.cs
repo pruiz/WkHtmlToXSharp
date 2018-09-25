@@ -135,7 +135,7 @@ namespace Sanford.Threading
         {
             // Create thread for processing delegates.
             delegateThread = new Thread(DelegateProcedure);
-			delegateThread.SetApartmentState(ApartmentState.STA);
+            delegateThread.TrySetApartmentState(ApartmentState.STA);
 
             lock(lockObject)
             {
