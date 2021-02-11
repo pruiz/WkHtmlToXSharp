@@ -68,8 +68,17 @@ namespace WkHtmlToXSharp
             set { _loadErrorHandling = value; }
         }
 
-        // The following default to false
-	    public bool RepeatCustomHeaders { get; set;}
+		// PrintMediaType moved to load on recent versions.
+		// See: https://github.com/wkhtmltopdf/wkhtmltopdf/commit/7952b0f3e754588a3fcdaf5000a4cd99448292de
+		private bool _printMediaType = false;
+		public bool PrintMediaType
+		{
+			get { return _printMediaType; }
+			set { _printMediaType = value; }
+		}
+
+		// The following default to false
+		public bool RepeatCustomHeaders { get; set;}
         public bool BlockLocalFileAccess { get; set;}
         public bool DebugJavascript { get; set; }
 
