@@ -20,17 +20,17 @@ As I said, it is working quite nicely, however, I think I should advise you abou
 
  * **Concurrent conversions**: The component exposes two main conversion classes 'WkHtmlToPdfConverter' & 'MultiplexingConverter', both serving as a mean to convert from html to pdf, WkHtmlToPdfConverter it's a plain OO wrapper against wkhtmltox.dll's API, but, due to an wkhtmltox.dll's limitation, all calls to it's API should be made from the same thread, which can be a problem on a web application. To somewhat avoid such a limitation I have defined a class named 'MultiplexingConverter' which uses and internally created thread to perform conversions serializing calls to the underlaying C library within such thread.
 
-The API it's exactly the same one as WkHtmlToPdfConverter exposes, it is just a wrapper which handles (and hides) complexities involved in using the same thread for all calls. Also, this imposes a performance hit (as conversions are not really run concurrently, but serialized under a single 'proxy' thread), so if your application is in the need of massive concurrent conversions, this might be a problem.
+  The API it's exactly the same one as WkHtmlToPdfConverter exposes, it is just a wrapper which handles (and hides) complexities involved in using the same thread for all calls. Also, this imposes a performance hit (as conversions are not really run concurrently, but serialized under a single 'proxy' thread), so if your application is in the need of massive concurrent conversions, this might be a problem.
 
  * **No html to image conversions yet**: Currently the API only supports Html->Pdf conversions, although wkhtmltox.dll supports html->image too.. While implementing WkHtmlToImage should be pretty easy, it's still on TODO due to time constraints.
 
  * **No 64bits on windows**: No native 64bit windows dll is available from the [wkhtmltopdf project](https://wkhtmltopdf.org/), and even I tried and built it by myself, the produced component worked pretty flawlessly, probably due to limitations on current gnu toolchain (or even qt) on windows 64.. so all this means there's no support for running on 64bit-only .Net environments.
 
-  Currently there are two possible workarounds:
+   Currently there are two possible workarounds: 
 
-   1. Build your projects linking with WkHtmlToXSharp.dll as 'x86' instead of 'AnyCpu'.
+     1. Build your projects linking with WkHtmlToXSharp.dll as 'x86' instead of 'AnyCpu'.
 
-   2. Or run your application on a 32bit-only application pool on IIS.
+     2. Or run your application on a 32bit-only application pool on IIS.
 
  * **Normal P/Invoke restrictions**: This assembly uses P/Invoke to call wkhtmltox.dll, so normal restrictions deriving from using P/Invoke apply..
 
