@@ -36,6 +36,6 @@ The API it's exactly the same one as WkHtmlToPdfConverter exposes, it is just a 
 
 As a final note, I should note that when using this component there's no need to download nor install wkhtmltox.dll, as native .dll/.so files needed are embedded into WkHtmlToXSharp.dll and they are deployed automatically the first time a conversion is performed.
 
-As the embedded dll is written to disk, your project will need write permissions to the directory it's installed in. This makes the dll bigger (even if native dll's are embedded as gzipped resources), but this makes things much more fun & easier.. ;)
+This makes the dll bigger (even if native dll's are embedded as gzipped resources), but this makes things much more fun & easier.. ;) As the embedded dll is written to disk, your project will need write permissions to the directory it's installed in.
 
 * **No ASP.NET/IIS Support**: This has to do with the way IIS manages underlaying threads, and application pools.  IIS instantiates & re-cycles pools and AppDomains from time to time, and this causes non-managed resources used by this library to not be released properly.
