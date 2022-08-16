@@ -4,7 +4,7 @@ using System.Runtime.InteropServices;
 
 namespace WkHtmlToXSharp
 {
-	internal static class NativeCalls
+	public static class NativeCalls
 	{
 		private const string DLL_NAME = "wkhtmltox0";
 
