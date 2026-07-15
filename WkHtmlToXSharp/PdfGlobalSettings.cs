@@ -71,7 +71,7 @@ namespace WkHtmlToXSharp
 		};
 
 		public int Dpi { get; set; }
-		public int ImageDpi { get; set; }
+		public int ImageDPI { get; set; }
 		public int ImageQuality { get; set; }
 		public PdfMarginSettings Margin { get { return _margins; } }
 
