@@ -2,8 +2,8 @@
 using System.Collections.Generic;
 using System.IO;
 using System.Linq;
-using System.Reflection;
-using System.Text;
+using System.Net;
+using System.Net.Sockets;
 using System.Threading;
 using NUnit.Framework;
 
@@ -14,6 +14,93 @@ namespace WkHtmlToXSharp.Tests
 	[TestFixture]
 	public class PdfConverterTest
 	{
+		private sealed class LocalAuthFailureServer : IDisposable
+		{
+			#region Fields & Properties
+
+			private readonly HttpListener _listener;
+			private readonly Thread _thread;
+			private bool _disposed;
+
+			public string Url { get; private set; }
+
+			#endregion
+
+			#region .ctors
+
+			public LocalAuthFailureServer()
+			{
+				var port = GetFreeTcpPort();
+				Url = string.Format("http://127.0.0.1:{0}/basic-auth/user/passwd", port);
+
+				_listener = new HttpListener();
+				_listener.Prefixes.Add(string.Format("http://127.0.0.1:{0}/", port));
+				_listener.Start();
+
+				_thread = new Thread(ListenLoop)
+				{
+					IsBackground = true,
+					Name = "LocalAuthFailureServer"
+				};
+				_thread.Start();
+			}
+
+			#endregion
+
+			#region Private methods
+
+			private static int GetFreeTcpPort()
+			{
+				var tcp = new TcpListener(IPAddress.Loopback, 0);
+				try
+				{
+					tcp.Start();
+					return ((IPEndPoint)tcp.LocalEndpoint).Port;
+				}
+				finally
+				{
+					tcp.Stop();
+				}
+			}
+
+			private void ListenLoop()
+			{
+				while (_listener.IsListening)
+				{
+					HttpListenerContext context;
+					try
+					{
+						context = _listener.GetContext();
+
+						var response = context.Response;
+						response.StatusCode = (int)HttpStatusCode.Unauthorized;
+						response.AddHeader("WWW-Authenticate", "Basic realm=\"Fake Realm\"");
+						response.Close();
+					}
+					catch
+					{
+						// Ignore response errors in test server.
+					}
+				}
+			}
+
+			#endregion
+
+			public void Dispose()
+			{
+				if (_disposed)
+					return;
+
+				try { _listener.Stop(); } catch { }
+				try { _listener.Close(); } catch { }
+
+				if (_thread?.IsAlive == true)
+					_thread.Join(TimeSpan.FromSeconds(1));
+
+				_disposed = true;
+			}
+		}
+
 		private static readonly global::Common.Logging.ILog _Log = global::Common.Logging.LogManager.GetLogger(System.Reflection.MethodBase.GetCurrentMethod().DeclaringType);
 
 		public static string SimplePageFile = null;
@@ -43,7 +130,7 @@ namespace WkHtmlToXSharp.Tests
 			File.Delete(SimplePageFile);
 			SimplePageFile = Path.Combine(
 				Path.GetDirectoryName(SimplePageFile),
-				Path.GetFileNameWithoutExtension(SimplePageFile)+ ".xhtml");
+				Path.GetFileNameWithoutExtension(SimplePageFile) + ".xhtml");
 
 			File.WriteAllBytes(SimplePageFile, Resources.SimplePage_xhtml);
 		}
@@ -58,7 +145,7 @@ namespace WkHtmlToXSharp.Tests
 		private MultiplexingConverter _GetConverter()
 		{
 			var obj = new MultiplexingConverter();
-			obj.Begin += (s,e) => _Log.DebugFormat("Conversion begin, phase count: {0}", e.Value);
+			obj.Begin += (s, e) => _Log.DebugFormat("Conversion begin, phase count: {0}", e.Value);
 			//obj.Error += (s, e) => _Log.Error(e.Value);
 			obj.Warning += (s, e) => _Log.Warn(e.Value);
 			//obj.PhaseChanged += (s, e) => _Log.InfoFormat("PhaseChanged: {0} - {1}", e.Value, e.Value2);
@@ -143,7 +230,7 @@ namespace WkHtmlToXSharp.Tests
 		{
 			var error = false;
 			var threads = new List<ThreadData>();
-			
+
 			for (int i = 0; i < 8; i++)
 			{
 				var tmp = new ThreadData()
@@ -194,9 +281,10 @@ namespace WkHtmlToXSharp.Tests
 		}
 
 		[Test]
-//		[Ignore("This test requires (still to be released) wkhtmltopdf v0.12+")]
+		//		[Ignore("This test requires (still to be released) wkhtmltopdf v0.12+")]
 		public void CanHandleAuthFailure()
 		{
+			using (var server = new LocalAuthFailureServer())
 			using (var wk = new MultiplexingConverter())
 			{
 				var failed = false;
@@ -213,14 +301,15 @@ namespace WkHtmlToXSharp.Tests
 				wk.ObjectSettings.Web.EnablePlugins = false;
 				wk.ObjectSettings.Web.EnableJavascript = false;
 
-				wk.ObjectSettings.Page = @"https://httpbin.org/basic-auth/user/passwd"; // Some misg site requiring HTTP Basic auth.
+				wk.ObjectSettings.Page = server.Url;
 
 				wk.Begin += (s, e) => { Console.WriteLine("==>> Begin: {0}", e.Value); };
 				wk.PhaseChanged += (s, e) => { Console.WriteLine("==>> New Phase: {0} ({1})", e.Value, e.Value2); };
 				wk.ProgressChanged += (s, e) => { Console.WriteLine("==>> Progress: {0} ({1})", e.Value, e.Value2); };
-				wk.Error += (s, e) => {
+				wk.Error += (s, e) =>
+				{
 					failed = true;
-					Console.WriteLine("==>> ERROR: {0}", e.Value); 
+					Console.WriteLine("==>> ERROR: {0}", e.Value);
 				};
 				wk.Finished += (s, e) => { Console.WriteLine("==>> WARN: {0}", e.Value); };
 
